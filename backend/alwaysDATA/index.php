@@ -38,22 +38,25 @@
                 //http://laweb.alwaysdata.net/?choix=1
 
         $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ACTIVITE";
-        $req="SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE";
-
+        //$req="SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE";
+        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER WHERE ACTIVITE.id_activite =PARTICIPER.id_activite GROUP BY id_activite";
         $i=0;
         $res=$connexion->query($req);
 
+        
         while($ligne=$res->fetch())
         {
-            $retour['activite'.$i]['id'] = $ligne[0];
-            $retour['activite'.$i]['titre'] = $ligne[1];
-            $retour['activite'.$i]['description'] = $ligne[2];
-            $retour['activite'.$i]['dateDebut'] = $ligne[3];
-            $retour['activite'.$i]['DateFin'] = $ligne[4];
-            $retour['activite'.$i]['salle'] = $ligne[5];
-            $retour['activite'.$i]['placeDispo'] = $ligne[6];
+            $retour['activite'][$i]['id'] = $ligne[0];
+            $retour['activite'][$i]['titre'] = $ligne[1];
+            $retour['activite'][$i]['description'] = $ligne[2];
+            $retour['activite'][$i]['dateDebut'] = $ligne[3];
+            $retour['activite'][$i]['DateFin'] = $ligne[4];
+            $retour['activite'][$i]['salle'] = $ligne[5];
+            $retour['activite'][$i]['placeDispo'] = $ligne[6];
+            $retour['activite'][$i]['placeRestante'] = $ligne[7];
             $i++;
         }
+        
         break;
 
         case 2 : //RECUPERATION DE TOUT LES MEMBRES
@@ -68,12 +71,12 @@
                 
                 while($ligne=$res->fetch())
                 {
-                    $retour['membre'.$i]['nom'] = $ligne[0];
-                    $retour['membre'.$i]['prenom'] = $ligne[1];
-                    $retour['membre'.$i]['mail'] = $ligne[2];
-                    $retour['membre'.$i]['telephone'] = $ligne[3];
-                    $retour['membre'.$i]['description'] = $ligne[4];
-                    $retour['membre'.$i]['photo'] = $ligne[5];
+                    $retour['membres'][$i]['nom'] = $ligne[0];
+                    $retour['membres'][$i]['prenom'] = $ligne[1];
+                    $retour['membres'][$i]['mail'] = $ligne[2];
+                    $retour['membres'][$i]['telephone'] = $ligne[3];
+                    $retour['membres'][$i]['description'] = $ligne[4];
+                    $retour['membres'][$i]['photo'] = $ligne[5];
                     $i++;
                 }
         break;
@@ -84,7 +87,7 @@
                 $retour['choixUtilisateur'] ="RECUPERATION DU NOMBRE DE PARTICIPANT ET DES NOMBRE DE PLACE DISPO EN FONCTION D UNE ACTIVITE";
                 $idAct = $_GET['act'];
                 
-                $req="SELECT COUNT(id_utilisateur),placeRestante FROM PARTICIPER WHERE id_activite".$idAct;
+                $req="SELECT COUNT(id_utilisateur),placeRestante FROM PARTICIPER WHERE id_activite=".$idAct;
                 $res=$connexion->query($req);
                 $ligne=$res->fetch();
 
@@ -104,8 +107,8 @@
                 
                 while($ligne=$res->fetch())
                 {
-                    $retour['ANIMATEUR'.$i]['nom'] = $ligne[0];
-                    $retour['ANIMATEUR'.$i]['prenom'] = $ligne[1];
+                    $retour['anim'][$i]['nom'] = $ligne[0];
+                    $retour['anim'][$i]['prenom'] = $ligne[1];
                     $i++;
                 }
         break;
@@ -120,13 +123,13 @@
             $res=$connexion->query($req);
             while($ligne=$res->fetch())
             {
-                $retour['activite'.$i]['id'] = $ligne[0];
-                $retour['activite'.$i]['titre'] = $ligne[1];
-                $retour['activite'.$i]['description'] = $ligne[2];
-                $retour['activite'.$i]['dateDebut'] = $ligne[3];
-                $retour['activite'.$i]['DateFin'] = $ligne[4];
-                $retour['activite'.$i]['salle'] = $ligne[5];
-                $retour['activite'.$i]['placeDispo'] = $ligne[6];
+                $retour['activite'][$i]['id'] = $ligne[0];
+                $retour['activite'][$i]['titre'] = $ligne[1];
+                $retour['activite'][$i]['description'] = $ligne[2];
+                $retour['activite'][$i]['dateDebut'] = $ligne[3];
+                $retour['activite'][$i]['DateFin'] = $ligne[4];
+                $retour['activite'][$i]['salle'] = $ligne[5];
+                $retour['activite'][$i]['placeDispo'] = $ligne[6];
                 $i++;
             }
 
@@ -141,13 +144,13 @@
             $res=$connexion->query($req);
             while($ligne=$res->fetch())
             {
-                $retour['activite'.$i]['id'] = $ligne[0];
-                $retour['activite'.$i]['titre'] = $ligne[1];
-                $retour['activite'.$i]['description'] = $ligne[2];
-                $retour['activite'.$i]['dateDebut'] = $ligne[3];
-                $retour['activite'.$i]['DateFin'] = $ligne[4];
-                $retour['activite'.$i]['salle'] = $ligne[5];
-                $retour['activite'.$i]['placeDispo'] = $ligne[6];
+                $retour['activite'][$i]['id'] = $ligne[0];
+                $retour['activite'][$i]['titre'] = $ligne[1];
+                $retour['activite'][$i]['description'] = $ligne[2];
+                $retour['activite'][$i]['dateDebut'] = $ligne[3];
+                $retour['activite'][$i]['DateFin'] = $ligne[4];
+                $retour['activite'][$i]['salle'] = $ligne[5];
+                $retour['activite'][$i]['placeDispo'] = $ligne[6];
                 $i++;
             }
         break;
@@ -213,13 +216,13 @@
                     
                 }else{
                     $req = "INSERT INTO UTILISATEUR (nom,prenom,mail,telephone,abonneNewsletter,TokenAuthentification,id_ufr) VALUES ('".$nom."','".$prenom."','".$mail."',".$telephone.",".$abonne.",'NULL',".$ufr.")";
-                    $res=$connexion->exec($req);
+                    $res0=$connexion->exec($req);
                     
                     $req3 = "INSERT INTO PARTICIPER (id_utilisateur, id_activite, placeRestante) VALUES ((Select id_utilisateur FROM UTILISATEUR WHERE nom='".$nom."' AND prenom='".$prenom."' AND mail='".$mail."' AND telephone=".$telephone." AND abonneNewsletter=".$abonne." AND TokenAuthentification='NULL' AND id_ufr=".$ufr."),".$idAct.",".$placeRestante.")";
-                    $res=$connexion->exec($req3);
+                    $res3=$connexion->exec($req3);
                     
                     $req1 = "UPDATE PARTICIPER SET placeRestante= placeRestante - 1 WHERE id_activite = ".$idAct."";
-                    $res=$connexion->exec($req1);
+                    $res1=$connexion->exec($req1);
                     
                     
                     
