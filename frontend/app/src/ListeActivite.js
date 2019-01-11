@@ -3,6 +3,8 @@ import TypeActivite from './TypeActivite';
 import Box from './Box.js';
 import {Button,Modal} from 'react-bootstrap';
 import "./ListeActivite.css"
+import axios from 'axios';
+
 //importer inscription activité (module Modalform)
 
 class ListeActivite extends Component {
@@ -14,7 +16,8 @@ class ListeActivite extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false
+      show: false,
+      activities : [],
     };
   }
 
@@ -26,24 +29,62 @@ class ListeActivite extends Component {
     this.setState({ show: true });
   }
 
+  componentDidMount() {
+    const url = 'http://laweb.alwaysdata.net/?choix=1';
+    axios.get(url)
+      .then(response => {
+        let i
+        let tab =[]
+        for (i = 0; i < response.data.activite.length; i++) {
+          tab.push(response.data.activite[i]);
+        }
+        this.setState({
+          activities: tab,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
+  display(){
+    let listActivity =[]
+    let content = this.state.activities.map((activity, index) => {
+
+      listActivity.push(
+          <Box 
+              imgnom= {activity.titre}
+              modnom= {activity.id}
+              modtitre={activity.titre}
+              moddate= {activity.dateDebut}
+              modnbplace={activity.placeDispo}
+              modnbplaceRestante={activity.placeRestante}
+              moddescription={activity.description}
+          />
+        );
+    });
+    
+    return content = listActivity;
+    //modanimateur={activity.id}
+    //imglink={}
+  }
+
   render() {
 
     return (
       <div>
-
         <TypeActivite title='Conférence'/>
         <div className="container">
           <div className="row">
-              <Box imgnom='Intelligence Artificielle' imglink="./images/OpenAI.png"
-              modnom='Intelligence Artificielle' modtitre="Introduction" modanimateur="Hernadez Nathalie"
-              moddate="20 Février 2019" modnbplace="5"
-              moddescription="Dans cette conférence nous vous présenterons qu'est-ce que l'intelligence Artificielle, est-elle compatible avec notre société et bien d'autres thématiques... !"/>
+              {this.display()}
           </div>
         </div>
       </div>
-
     )
   }
+
+
 }
 
 

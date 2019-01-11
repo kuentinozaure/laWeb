@@ -32,16 +32,16 @@ class Box extends Component {
       </Button>
 
       <a className="thumbnail">
-        <img id="imgbox" src={this.props.imglink} alt="Image"/>
+        <img id="imgbox" src="https://image.freepik.com/free-icon/activity-feed_318-1665.jpg" alt="Image"/>
       </a>
 
       <Modal show={this.state.show} onHide={this.handleClose}>
 
         <Modal.Body>
           <h4><b>{this.props.modnom} : </b>{this.props.modtitre}</h4>
-          <h4><b>Animateur : </b>{this.props.modanimateur}</h4>
           <h4><b>Date : </b>{this.props.moddate}</h4>
-          <h4><b>Places disponible : </b>{this.props.modnbplace} </h4>
+          <h4><b>Places restante : </b>{this.props.modnbplaceRestante} </h4>
+          <h4><b>Places totales : </b>{this.props.modnbplace} </h4>
           <hr/>
           <h4><b>Description :</b></h4>
           <p>
@@ -58,6 +58,7 @@ class Box extends Component {
       </Modal>
       </div>
     );
+    //<--<h4><b>Animateur : </b>{this.props.modanimateur}</h4>!-->
   }
 }
 

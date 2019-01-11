@@ -25,29 +25,29 @@ class App extends Component {
       </div>
         <div id="div_menu_hamburger">
           <nav id="menu">
-            <hr class="separateur" id="separateur_haut"/>
+            <hr className="separateur" id="separateur_haut"/>
               <ul id="list_menu">
                 <li id="en-cours">
-                    <a class="menu_text" href="/"><img src="../accueil.svg" alt="Accueil" class="images"/>Accueil</a>
+                    <a className="menu_text" href="/"><img src="../accueil.svg" alt="Accueil" className="images"/>Accueil</a>
                 </li>
                 <li>
-                    <a class="menu_text" href="/activite"><img src="../apprendre.svg" alt="Activité" class="images"/>Viens découvrir</a>
+                    <a className="menu_text" href="/activite"><img src="../apprendre.svg" alt="Activité" className="images"/>Viens découvrir</a>
                 </li>
                 <li>
-                    <a class="menu_text" href="/astuces"><img src="../astuce.svg" alt="Astuce" class="images"/>Trucs & Astuces</a>
+                    <a className="menu_text" href="/astuces"><img src="../astuce.svg" alt="Astuce" className="images"/>Trucs & Astuces</a>
                 </li>
                 <li>
-                    <a class="menu_text" href="/contact"><img src="../contact.svg" alt="Administrateur" class="images"/>Contact</a>
+                    <a className="menu_text" href="/contact"><img src="../contact.svg" alt="Administrateur" className="images"/>Contact</a>
                 </li>
                 <li>
-                    <a class="menu_text" href="/membre"><img src="../rejoindre.svg" alt="rejoindre" class="images"/>Rejoins nous</a>
+                    <a className="menu_text" href="/membre"><img src="../rejoindre.svg" alt="rejoindre" className="images"/>Rejoins nous</a>
                 </li>
               </ul>
-            <hr class="separateur" id="separateur_bas"/>
+            <hr className="separateur" id="separateur_bas"/>
         </nav>
 
-        <div class="inter">
-          <a href="/connexion" class="btn btn-danger btn-lg" role="button" title="Se connecter"> Se connecter</a>
+        <div className="inter">
+          <a href="/connexion" className="btn btn-danger btn-lg" role="button" title="Se connecter"> Se connecter</a>
         </div>
 
         </div>
@@ -80,11 +80,11 @@ class App extends Component {
         <footer>
                     <section id="lab_social_icon_footer">
                     <h2>Association LaWeb</h2>
-                        <div class="container">
-                            <div class="text-center center-block">
-                                <a href="https://www.facebook.com"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
-                                <a href="https://twitter.com"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
-                                <a href="mailto:#" title="LaWeb@gma²il.com"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a>
+                        <div className="container">
+                            <div className="text-center center-block">
+                                <a href="https://www.facebook.com"><i id="social-fb" className="fa fa-facebook-square fa-3x social"></i></a>
+                                <a href="https://twitter.com"><i id="social-tw" className="fa fa-twitter-square fa-3x social"></i></a>
+                                <a href="mailto:#" title="LaWeb@gma²il.com"><i id="social-em" className="fa fa-envelope-square fa-3x social"></i></a>
                             </div>
                         </div>
                     </section>
