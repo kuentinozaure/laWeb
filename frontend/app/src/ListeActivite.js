@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import TypeActivite from './TypeActivite';
-import Box from './Box.js';
 import {Button,Modal} from 'react-bootstrap';
 import "./ListeActivite.css"
+import axios from 'axios';
+
 //importer inscription activité (module Modalform)
 
 class ListeActivite extends Component {
@@ -14,7 +13,8 @@ class ListeActivite extends Component {
     this.handleClose = this.handleClose.bind(this);
 
     this.state = {
-      show: false
+      show: false,
+      activities : [],
     };
   }
 
@@ -26,11 +26,28 @@ class ListeActivite extends Component {
     this.setState({ show: true });
   }
 
+  componentDidMount() {
+    const url = 'http://laweb.alwaysdata.net/?choix=1';
+    axios.get(url)
+      .then(response => {
+        console.log(response)
+
+        
+        //this.setState({
+          //activities: response.data.cards,
+          //loading: false,
+        //});
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
   render() {
 
     return (
       <div>
-
         <TypeActivite title='Conférence'/>
         <div className="container">
           <div className="row">
@@ -41,9 +58,10 @@ class ListeActivite extends Component {
           </div>
         </div>
       </div>
-
     )
   }
+
+
 }
 
 
