@@ -14,8 +14,8 @@ class InformationCard extends Component {
                             Université Toulouse II Jean-Jaures
                             5 Allée Antonio Machado, 31100 Toulouse 
                             Bureau 247 , UFR OLYMPE DE GOUGES<br/>
-                            Nathalie Hernandez : nathalie.hernandez@irit.fr<br/>
-                            Stephane Isnard : stephane.isnard@univ-tlse2.fr  
+                            Nathalie Hernandez : <a href="mailto:nathalie.hernandez@irit.fr">nathalie.hernandez@irit.fr</a><br/>
+                            Stephane Isnard : <a href="mailto:stephane.isnard@univ-tlse2.fr">stephane.isnard@univ-tlse2.fr </a> 
                                                                          
                             </p>
                                 
