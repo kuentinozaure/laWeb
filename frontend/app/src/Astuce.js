@@ -103,7 +103,7 @@ class Astuce extends Component {
                         </span></li>
                         <li>|</li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-lg " role="button" >En savoir plus</a>
+                        <a href="http://mass-cara2.univ-tlse2.fr/~massi.ouldrabah/Vulgarisation/Page/SeProteger.html" class="btn btn-info btn-lg " role="button" >En savoir plus</a>
                     </div>
                     
                 </div>
