@@ -1,7 +1,6 @@
 # PROJET LA WEB
 
-# Welcome to StackEdit!
-Suite a des problemes avec l'api au seins de la fac ,notre api et la bdd est stockee sur l hebergeur web always data
+# Suite a des problemes avec l'api au seins de la fac ,notre api et la bdd est stockee sur l hebergeur web always data
 
 
 # DESCRIPTION API 
