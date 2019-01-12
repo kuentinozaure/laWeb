@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Membre extends Component {
     constructor(props) {
@@ -10,14 +11,26 @@ class Membre extends Component {
           numero: '',
           identifiant: '',
           mdp: '',
-          newsletter: false};
+          ufr:1,
+          description :'',
+          newsletter: 0
+      };
     
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-    handleSubmit(event) {
-        alert('Nom: ' + this.state.name + ' Prénom: '+this.state.prenom+ ' Adresse: '+this.state.adresse + ' Numéro de téléphone: '+this.state.numero + ' Identifiant: '+this.state.identifiant + ' Mot de passe: '+this.state.mdp + "Newsletter?"+this.state.newsletter);
-        event.preventDefault();
+    handleSubmit() {
+      const url = 'http://laweb.alwaysdata.net/?choix=8&nom='+this.state.name+'&prenom='+this.state.prenom+'&mail='+this.state.adresse+'&tel='+this.state.numero+'&abonne='+this.state.newsletter+'&ufr='+this.state.ufr+'&login='+this.state.identifiant+'&mdp='+this.state.mdp+'&desc='+this.state.description;
+      axios.get(url)
+        axios.get(url)
+        .then(response => {
+
+          console.log("creation du membre ...")
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        alert(url);
     }
 
   render() {
@@ -33,7 +46,7 @@ class Membre extends Component {
                         <p>Faites votre demande ici</p>
                         <div class="panel-body">
           
-                          <form id="register-form" role="form" autocomplete="off" class="form" method="post" onSubmit={this.handleSubmit}>
+                          <form id="register-form" role="form" autocomplete="off" class="form" method="get" onSubmit={this.handleSubmit}>
           
                             <div class="form-group">
                               <div class="input-group">
@@ -63,6 +76,21 @@ class Membre extends Component {
                               </div>
                             </div>
 
+                            <div className="form-group">
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
+                                  <option id="1" >1 -Sciences Espaces et Sociétés</option>
+                                  <option id="2" >2 - Langue Etrangères Appliquées</option>
+                                  <option id="3" >3 - Histoire</option>
+                              </select>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input id="desc" name="desc" placeholder="Description" class="form-control"  type="text" onChange={e => this.setState({description: e.target.value})}/>
+                              </div>
+                            </div>
+
                             <div class="form-group">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -77,7 +105,7 @@ class Membre extends Component {
                               </div>
                             </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
+                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: 1})}}}/>
                   <label for="scales">S'abonner aux newsletter</label>
                   
                   
