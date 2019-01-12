@@ -184,10 +184,10 @@
                 $mdp = $_GET['mdp'];
                 $desc = $_GET['desc'];
 
-                $req = "INSERT INTO UTILISATEUR (nom,prenom,mail,telephone,abonneNewsletter,TokenAuthentification,id_ufr) VALUES ('".$nom."','".$prenom."','".$mail."',".$telephone.",".$abonne.",'NULL',".$ufr.")";
+                $req = "INSERT INTO UTILISATEUR (nom,prenom,mail,telephone,abonneNewsletter,TokenAuthentification,id_ufr) VALUES ('".$nom."','".$prenom."','".$mail."',".$telephone.",".$abonne.",NULL,".$ufr.")";
                 $res=$connexion->exec($req);
 
-                $req1 ="INSERT INTO MEMBRE (id_membre,login,mdp,photo,description,estValide) VALUES ((Select id_utilisateur FROM UTILISATEUR WHERE nom='".$nom."' AND prenom='".$prenom."' AND mail='".$mail."' AND telephone=".$telephone." AND abonneNewsletter=".$abonne." AND TokenAuthentification='NULL' AND id_ufr=".$ufr."),'".$login."','".$mdp."','NULL','".$desc."',0)";
+                $req1 ="INSERT INTO MEMBRE (id_membre,login,mdp,photo,description,estValide) VALUES ((Select id_utilisateur FROM UTILISATEUR WHERE nom='".$nom."' AND prenom='".$prenom."' AND mail='".$mail."' AND telephone=".$telephone." AND abonneNewsletter=".$abonne." AND id_ufr=".$ufr."),'".$login."','".$mdp."',NULL,'".$desc."',0)";
                 $res1=$connexion->exec($req1);
 
                 $retour['success'] ="AJOUT OK";

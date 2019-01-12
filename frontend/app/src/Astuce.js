@@ -78,7 +78,7 @@ class Astuce extends Component {
                         </span></li>
                         <li>|</li>
                         </ul>
-                        <a href="#" class="btn btn-info btn-lg " role="button" >En savoir plus</a>
+                        <a href="https://fr.wikipedia.org/wiki/LibreOffice" class="btn btn-info btn-lg " role="button" >En savoir plus</a>
                     </div>
                     
                 </div>
