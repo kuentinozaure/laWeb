@@ -74,7 +74,7 @@ class ListeActivite extends Component {
 
     return (
       <div>
-        <TypeActivite title='Conférence'/>
+        <TypeActivite title='Activites'/>
         <div className="container">
           <div className="row">
               {this.display()}
