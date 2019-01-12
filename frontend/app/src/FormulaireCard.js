@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 
 
@@ -27,17 +28,16 @@ constructor(props) {
     
      
     
-    async handleSubmit(event) {
-    
-    alert('Nom: ' + this.state.Nom + ' Prénom: '+this.state.Prenom + ' mail: '+this.state.mail+ ' message: '+this.state.message);
-    
-    event.preventDefault();
+    handleSubmit() {
+    const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
+    axios.get(url)
+      .then(response => {
+        console.log('mail envoye')
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
-
-  
-    
-
-    
     }
     
      
@@ -47,22 +47,22 @@ constructor(props) {
     return (
         <div className="card mb">
             <div className="card-body mb">
-            <h2 id="h252" class="h1-responsive font-weight-bold my-5">Nous Contacter ? </h2>
+            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous Contacter ? </h2>
 
 
              <form onSubmit={this.handleSubmit}>
     
-    <div class="form-group">
-      <div class="input-group">
-        <span class="input-group-addon"></span>
-        <input id="nom" name="nom" placeholder="Nom" class="form-control"  type="text"  onChange={e => this.setState({Nom: e.target.value})}/>
+    <div className="form-group">
+      <div className="input-group">
+        <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+        <input id="nom" name="nom" placeholder="Nom" className="form-control"  type="text" required="remplir votre nom" onChange={e => this.setState({Nom: e.target.value})}/>
       </div>
     </div>
 
-    <div class="form-group">
-      <div class="input-group">
-        <span class="input-group-addon"></span>
-        <input id="prenom" name="prenom" placeholder="Prenom" class="form-control"  type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
+    <div className="form-group">
+      <div className="input-group">
+        <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+        <input id="prenom" name="prenom" placeholder="Prenom" className="form-control"  required="remplir votre prenom" type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
       </div>
     </div>
     
@@ -70,8 +70,8 @@ constructor(props) {
     
     <div className="form-group">
       <div className="input-group">
-        <span className="input-group-addon"></span>
-        <input id="email" name="email" placeholder="Email" class="form-control"  type="email" onChange={e => this.setState({mail: e.target.value})}/>
+        <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
+        <input id="email" name="email" placeholder="Email" className="form-control"  required="remplir votre email" type="email" onChange={e => this.setState({mail: e.target.value})}/>
       </div>
     </div>
     
@@ -81,8 +81,8 @@ constructor(props) {
 
     <div className="form-group">
           <div className="input-group ">
-              <span className="input-group-addon"></span>
-              <input id="message" name="message" placeholder="Message" class="form-control"  type="text"  onChange={e => this.setState({message: e.target.value})}/>
+              <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
+              <input id="message" name="message" placeholder="Message" className="form-control" required="remplir votre message" type="text"  onChange={e => this.setState({message: e.target.value})}/>
           </div>
     </div>
     
@@ -90,7 +90,7 @@ constructor(props) {
       <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit" />
     </div>
     
-    <input type="hidden" class="hide" name="token" id="token" value=""/>
+    <input type="hidden" className="hide" name="token" id="token" value=""/>
      </form>
   
      </div>
