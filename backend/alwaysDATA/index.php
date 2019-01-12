@@ -1,7 +1,6 @@
 <?php
     header('Content-Type: application/json');
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
 
     //CHOIX  DE L'UTILISATEUR SUR L'APPLICATION ANDROID
     $choixUtilisateur=$_GET['choix'];
@@ -39,7 +38,7 @@
 
         $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ACTIVITE";
         //$req="SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE";
-        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER WHERE ACTIVITE.id_activite =PARTICIPER.id_activite GROUP BY id_activite";
+        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER,ORGANISER WHERE ACTIVITE.id_activite =PARTICIPER.id_activite AND ORGANISER.id_activite=ACTIVITE.id_activite GROUP BY id_activite";
         $i=0;
         $res=$connexion->query($req);
 
@@ -119,7 +118,8 @@
             $retour['choixUtilisateur'] ="RECUPERER ACTIVITE EN FONCTION D UNE DATE DEBUT SAISIE";
             $dateSaisie = $_GET['date'];
             $i=0;
-            $req = "SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE WHERE dateDebut='".$dateSaisie."'";
+            $req = "SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE WHERE  dateDebut='".$dateSaisie."'";
+            $retour['REEE'] = $req;
             $res=$connexion->query($req);
             while($ligne=$res->fetch())
             {
@@ -215,16 +215,17 @@
                     $retour['success'] ="PLUS DE PLACE DANS CETTE ACTIVITE";
                     
                 }else{
-                    $req = "INSERT INTO UTILISATEUR (nom,prenom,mail,telephone,abonneNewsletter,TokenAuthentification,id_ufr) VALUES ('".$nom."','".$prenom."','".$mail."',".$telephone.",".$abonne.",'NULL',".$ufr.")";
+                    $req = "INSERT INTO UTILISATEUR (nom,prenom,mail,telephone,abonneNewsletter,TokenAuthentification,id_ufr) VALUES ('".$nom."','".$prenom."','".$mail."',".$telephone.",".$abonne.",NULL,".$ufr.")";
                     $res0=$connexion->exec($req);
+                    $retour['$req'] =$req;
                     
-                    $req3 = "INSERT INTO PARTICIPER (id_utilisateur, id_activite, placeRestante) VALUES ((Select id_utilisateur FROM UTILISATEUR WHERE nom='".$nom."' AND prenom='".$prenom."' AND mail='".$mail."' AND telephone=".$telephone." AND abonneNewsletter=".$abonne." AND TokenAuthentification='NULL' AND id_ufr=".$ufr."),".$idAct.",".$placeRestante.")";
+                    $req3 = "INSERT INTO PARTICIPER (id_utilisateur, id_activite, placeRestante) VALUES ((Select id_utilisateur FROM UTILISATEUR WHERE nom='".$nom."' AND prenom='".$prenom."' AND mail='".$mail."' AND telephone=".$telephone." AND abonneNewsletter=".$abonne." AND id_ufr=".$ufr."),".$idAct.",".$placeRestante.")";
                     $res3=$connexion->exec($req3);
+                    $retour['$$req3'] =$req3;
                     
                     $req1 = "UPDATE PARTICIPER SET placeRestante= placeRestante - 1 WHERE id_activite = ".$idAct."";
                     $res1=$connexion->exec($req1);
-                    
-                    
+                    $retour['$req1'] =$req1;
                     
                     $retour['success'] ="AJOUT OK";
                 }
@@ -380,6 +381,24 @@
             }
             
         break;
+        case 11 : //RECUPERATION DES UFR 
+                //http://laweb.alwaysdata.net/?choix=11
+
+                $retour['choixUtilisateur'] ="RECUPERATION DES UFR ";
+                $idAct = $_GET['act'];
+
+                $req="SELECT * FROM UFR";
+                $i=0;
+                $res=$connexion->query($req);
+                
+                while($ligne=$res->fetch())
+                {
+                    $retour['ufr'][$i]['id'] = $ligne[0];
+                    $retour['ufr'][$i]['ufr'] = $ligne[1];
+                    $i++;
+                }
+        break;
+        
     }
         echo json_encode($retour);
 ?>
