@@ -10,6 +10,10 @@ import Astuce from './Astuce';
 import Section from './Section';
 import ListeActivite from './ListeActivite';
 import Inscription from './Inscription';
+import ValidMembers from './ValidationMembre.js';
+import ValidActivity from './ValidationActivite.js';
+import createActivity from './CreateActivite.js';
+import Member from './membersView.js';
 
 class App extends Component {
 
@@ -73,6 +77,10 @@ class App extends Component {
             <Route path='/contact'component={Section}/>
             <Route path='/activite'component={ListeActivite}/>
             <Route path='/inscription'component={Inscription}/>
+            <Route path='/validMembers'component={ValidMembers}/>
+            <Route path='/validActivity'component={ValidActivity}/>
+            <Route path='/createActivity'component={createActivity}/>
+            <Route path='/member'component={Member}/>
         </Switch>
       </Router>
 
