@@ -76,6 +76,18 @@ class ListeActivite extends Component {
       <div>
         <TypeActivite title='Activites'/>
         <div className="container">
+        <div className="container">
+            <div className="row">
+                  <div className="input-group col-md-11">
+                    <span className="input-group-btn">
+                      <input type="text" className="search-query form-control" placeholder="Rechercher une activite" />
+                        <button className="btn btn-secondary btn-md" type="button">
+                          Rechercher
+                        </button>
+                    </span>
+                  </div>
+              </div>
+          </div><br></br>
           <div className="row">
               {this.display()}
           </div>
