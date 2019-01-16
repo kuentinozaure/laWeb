@@ -385,7 +385,6 @@
                 //http://laweb.alwaysdata.net/?choix=11
 
                 $retour['choixUtilisateur'] ="RECUPERATION DES UFR ";
-                $idAct = $_GET['act'];
 
                 $req="SELECT * FROM UFR";
                 $i=0;
@@ -398,7 +397,28 @@
                     $i++;
                 }
         break;
+        case 12 : //RECUPERATION DES MEMBRES NON VALIDE
+                //http://laweb.alwaysdata.net/?choix=12
+
+                $retour['choixUtilisateur'] ="RECUPERATION DES MEMBRES NON VALIDE";
+
+                $req ='SELECT UTILISATEUR.telephone,UTILISATEUR.mail,UTILISATEUR.nom,UTILISATEUR.prenom,login,description FROM MEMBRE,UTILISATEUR WHERE UTILISATEUR.id_utilisateur = MEMBRE.id_membre AND estValide = 0 GROUP BY id_utilisateur';
+                
+                $i=0;
+                $res=$connexion->query($req);
+                
+                while($ligne=$res->fetch())
+                {
+                    $retour['membre'][$i]['telephone'] = $ligne[0];
+                    $retour['membre'][$i]['mail'] = $ligne[1];
+                    $retour['membre'][$i]['nom'] = $ligne[2];
+                    $retour['membre'][$i]['prenom'] = $ligne[3];
+                    $retour['membre'][$i]['login'] = $ligne[4];
+                    $retour['membre'][$i]['description'] = $ligne[5];
+                    $i++;
+                }
         
+        break;
     }
         echo json_encode($retour);
 ?>

@@ -27,8 +27,16 @@ class membersView extends Component {
     render() {
         return (
             <div>
-                < NavbarMembres />
+                <NavbarMembres />
+                <br></br>
+                <div className="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                    <h1 className="display-4">Bienvenue {this.props.loginUser}</h1>
+                    <p className="lead"></p>
+                </div>
+                <br></br>
+                <br></br>
             </div>
+            
         );
       }
 }

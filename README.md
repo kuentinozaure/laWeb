@@ -39,3 +39,6 @@ http://laweb.alwaysdata.net/?choix=10&nom=['nomUser']&prenom=['prenomUser']&mail
 
 ## RECUPERATION DES UFR 
 http://laweb.alwaysdata.net/?choix=11
+
+## RECUPERATION DES MEMBRES NON VALIDE
+http://laweb.alwaysdata.net/?choix=12
