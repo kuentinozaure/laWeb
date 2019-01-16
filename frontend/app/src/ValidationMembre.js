@@ -1,129 +1,80 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
+import MemberTab from './memberTab.js'
+import axios from 'axios';
+
 
 class ValidationMembre extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            membres:[],
         };
       }
 
-   
+      componentDidMount() {
+        const url = 'http://laweb.alwaysdata.net/?choix=12';
+        axios.get(url)
+          .then(response => {
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.membre.length; i++) {
+              tab.push(response.data.membre[i]);
+            }
+            this.setState({
+              membres: tab,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+
+          
+      }
+
+      display(){
+        let listmembre =[]
+        let content = this.state.membres.map((membre, index) => {
+    
+          listmembre.push(
+              < MemberTab 
+                nom={membre.nom}
+                prenom={membre.prenom}
+                login={membre.login}
+                telephone={membre.telephone}
+                mail={membre.mail}
+                description={membre.description}
+            />
+            );
+        });
+        
+        return content = listmembre;
+      }
 
     render() {
         return (
             <div>
             <br></br>
             <br></br>
-                    
                     <NavbarMembres/>
-                        <div class="container">
-                        <div class="row col-md-12 col-md-offset-2 custyle">
-                        <table class="table table-striped custab">
+                        <div className="container">
+                        <div className="row col-md-12 col-md-offset-2 custyle">
+                        <table className="table table-striped custab">
                         <thead>
                             <tr>
-                                <th>Id Client</th>
                                 <th>Nom</th>
                                 <th>Prenom</th>
-                                <th class="text-center">Action</th>
+                                <th>Login</th>
+                                <th>Telephone</th>
+                                <th>Mail</th>
+                                <th>Description</th>
+                                <th className="text-center">Action</th>
                             </tr>
                         </thead>
-                                <tr>
-                                    <td>0</td>
-                                    <td>TEST</td>
-                                    <td>XXXXXXXXXXXXX</td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            Edit
-                                        </a> 
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove">
-                                            </span> 
-                                            Del
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0</td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="TEST" /></td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXX" /></td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            OK
-                                        </a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>TEST</td>
-                                    <td>XXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            Edit
-                                        </a> 
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove">
-                                            </span> 
-                                            Del
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="TEST" /></td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXXX" /></td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            OK
-                                        </a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>XXXXXXXXXXXXXXXXXXXXXXX</td>
-                                    <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                                    <td class="text-right">
-                                        <a class='btn btn-info btn-sm' href="#">
-                                            <span class=" glyphicon-pencil"/>
-                                            Edit
-                                        </a> 
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove">
-                                            </span> 
-                                            Del
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXX" /></td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" /></td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            OK
-                                        </a> 
-                                    </td>
-                                </tr>
+                        <tbody>
+                            {this.display()}
+                        </tbody>
                         </table>
-                        </div>
-                            <div class="row col-md-12 col-md-offset-2 custyle">
-                            <div class="col-md-4">             
-                            </div>
-                            <div class="col-md-4">  
-                            </div>
-                            <div class="col-md-4">  
-                                <a href="#" class="btn btn-primary btn-sm pull-right"><b>+</b></a>
-                            </div>
                         </div>
                     </div>
                 </div>
