@@ -1,0 +1,116 @@
+/*DEBUT HEADER AYOUBE*/
+body, html{
+  margin: 0px;
+  padding: 0px;
+
+}
+
+@font-face {
+ font-family: "Hunters";
+ src: url("Hunters.otf");
+
+}
+
+#header{
+  width: 100%;
+  background-color: #F2F4F4;
+  margin-bottom: 0%;
+}
+
+/* haut de page */
+inter{
+  float: right;
+  top: 0;
+  right: 0;
+  position: relative;
+
+}
+
+#div_titre{
+
+  width: 100%;
+  position: relative;
+  text-align: center;
+  z-index: 2;
+}
+
+#div_logo_mirail{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15%;
+  height: 35%;
+}
+
+#img_logo{
+  display: inline-block;
+  vertical-align: middle;
+  width:6%;
+  height:6%;
+}
+
+#div_titre h1{
+  display: inline-block;
+  clear: left;
+  font-family: "Hunters";
+  font-size: 400%;
+  margin: 0;
+}
+
+#div_titre p{
+  margin: 0;
+  font-family: "Roboto",sans-serif;
+  font-style: oblique;
+  font-variant: small-caps;
+}
+
+#connexion{
+  position: absolute;
+  top:0;
+  right: 0;
+  z-index: 3;
+}
+/* fin haut de page */
+
+/* menu */
+#menu{
+  text-align: center;
+  position: relative;
+  
+}
+#list_menu{
+  padding: 0;
+  margin: 0;
+  
+}
+/* 
+li{
+  width: 10%;
+} */
+#list_menu li{
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  margin: 15px;
+}
+
+.menu_text{
+  color: #FF3E3E;
+  line-height: 70px;
+  margin: auto;
+  padding: auto;
+  text-decoration: none;
+  font-family: 'Roboto', black;
+  font-size: 18px;
+  font-variant: small-caps;
+  text-decoration: none;
+}
+
+.is-active{
+  color: rgb(71, 0, 0)
+}
+/* fin menu */
+
+  /*FIN HEADER AYOUBE*/
+
+  

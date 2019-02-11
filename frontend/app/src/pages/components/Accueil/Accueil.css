@@ -1,0 +1,22 @@
+#presentation{
+    text-align: center;
+    font-family: 'Gill Sans';
+    font-size: 120%;
+    width: 100%;
+
+    
+}
+#div_presentation{
+    text-align: justify;
+    font-size: 150%;
+    
+}
+
+#div_titreAccueil{
+    font-size: 200%;
+    margin-bottom: 5%;
+    font-family: 'Gill Sans';
+    border-bottom: 1px solid black;
+    display: inline-block;
+}
+
