@@ -10,11 +10,12 @@ import Astuce from './Astuce';
 import Section from './Section';
 import ListeActivite from './ListeActivite';
 import Inscription from './Inscription';
-import ValidMembers from './ValidationMembre.js';
-import ValidActivity from './ValidationActivite.js';
-import createActivity from './CreateActivite.js';
 import Member from './membersView.js';
-import UpdatePass from './updatePass.js';
+import GererActiviteAdmin from './GererActiviteAdmin.js';
+import ListeActiviteAdmin from './ListeActiviteAdmin.js';
+import GererMembreAdmin from './GererMembreAdmin.js';
+import ListeMembreAdmin from './ListeMembreAdmin.js';
+import InfoCompte from './InfoCompte.js';
 
 class App extends Component {
 
@@ -78,11 +79,12 @@ class App extends Component {
             <Route path='/contact'component={Section}/>
             <Route path='/activite'component={ListeActivite}/>
             <Route path='/inscription'component={Inscription}/>
-            <Route path='/validMembers'component={ValidMembers}/>
-            <Route path='/validActivity'component={ValidActivity}/>
-            <Route path='/createActivity'component={createActivity}/>
+            <Route path='/listeActiviteAdmin'component={ListeActiviteAdmin}/>
+            <Route path='/gererActiviteAdmin'component={GererActiviteAdmin}/>
+            <Route path='/listeMembreAdmin'component={ListeMembreAdmin}/>
+            <Route path='/gererMembreAdmin'component={GererMembreAdmin}/>
             <Route path='/member'component={Member}/>
-            <Route path ='/updatePass' component = {UpdatePass}/>
+            <Route path ='/infoCompte' component = {InfoCompte}/>
         </Switch>
       </Router>
 

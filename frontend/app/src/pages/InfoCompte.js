@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Mdp from './Mdp.js';
 import NavbarMembres from './NavbarMembres.js';
 
-class updatePass extends Component {
+class InfoCompte extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,4 +27,4 @@ class updatePass extends Component {
       }
 }
 
-export default updatePass;
+export default InfoCompte;

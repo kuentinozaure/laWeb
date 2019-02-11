@@ -11,13 +11,31 @@ class Membre extends Component {
           numero: '',
           identifiant: '',
           mdp: '',
-          ufr:1,
+          ufr: [],
           description :'',
           newsletter: 0
       };
     
         this.handleSubmit = this.handleSubmit.bind(this);
       }
+
+    componentDidMount() {
+      const url = 'http://laweb.alwaysdata.net/?choix=11';
+      axios.get(url)
+        .then(response => {
+          let i
+          let tab =[]
+          for (i = 0; i < response.data.ufr.length; i++) {
+            tab.push(response.data.ufr[i]);
+          }
+          this.setState({
+            ufr: tab,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
 
     handleSubmit() {
       const url = 'http://laweb.alwaysdata.net/?choix=8&nom='+this.state.name+'&prenom='+this.state.prenom+'&mail='+this.state.adresse+'&tel='+this.state.numero+'&abonne='+this.state.newsletter+'&ufr='+this.state.ufr+'&login='+this.state.identifiant+'&mdp='+this.state.mdp+'&desc='+this.state.description;
@@ -78,9 +96,10 @@ class Membre extends Component {
 
                             <div className="form-group">
                               <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
-                                  <option id="1" >1 -Sciences Espaces et Sociétés</option>
-                                  <option id="2" >2 - Langue Etrangères Appliquées</option>
-                                  <option id="3" >3 - Histoire</option>
+                                {
+                                  this.state.ufr.map((ufr, index) =>
+                                    <option id={index} >{index} - {ufr.ufr}</option>
+                                  )}
                               </select>
                             </div>
 
