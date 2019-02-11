@@ -51,3 +51,9 @@ http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description'
 
 ##  RECUPERATION DES ACTIVITE NON VALIDE
 http://laweb.alwaysdata.net/?choix=15
+
+## SUPPRESSION D'UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=16&idAct=['idAct']
+
+## MODIFICATION D'UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=17&idAct=['idAct']&'titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']
