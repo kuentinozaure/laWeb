@@ -44,7 +44,7 @@ http://laweb.alwaysdata.net/?choix=11
 http://laweb.alwaysdata.net/?choix=12
 
 ## VALIDATION D'UNE ACTIVITE 
-http://laweb.alwaysdata.net/?choix=13
+http://laweb.alwaysdata.net/?choix=13&idActivite=['idActivite']&idResponsable=['idResponsable']
 
 ## CREER UNE ACTIVITE
 http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']&nombrePlaceDispo=['nombrePlaceDispo']
