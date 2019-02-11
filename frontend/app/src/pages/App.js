@@ -14,6 +14,7 @@ import ValidMembers from './ValidationMembre.js';
 import ValidActivity from './ValidationActivite.js';
 import createActivity from './CreateActivite.js';
 import Member from './membersView.js';
+import UpdatePass from './updatePass.js';
 
 class App extends Component {
 
@@ -81,6 +82,7 @@ class App extends Component {
             <Route path='/validActivity'component={ValidActivity}/>
             <Route path='/createActivity'component={createActivity}/>
             <Route path='/member'component={Member}/>
+            <Route path ='/updatePass' component = {UpdatePass}/>
         </Switch>
       </Router>
 

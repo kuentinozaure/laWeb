@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Section.css';
+import './/Section.css';
 import {Animated} from "react-animated-css";
 import axios from 'axios';
 

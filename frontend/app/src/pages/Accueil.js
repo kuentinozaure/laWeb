@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import "./Accueil.css";
-import "./Hunters.otf";
 
 class Accueil extends Component {
   render() {

@@ -11,6 +11,8 @@ class Connexion extends React.Component {
           mdp: '',
           mdpServ: '',
           logServ:'',
+          logDebug : 'laweb@admin',
+          mdpDebug : 'azerty',
           isConnect:false,
         };
     
@@ -18,9 +20,13 @@ class Connexion extends React.Component {
       }
       
        handleSubmit() {
+
+      if(this.state.mdpDebug == this.state.mdp && this.state.logDebug == this.state.identifiant){
         this.setState({
           isConnect:true,
         });
+      }
+        
         /*const url = '../membre.json';
          axios.get(url)
           .then(response => {
@@ -100,7 +106,7 @@ class Connexion extends React.Component {
           )
         }else{
           return( 
-          < MemberPage isConnect={this.state.isConnect}/>
+                <MemberPage isConnect={this.state.isConnect} loginUser={this.state.identifiant}/>
           )
         }
       }
