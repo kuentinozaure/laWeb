@@ -42,3 +42,6 @@ http://laweb.alwaysdata.net/?choix=11
 
 ## RECUPERATION DES MEMBRES NON VALIDE
 http://laweb.alwaysdata.net/?choix=12
+
+## VALIDATION D'UNE ACTIVITE 
+http://laweb.alwaysdata.net/?choix=13
