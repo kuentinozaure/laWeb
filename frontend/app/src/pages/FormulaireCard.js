@@ -46,7 +46,9 @@ constructor(props) {
     return (
         <div className="card mb">
             <div className="card-body mb">
-            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous Contacter ? </h2>
+            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous contacter ? </h2>
+
+
              <form onSubmit={this.handleSubmit}>
     
     <div className="form-group">
@@ -59,7 +61,7 @@ constructor(props) {
     <div className="form-group">
       <div className="input-group">
         <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-        <input id="prenom" name="prenom" placeholder="Prenom" className="form-control"  required="remplir votre prenom" type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
+        <input id="prenom" name="prenom" placeholder="Prénom" className="form-control"  required="remplir votre prenom" type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
       </div>
     </div>
     

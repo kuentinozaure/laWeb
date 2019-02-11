@@ -11,12 +11,13 @@ class Accueil extends Component {
                                <div id="div_titreAccueil">
                                      ~ Qu'est-ce que la web ? ~
                                  </div>
+                                 <br/>
                                  <div id="div_presentation" align="center">
                                      LaWeb est une association constituée d'étudiants et d'enseignants
                                      de l'université Jean Jaurès située à Toulouse.<div id="sautdeligne"></div>
-                                     Elle a pour but d'aider et d'apportter de nouvelles connaissances
+                                     Elle a pour but d'aider et d'apporter de nouvelles connaissances
                                      dans des domaines autour de l'informatique.<div id="sautdeligne"></div>
-                                     Elle propose un certains nombre d'activités ayant pour but d'initier
+                                     Elle propose un certain nombre d'activités ayant pour but d'initier
                                      ou d'approfondir vos connaissances autour d'ateliers et d'évènements.<div id="sautdeligne"></div>
                             </div>
                            </p>
