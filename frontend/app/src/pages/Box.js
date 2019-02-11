@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Box.css';
 import {Button,Modal} from 'react-bootstrap';
 import Inscription from './Inscription.js'
 import axios from 'axios'
@@ -44,9 +44,6 @@ class Box extends Component {
 <div className="container">
   <div className="well">
       <div className="media">
-      	<a className="pull-left" href="#">
-    		  <img id="imgbox" src="https://image.freepik.com/free-icon/activity-feed_318-1665.jpg" alt="Image"/>
-  		  </a>
   		  <div className="media-body">
     		<h2 className="media-heading">{this.props.modtitre}</h2>
         <h3><p>{this.props.moddescription}</p></h3>
