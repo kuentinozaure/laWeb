@@ -48,3 +48,6 @@ http://laweb.alwaysdata.net/?choix=13
 
 ## CREER UNE ACTIVITE
 http://laweb.alwaysdata.net/?choix=14
+
+##  RECUPERATION DES ACTIVITE NON VALIDE
+http://laweb.alwaysdata.net/?choix=15
