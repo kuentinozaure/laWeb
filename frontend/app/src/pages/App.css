@@ -96,11 +96,11 @@ body, html{
 
 }
 
-@font-face {
+/* @font-face {
  font-family: "Hunters";
  src: url("Hunters.otf");
 
-}
+} */
 
 #header{
   width: 100%;
@@ -232,7 +232,7 @@ body, html{
 #div_titre h1{
   display: inline-block;
   clear: left;
-  font-family: "Hunters";
+  /* font-family: "Hunters"; */
   font-size: 600%;
   margin: 0;
 }

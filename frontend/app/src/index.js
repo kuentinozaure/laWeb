@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import Connexion from './Connexion';
+import App from './pages/App';
+import * as serviceWorker from './pages/serviceWorker';
+import Connexion from './pages/Connexion';
 import { BrowserRouter } from 'react-router-dom'
 
 
