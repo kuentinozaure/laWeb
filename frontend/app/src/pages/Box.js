@@ -54,7 +54,7 @@ class Box extends Component {
           <span><i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES</span>
           <li>|</li>
           <li>
-              <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTALES</span>
+              <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
           </li>
           <li>|</li>
 			  </ul>
@@ -72,7 +72,7 @@ class Box extends Component {
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
-          <h2 className="text-center">Vous voulez vous inscrire à cette activité ?</h2>
+          <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
 
           <form id="register-form" role="form" autoComplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
@@ -86,7 +86,7 @@ class Box extends Component {
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prenom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
 
@@ -108,12 +108,12 @@ class Box extends Component {
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Telephone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 
                             <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label htmlFor="scales">S'abonner aux newsletter</label>
+                  <label htmlFor="scales">S'abonner aux newsletters</label>
 
                   <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" />
                   </form>

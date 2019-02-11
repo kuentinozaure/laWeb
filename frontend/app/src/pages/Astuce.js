@@ -14,7 +14,6 @@ class Astuce extends Component {
         <p></p>
         <div className="container">
           <div className="row">
-          <label id="titreactivite">ENT</label>
           <div className="container">
             <div className="well">
                 <div className="media">
@@ -56,7 +55,6 @@ class Astuce extends Component {
             </div>
          </div>
 
-          <label id="titreactivite">Logiciel libre</label>
 
           <div className="container">
             <div className="well">
@@ -79,15 +77,14 @@ class Astuce extends Component {
             </div>
          </div>
 
-         <label id="titreactivite">Securite</label>
         
          <div className="container">
             <div className="well">
                 <div className="media">
                         <img id="imgbox" src="../secu.png" alt="Image"/>
                     <div className="media-body">
-                            <h2 className="media-heading">NE PAS FAIRE SUR INTERNET</h2>
-                        <h3><p>Nous t'informons</p></h3>
+                            <h2 className="media-heading">A NE PAS FAIRE SUR INTERNET</h2>
+                        <h3><p>Nous t'informons!</p></h3>
                         <ul className="list-inline list-unstyled">
                         <li>|</li>
                         <li><span><i className="glyphicon glyphicon-education"></i>
@@ -106,8 +103,8 @@ class Astuce extends Component {
                 <div className="media">
                         <img id="imgbox" src="../cybersecurite.jpg" alt="Image"/>
                     <div className="media-body">
-                            <h2 className="media-heading">Securite informatique</h2>
-                        <h3><p>Tu veut en savoir plus ?</p></h3>
+                            <h2 className="media-heading">Sécurité informatique</h2>
+                        <h3><p>Tu veux en savoir plus ?</p></h3>
                         <ul className="list-inline list-unstyled">
                         <li>|</li>
                         <li><span><i className="glyphicon glyphicon-education"></i>

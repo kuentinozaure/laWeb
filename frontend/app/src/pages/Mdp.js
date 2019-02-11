@@ -25,7 +25,7 @@ class Mdp extends Component {
                           <div className="text-center">
                             <h3><i className="fa fa-lock fa-lg"></i></h3>
                             <h2 className="text-center">Mot de passe oublié?</h2>
-                            <p>Réinitialisé votre mot de passe</p>
+                            <p>Réinitialisez votre mot de passe</p>
                             <div className="panel-body">
               
                               <form id="register-form" role="form" autoComplete="off" className="form" method="post" onSubmit={this.handleSubmit}>
