@@ -12,7 +12,6 @@ constructor(props) {
     this.state = {
     
     Nom: '',
-    
     Prenom: '',
     mail:'',
     message:'',
@@ -48,8 +47,6 @@ constructor(props) {
         <div className="card mb">
             <div className="card-body mb">
             <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous Contacter ? </h2>
-
-
              <form onSubmit={this.handleSubmit}>
     
     <div className="form-group">
@@ -74,10 +71,6 @@ constructor(props) {
         <input id="email" name="email" placeholder="Email" className="form-control"  required="remplir votre email" type="email" onChange={e => this.setState({mail: e.target.value})}/>
       </div>
     </div>
-    
-    
-    
-    
 
     <div className="form-group">
           <div className="input-group ">
@@ -95,51 +88,6 @@ constructor(props) {
   
      </div>
     </div>
-    
-    
-
-
-
-
-
-
-    /*
-    <form onSubmit={this.handleSubmit}>
-    
-    <label>
-    Nom:
-    <input type="text" id="name" onChange={e => this.setState({Nom: e.target.value})} />
-    </label>
-    
-    
-    <label>
-    Prénom:
-    <input type="text" id="prenom" onChange={e => this.setState({Prenom: e.target.value})} />
-    </label>
-
-
-
-    <label>
-    Mail:
-    <input type="text" id="mail" onChange={e => this.setState({mail: e.target.value})} />
-    </label>
-    <label>
-    
-    Message
-    
-    <input type="text" id="message" onChange={e => this.setState({message: e.target.value})} />
-    
-    </label>
-    
-    
-    
-    <input type="submit" value="Submit" />
-    
-    </form>
-    */
-    
-    
-    
     );
     
     }
