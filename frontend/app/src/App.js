@@ -78,6 +78,7 @@ class App extends Component {
             <Route path='/contact'component={Section}/>
             <Route path='/activite'component={ListeActivite}/>
             <Route path='/inscription'component={Inscription}/>
+            
             <Route path='/validMembers'component={ValidMembers}/>
             <Route path='/validActivity'component={ValidActivity}/>
             <Route path='/createActivity'component={createActivity}/>
