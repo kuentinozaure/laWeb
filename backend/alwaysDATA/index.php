@@ -38,7 +38,7 @@
 
         $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ACTIVITE";
         //$req="SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE";
-        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER,ORGANISER WHERE ACTIVITE.id_activite =PARTICIPER.id_activite AND ORGANISER.id_activite=ACTIVITE.id_activite GROUP BY id_activite";
+        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER,ORGANISER WHERE ACTIVITE.id_activite =PARTICIPER.id_activite AND ACTIVITE.id_president IN (SELECT PRESIDENT.id_president FROM PRESIDENT) GROUP BY id_activite";
         $i=0;
         $res=$connexion->query($req);
 
@@ -419,6 +419,44 @@
                 }
         
         break;
+        case 13 : //VALIDATION D'UNE ACTIVITE
+                //http://laweb.alwaysdata.net/?choix=13&idActivite=['idActivite']&idResponsable=['idResponsable']&idMembre=['']
+
+        $retour['choixUtilisateur'] ="VALIDATION D'UNE ACTIVITE";
+
+        
+        break;
+        case 14 : //CREER UNE ACTIVITE
+                //http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']&nombrePlaceDispo=['nombrePlaceDispo']&idOrganisateur=['idOrganisateur']
+
+        $retour['choixUtilisateur'] ="CREER UNE ACTIVITE";
+
+        //INSERT INTO ACTIVITE (`id_activite`, `titre`, `description`, `dateDebut`, `dateFin`, `salle`, `nombrePlaceDispo`, `id_president`) VALUES (NULL, 'SALUT', 'SALUT', 'SALUT', 'SALUT LA DATE', '111', '15', NULL)
+        //INSERT INTO `ORGANISER` (`id_membre`, `id_activite`) VALUES (idOrga, (SELECT id_activite FROM `ACTIVITE` WHERE titre ="titre" AND description = "description" AND dateDebut = "" AND dateFin = "" AND salle = "" AND nombrePlaceDispo = ""))
+        
+        break;
+        case 15 : //RECUPERATION DES ACTIVITE NON VALIDE
+        //http://laweb.alwaysdata.net/?choix=15
+
+        $retour['choixUtilisateur'] ="RECUPERATION DES ACTIVITE NON VALIDE";
+        
+        $req ='SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE WHERE ACTIVITE.id_activite NOT IN(SELECT id_activite FROM ORGANISER) OR ACTIVITE.id_president NOT IN(SELECT id_president FROM PRESIDENT) GROUP BY id_activite';
+                
+                $i=0;
+                $res=$connexion->query($req);
+                
+                while($ligne=$res->fetch())
+                {
+                    $retour['activite'][$i]['id'] = $ligne[0];
+                    $retour['activite'][$i]['titre'] = $ligne[1];
+                    $retour['activite'][$i]['description'] = $ligne[2];
+                    $retour['activite'][$i]['dateDebut'] = $ligne[3];
+                    $retour['activite'][$i]['dateFin'] = $ligne[4];
+                    $retour['activite'][$i]['salle'] = $ligne[5];
+                    $retour['activite'][$i]['nbPlaceDispo'] = $ligne[6];
+                    $i++;
+                }
+break;
     }
         echo json_encode($retour);
 ?>
