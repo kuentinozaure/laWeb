@@ -9,7 +9,7 @@ class InformationCard extends Component {
         
         <div className="card mb">
             <div className="card-body mb">
-            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Où Nous Trouver ? </h2>
+            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Où nous trouver ? </h2>
                             <p className="card-text">
                             Université Toulouse II Jean-Jaures
                             5 Allée Antonio Machado, 31100 Toulouse 
