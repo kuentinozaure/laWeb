@@ -18,36 +18,36 @@ const Navigation = () => {
         <nav id="menu">
             <ul id="list_menu">
             <li>
-              <NavLink exact={true} activeClassName='is-active' to="/" className="menu_text">
+              <a href="/" exact={true} activeClassName='is-active' className="menu_text">
                 Accueil
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink exact={true} activeClassName='is-active' to="/activite" className="menu_text">
+              <a href="#activite"  exact={true} activeClassName='is-active' className="menu_text">
                 Viens découvrir
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink exact={true} activeClassName='is-active' to="/astuces" className="menu_text">
+              <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
                 Astuces
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink exact={true} activeClassName='is-active' to="/contact" className="menu_text" >
+              <a href="#/contact" exact={true} activeClassName='is-active' className="menu_text" >
                 Contact
-              </NavLink>
+              </a>
             </li>
             <li>
-            <NavLink exact={true} activeClassName='is-active' to="/membre" className="menu_text">
+            <a href="#membre" exact={true} activeClassName='is-active'  className="menu_text">
               Rejoins nous
-            </NavLink>
+            </a>
             </li>          
           </ul>
         </nav>
   
         {/* div CONNEXION */}
         <div className="inter">
-          <NavLink to="/connexion" id="connexion" role="button" title="Se connecter">Se connecter</NavLink>
+          <a href="#connexion" id="connexion" role="button" title="Se connecter">Se connecter</a>
         </div>
       </div>
     </header>

@@ -3,6 +3,9 @@ import Mdp from "./Mdp.js";
 import axios from 'axios';
 import MemberPage from './membersView.js'
 
+import { connect } from 'react-redux';
+import setSession from './../actions/setSession'
+
 class Connexion extends React.Component {
     constructor(props) {
         super(props);
@@ -20,45 +23,11 @@ class Connexion extends React.Component {
       }
       
        handleSubmit() {
-
-      if(this.state.mdpDebug == this.state.mdp && this.state.logDebug == this.state.identifiant){
-        this.setState({
-          isConnect:true,
-        });
+        this.props.history.push(process.env.PUBLIC_URL + "/member");
       }
-        
-        /*const url = '../membre.json';
-         axios.get(url)
-          .then(response => {
-            let taille = Object.keys(response.data).length
-            let log=""
-            let mdp=""
-            for (let i = 0; i < taille; i++) {
-              log=response.data[i].login 
-              mdp=response.data[i].mdp
-            }
-            this.setState({
-              mdpServ: mdp,
-              logServ:log,
-            });
-
-          })
-          .catch(error => {
-            console.log(error);
-          });*/
-          
-          /*if((this.state.mdp ===this.state.mdpServ) && (this.state.logServ ===this.state.identifiant)){
-            alert("Bonjour " + this.state.identifiant + " !");
-
-          }else{
-            alert("Identifiant ou mot de passe incorrect.");   
-          }*/
 
 
-      }
-      
       display(){
-        if(this.state.isConnect == false){
           return (
             <div>
               <div className="container">
@@ -104,12 +73,7 @@ class Connexion extends React.Component {
           </div>
           </div>
           )
-        }else{
-          return( 
-                <MemberPage isConnect={this.state.isConnect} loginUser={this.state.identifiant}/>
-          )
-        }
-      }
+      };
 
   render() {
     return (
@@ -117,7 +81,18 @@ class Connexion extends React.Component {
           {this.display()}
         </div>
     );
-  }
-}
+  
+}}
+const mapStateToProps = state => {
+  return { sessionConnect: state.sessionReducer}
+};
 
-export default Connexion;
+const mapDispatchToProps = dispatch => {
+  return {
+    setSession: (email, name) => {
+      dispatch(setSession(email, name))
+    }
+  }
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Connexion)
