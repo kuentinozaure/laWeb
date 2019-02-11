@@ -47,7 +47,7 @@ http://laweb.alwaysdata.net/?choix=12
 http://laweb.alwaysdata.net/?choix=13
 
 ## CREER UNE ACTIVITE
-http://laweb.alwaysdata.net/?choix=14
+http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']&nombrePlaceDispo=['nombrePlaceDispo']
 
 ##  RECUPERATION DES ACTIVITE NON VALIDE
 http://laweb.alwaysdata.net/?choix=15
