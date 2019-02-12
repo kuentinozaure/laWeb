@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
 
-class ValidationActivite extends Component {
+class GererActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -130,4 +130,4 @@ class ValidationActivite extends Component {
       }
 }
 
-export default ValidationActivite;
+export default GererActiviteAdmin;

@@ -1,10 +1,10 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
-import MemberTab from './memberTab.js'
+import MembreValide from './MembreValide.js'
 import axios from 'axios';
 
 
-class ValidationMembre extends Component {
+class ListeMembreAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,13 +13,13 @@ class ValidationMembre extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=12';
+        const url = 'http://laweb.alwaysdata.net/?choix=2';
         axios.get(url)
-          .then(response => {
+          .then(response => { 
             let i
             let tab =[]
-            for (i = 0; i < response.data.membre.length; i++) {
-              tab.push(response.data.membre[i]);
+            for (i = 0; i < response.data.membres.length; i++) {
+              tab.push(response.data.membres[i]);
             }
             this.setState({
               membres: tab,
@@ -33,11 +33,11 @@ class ValidationMembre extends Component {
       }
 
       display(){
-        let listmembre =[]
+        let listeMembre =[]
         let content = this.state.membres.map((membre, index) => {
     
-          listmembre.push(
-              < MemberTab 
+          listeMembre.push(
+              < MembreValide 
                 nom={membre.nom}
                 prenom={membre.prenom}
                 login={membre.login}
@@ -48,7 +48,7 @@ class ValidationMembre extends Component {
             );
         });
         
-        return content = listmembre;
+        return content = listeMembre;
       }
 
     render() {
@@ -83,4 +83,4 @@ class ValidationMembre extends Component {
       }
 }
 
-export default ValidationMembre;
+export default ListeMembreAdmin;

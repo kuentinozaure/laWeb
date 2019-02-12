@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 
-class memberTab  extends React.Component {
+class MembreValide  extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,8 +21,8 @@ class memberTab  extends React.Component {
                 <td>{this.props.description}</td>
                 <td className="text-right">
                 <a className='btn btn btn-info btn-sm' href="#">
-                        Valider
-                </a> 
+                        Modifier
+                </a>
                 </td>
             </tr>
             </React.Fragment> 
@@ -31,4 +31,4 @@ class memberTab  extends React.Component {
       }
 }
 
-export default memberTab;
+export default MembreValide;
