@@ -23,6 +23,7 @@ import {
 
 // Import pour redux
 import { connect } from 'react-redux';
+import Navigation from "../pages/components/Navigation/Navigation";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -57,6 +58,7 @@ class LaWebRouter extends Component {
           <Route path='/createActivity'component={createActivity}/>
           <Route path='/member'component={Member}/>
           <Route path ='/updatePass' component = {UpdatePass}/>
+          <Route path ='/navigation' component = {Navigation}/>
           <Route component={Error} />
           <PrivateRoute component={Accueil} isConnected={this.props.sessionConnect.isConnected} />
         </Switch>
@@ -68,13 +70,5 @@ class LaWebRouter extends Component {
 const mapStateToProps = state => {
   return { sessionConnect: state.sessionReducer}
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     setTokenSession: token => {
-//       dispatch(setTokenSession(token))
-//     }
-//   }
-// }
 
 export default connect(mapStateToProps,null)(LaWebRouter)

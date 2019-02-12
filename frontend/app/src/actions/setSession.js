@@ -1,8 +1,7 @@
 
-export default function setSession(email, name) {
+export default function setSession(name) {
     return {
-        type: "SET_TOKEN_SESSION",
-        email: email,
-        name: name,
+        type: "SET_SESSION",
+        name: name
     };
 }

@@ -6,24 +6,30 @@ import MemberPage from './membersView.js'
 import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
 
+import sessionReducer from './../LaWeb_reducer/session_reducer'
+
 class Connexion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          identifiant: '',
+          name: '',
           mdp: '',
           mdpServ: '',
           logServ:'',
           logDebug : 'laweb@admin',
           mdpDebug : 'azerty',
-          isConnect:false,
         };
     
         this.handleSubmit = this.handleSubmit.bind(this);
       }
       
        handleSubmit() {
-        this.props.history.push(process.env.PUBLIC_URL + "/member");
+        if(this.state.mdpDebug == this.state.mdp && this.state.logDebug == this.state.name){
+          this.props.setSession(this.state.name);
+          console.log("a "+this.props.setSession);
+          this.props.history.push(process.env.PUBLIC_URL + "/member");
+          
+        }
       }
 
 
@@ -46,7 +52,7 @@ class Connexion extends React.Component {
                               <div className="form-group">
                                 <div className="input-group">
                                   <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="Identifiant" className="form-control"  type="text" onChange={e => this.setState({identifiant: e.target.value})}/>
+                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="Identifiant" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                                 </div>
                               </div>
                     
@@ -83,16 +89,18 @@ class Connexion extends React.Component {
     );
   
 }}
+
 const mapStateToProps = state => {
   return { sessionConnect: state.sessionReducer}
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setSession: (email, name) => {
-      dispatch(setSession(email, name))
+    setSession: (name) => {
+      dispatch(setSession(name))
     }
   }
+
 };
 
 export default connect(mapStateToProps,mapDispatchToProps)(Connexion)

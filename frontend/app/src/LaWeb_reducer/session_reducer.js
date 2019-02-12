@@ -1,21 +1,21 @@
 const initialState = {
+    name: "",
     isConnected: false
-  }
+}
   
   function sessionReducer(state = initialState, action) {
+      console.log(action)
       switch (action.type) {
-          case "SET_TOKEN_SESSION":
+          case "SET_SESSION":
               return {
                   ...state,
                   name: action.name,
-                  email: action.email,
                   isConnected: true,
               };
-          case "REMOVE_TOKEN_SESSION":
+          case "REMOVE_SESSION":
               return {
                 ...state,
-                  name: "",
-                  email: "",
+                name: "",
                 isConnected: false,
               };
           default:

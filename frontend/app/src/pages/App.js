@@ -15,7 +15,7 @@ import LaWebRouter from './../LaWeb_reducer/LaWebRouter';
 import LaWebApp from './../LaWeb_reducer/reducers';
 
 let store = createStore(
-  LaWebApp
+  LaWebApp,
 )
 
 class App extends Component {
@@ -24,8 +24,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Navigation />
+          
           <Provider store={store}>
+            <Navigation />
             <LaWebRouter />
           </Provider>
           <Footer />
