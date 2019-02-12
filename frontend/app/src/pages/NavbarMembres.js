@@ -25,7 +25,7 @@ class NavbarMembres extends Component {
             <ul className="navbar-nav">
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Activites
+                  Activités
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a className="dropdown-item" href="/listeActiviteAdmin">Liste des activités</a>
