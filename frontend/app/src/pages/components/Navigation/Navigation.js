@@ -34,7 +34,7 @@ class Navigation extends Component {
             <nav id="menu">
                 <ul id="list_menu">
                 <li>
-                  <a href="/" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#" exact={true} activeClassName='is-active' className="menu_text">
                     Accueil
                   </a>
                 </li>
@@ -63,10 +63,8 @@ class Navigation extends Component {
       
             {/* div CONNEXION */}
             <div className="inter">
-            <a href="#connexion">
-            <button onClick={this.handleClick}>
+            <a href="#connexion" id="connexion" onClick={this.handleClick}>
               Se déconnecter
-            </button>
             </a>
             
               {/* <a id="deconnexion" role="button" title="Se déconnecter" onCLick={this.handleClick}>Se déconnecter</a> */}
@@ -91,7 +89,7 @@ class Navigation extends Component {
             <nav id="menu">
                 <ul id="list_menu">
                 <li>
-                  <a href="/" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#" exact={true} activeClassName='is-active' className="menu_text">
                     Accueil
                   </a>
                 </li>
