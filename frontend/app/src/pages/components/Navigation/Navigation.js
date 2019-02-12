@@ -63,10 +63,8 @@ class Navigation extends Component {
       
             {/* div CONNEXION */}
             <div className="inter">
-            <a href="#connexion">
-            <button onClick={this.handleClick}>
+            <a href="#connexion" id="connexion" onClick={this.handleClick}>
               Se déconnecter
-            </button>
             </a>
             
               {/* <a id="deconnexion" role="button" title="Se déconnecter" onCLick={this.handleClick}>Se déconnecter</a> */}
