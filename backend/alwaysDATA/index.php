@@ -299,9 +299,9 @@
                                                                             $message .= '<tbody> ';
                                                                                 $message .= '<tr>';
                                                                                     $message .= '<td  width="580">';
-                                                                                        $message .= '<h2 style="color:#0E7693; font-size:22px; padding-top:12px;">VOICI LES INFORMATIONS POUR'.$nom.' '.$prenom.'</h2>';
+                                                                                        $message .= '<h2 style="color:#0E7693; font-size:22px; padding-top:12px;">VOICI LES INFORMATIONS POUR </h2>';
                                                                                             $message .= '<div align="left" class="article-content">';
-                                                                                                $message .= '<p> NOM + PRENOM</p>';
+                                                                                                $message .= '<p'  .$nom.' ' .$prenom. '</p>';
                                                                                                 $message .= 'A ecrit :';
                                                                                                 $message .= '<p>';
                                                                                                     $message .= '<div style="text-indent: 20">';
@@ -309,7 +309,7 @@
                                                                                                     $message .= '</div>';
                                                                                                 $message .= '</p>';
                                                                                                 $message .= '<p>';
-                                                                                                    $message .= 'voici son mail pour le recontacter : <a href="mailto:test@test.com">nom + prenom</a>';
+                                                                                                    $message .= 'voici son mail pour le recontacter : '.$destinataire.'</a>';
                                                                                                 $message .= '</p>';
                                                                                             $message .= '</div>';
                                                                                     $message .= '</td>';
