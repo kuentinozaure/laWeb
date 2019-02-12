@@ -4,18 +4,18 @@
 
     margin-bottom: 0;
 
-    padding: 0 40px 30px 40px;
+    padding: 0 40% 30% 40%;
 
 }
 
 #imgbox{
-    width:150px;
-    height:150px;
-
+    width:30%;
+    float: left;
 }
 
 .container{
   text-align:center;
+  width: 100%;
 }
 
 .row{
@@ -34,7 +34,7 @@
 
 #leftlink{
     margin-left: 85%;
-    font-size: 150%;
+    font-size: 100%;
     float: left;
 
 }
@@ -42,7 +42,7 @@
 #titreactivite {
     margin-left: 3%;
     width: 4%;
-    font-size: 300%;
+    font-size: 100%;
 }
 
 #descriptiononglet{
@@ -54,12 +54,12 @@
 }
 
 .thumbnail{
-    height: 150px;
-    width: 150px;
+    height: 100%;
+    width: 100%;
 }
 
 #titreonglet{
-    font-size: 600%;
+    font-size: 100%;
 }
 
 #BtAct{

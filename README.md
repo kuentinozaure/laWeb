@@ -42,3 +42,18 @@ http://laweb.alwaysdata.net/?choix=11
 
 ## RECUPERATION DES MEMBRES NON VALIDE
 http://laweb.alwaysdata.net/?choix=12
+
+## VALIDATION D'UNE ACTIVITE 
+http://laweb.alwaysdata.net/?choix=13&idActivite=['idActivite']&idResponsable=['idResponsable']
+
+## CREER UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']&nombrePlaceDispo=['nombrePlaceDispo']&idOrganisateur=['idOrganisateur']
+
+##  RECUPERATION DES ACTIVITE NON VALIDE
+http://laweb.alwaysdata.net/?choix=15
+
+## SUPPRESSION D'UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=16&idAct=['idAct']
+
+## MODIFICATION D'UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=17&idAct=['idAct']&'titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']

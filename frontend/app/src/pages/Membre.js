@@ -76,7 +76,7 @@ class Membre extends Component {
                   <div class="form-group">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prenom" class="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" placeholder="Prénom" class="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
                   
@@ -90,7 +90,7 @@ class Membre extends Component {
                   <div class="form-group">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Telephone" class="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" placeholder="Téléphone" class="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 
