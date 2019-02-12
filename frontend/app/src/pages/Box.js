@@ -22,7 +22,8 @@ class Box extends Component {
       adresse: '',
       ufr: [],
       numero: '',
-      newsletter: false
+      newsletter: false,
+      ufrSelected:"",
       //listeUfr : []
     };
   }
@@ -96,11 +97,10 @@ display(){
                             </div>
 
                             <div className="form-group">
-                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
                               {
-                                this.state.ufr.map((ufr, index) =>
-                                <option id={ufr.id} >{ufr.id} - {ufr.ufr}</option>
-                              )}
+                                this.displayUfr()
+                              }
                               </select>
                             </div>
                   
@@ -188,11 +188,10 @@ display(){
                             </div>
 
                             <div className="form-group">
-                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
                               {
-                                this.state.ufr.map((ufr, index) =>
-                                <option id={ufr.id} >{ufr.id} - {ufr.ufr}</option>
-                              )}
+                                this.displayUfr()
+                              }
                               </select>
                             </div>
                   
@@ -247,7 +246,7 @@ render(){
   }
 */
   handleSubmit(event) {
-    const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
+    const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufrSelected+'&idAct='+this.props.modnom
     axios.get(url)
       .then(response => {
         this.handleClose();
@@ -257,12 +256,21 @@ render(){
       });
     }
 
+    displayUfr(){
+      let listUfr = [];
+      let content;
+      content = this.state.ufr.map((ufr, index) =>{
+        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.ufr}</option>)
+      })
+      return content = listUfr
+    }
     componentDidMount() {
       const url = 'http://laweb.alwaysdata.net/?choix=11';
       axios.get(url)
         .then(response => {
           let i
           let tab =[]
+          
           for (i = 0; i < response.data.ufr.length; i++) {
             tab.push(response.data.ufr[i]);
           }
@@ -273,8 +281,11 @@ render(){
         .catch(error => {
           console.log(error);
         });
+
+        
     }
     }
+
 
     const mapStateToProps = state => {
       return { sessionConnect: state.sessionReducer}
