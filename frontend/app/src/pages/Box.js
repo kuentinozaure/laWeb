@@ -32,7 +32,7 @@ class Box extends Component {
   handleShow() {
     this.setState({ show: true });
   }
-
+//
   render() {
     return (
       <div>
@@ -41,7 +41,7 @@ class Box extends Component {
             <div className="container">
               <div className="well">
                 <div className="media">
-                  <img id="imgbox" src="https://image.freepik.com/free-icon/activity-feed_318-1665.jpg" alt="Image"/>
+                  {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" alt="Image"/>*/}
                   <div className="media-body">
                     <h2 className="media-heading">{this.props.modtitre}</h2>
                     <h3><p>{this.props.moddescription}</p></h3>
