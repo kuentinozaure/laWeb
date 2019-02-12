@@ -20,9 +20,6 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-
-
-// Import pour redux
 import { connect } from 'react-redux';
 import Navigation from "../pages/components/Navigation/Navigation";
 
