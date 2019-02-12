@@ -18,10 +18,8 @@ class ListeMembreAdmin extends Component {
           .then(response => { 
             let i
             let tab =[]
-            for (i = 0; i < response.data.length; i++) {
-                console.log(""+response.data.membres)
+            for (i = 0; i < response.data.membres.length; i++) {
               tab.push(response.data.membres[i]);
-              console.log(response.data.membres)
             }
             this.setState({
               membres: tab,

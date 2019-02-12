@@ -97,7 +97,7 @@ class Box extends Component {
                               <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
                               {
                                 this.state.ufr.map((ufr, index) =>
-                                <option id={index} >{index} - {ufr.ufr}</option>
+                                <option id={ufr.id} >{ufr.id} - {ufr.ufr}</option>
                               )}
                               </select>
                             </div>
