@@ -34,7 +34,7 @@ const Navigation = () => {
             </li>
             <li>
               <NavLink exact={true} activeClassName='is-active' to="/contact" className="menu_text" >
-                Contact
+                Contacts
               </NavLink>
             </li>
             <li>
