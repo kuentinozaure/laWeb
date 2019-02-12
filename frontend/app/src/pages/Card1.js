@@ -17,7 +17,7 @@ class Card1 extends Component {
           <p className="text-uppercase blue-text"><strong>Membre</strong></p>
           <p className="grey-text">{this.props.description}</p>
           <p className="grey-text"><a className="fa fa-comments text-muted c-info" href={"mailto:"+this.props.mail}>Me contacter</a></p><br/><br/>
-          <span className="name">| laWeb |</span>
+          <span className="name">| LaWeb |</span>
         </div>
         <div className="clearfix"></div>
       </li>
