@@ -28,8 +28,8 @@ class NavbarMembres extends Component {
                   Activités
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="/listeActiviteAdmin">Liste des activités</a>
-                  <a className="dropdown-item" href="/gererActiviteAdmin">Gérer les activités</a>
+                  <a className="dropdown-item" href="#listeActiviteAdmin">Liste des activités</a>
+                  <a className="dropdown-item" href="#gererActiviteAdmin">Gérer les activités</a>
                 </div>
               </li>
               <li className="nav-item dropdown">
@@ -37,8 +37,8 @@ class NavbarMembres extends Component {
                   Membres
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a className="dropdown-item" href="/listeMembreAdmin">Liste des membres</a>
-                  <a className="dropdown-item" href="/gererMembreAdmin">Gérer les membres</a>
+                <a className="dropdown-item" href="#listeMembreAdmin">Liste des membres</a>
+                  <a className="dropdown-item" href="#gererMembreAdmin">Gérer les membres</a>
                 </div>
               </li>
               <li className="nav-item dropdown">
@@ -56,7 +56,7 @@ class NavbarMembres extends Component {
                   Mon compte
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="/infoCompte">Informations de mon compte</a>
+                  <a className="dropdown-item" href="#infoCompte">Informations de mon compte</a>
                 </div>
               </li>
             </ul>

@@ -60,7 +60,7 @@ class GererActiviteAdmin extends Component {
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
                         <a className='btn btn btn-info btn-sm' href="#" align="center">
-                            Ajouter une activité
+                            Proposer une activité
                         </a>
                         <table className="table table-striped custab">
                         <thead>
