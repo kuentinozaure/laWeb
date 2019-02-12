@@ -3,6 +3,7 @@ import axios from 'axios'
 
 
 
+
 class FormulaireCard extends Component {
     
 constructor(props) {
@@ -31,6 +32,9 @@ constructor(props) {
     const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
     axios.get(url)
       .then(response => {
+        alert(
+          'Mail envoyé',
+        )
         console.log('mail envoye')
       })
       .catch(error => {

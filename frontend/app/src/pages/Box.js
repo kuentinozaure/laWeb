@@ -16,12 +16,12 @@ class Box extends Component {
     this.state = {
       show: false,
       name: '',
-      prenom: '', 
-      ufr: 0,
+      prenom: '',
       adresse: '',
+      ufr: [],
       numero: '',
-      newsletter: false,
-      listeUfr : [],
+      newsletter: false
+      //listeUfr : []
     };
   }
 
@@ -32,43 +32,41 @@ class Box extends Component {
   handleShow() {
     this.setState({ show: true });
   }
-
+//
   render() {
     return (
-
-
-
-
       <div>
-
-<div className="container">
-  <div className="well">
-      <div className="media">
-  		  <div className="media-body">
-    		<h2 className="media-heading">{this.props.modtitre}</h2>
-        <h3><p>{this.props.moddescription}</p></h3>
-        <ul className="list-inline list-unstyled">
-          <li>|</li>
-          <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
-          <li>|</li>
-          <span><i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES</span>
-          <li>|</li>
-          <li>
-              <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
-          </li>
-          <li>|</li>
-			  </ul>
-        <Button id="BtAct" className="center-right" onClick={this.handleShow}>
-          INSCRIVEZ-VOUS
-        </Button>
-       </div>
-    </div>
-  </div>
-
-      </div>
-
-
-      
+        <div className="container">
+          <div className="row">
+            <div className="container">
+              <div className="well">
+                <div className="media">
+                  {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" alt="Image"/>*/}
+                  <div className="media-body">
+                    <h2 className="media-heading">{this.props.modtitre}</h2>
+                    <h3><p>{this.props.moddescription}</p></h3>
+                    <ul className="list-inline list-unstyled">
+                      <li>|</li>
+                      <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
+                      <li>|</li>
+                      <span>
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                      </span>
+                      <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
+                      </li>
+                      <li>|</li>
+			              </ul>
+                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                      INSCRIVEZ-VOUS
+                    </Button> 
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
@@ -92,9 +90,10 @@ class Box extends Component {
 
                             <div className="form-group">
                               <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
-                                  <option id="1" >1 -Sciences Espaces et Sociétés</option>
-                                  <option id="2" >2 - Langue Etrangères Appliquées</option>
-                                  <option id="3" >3 - Histoire</option>
+                              {
+                                this.state.ufr.map((ufr, index) =>
+                                <option id={ufr.id} >{ufr.id} - {ufr.ufr}</option>
+                              )}
                               </select>
                             </div>
                   
@@ -130,7 +129,7 @@ class Box extends Component {
   }
 
 
-  displaySelect(){
+  /*displaySelect(){
     let i;
     let option =[];
     for (i = 0; i < this.state.listeUfr.length; i++) {
@@ -139,7 +138,7 @@ class Box extends Component {
       
     }
   }
-
+*/
   handleSubmit(event) {
     const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
     axios.get(url)
@@ -154,23 +153,20 @@ class Box extends Component {
     componentDidMount() {
       const url = 'http://laweb.alwaysdata.net/?choix=11';
       axios.get(url)
-
-        let i;
-        let tab =[];
-        axios.get(url)
         .then(response => {
+          let i
+          let tab =[]
           for (i = 0; i < response.data.ufr.length; i++) {
-            tab.push(response.data.ufr);
+            tab.push(response.data.ufr[i]);
           }
           this.setState({
-            listeUfr: tab,
+            ufr: tab,
           });
-
         })
         .catch(error => {
           console.log(error);
         });
-      }
+    }
     }
 
 export default Box;

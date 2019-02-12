@@ -7,11 +7,12 @@ import Astuce from './../pages/Astuce';
 import Section from './../pages/Section';
 import ListeActivite from './../pages/ListeActivite';
 import Inscription from './../pages/Inscription';
-import ValidMembers from './../pages/ValidationMembre.js';
-import ValidActivity from './../pages/ValidationActivite.js';
-import createActivity from './../pages/CreateActivite.js';
 import Member from './../pages/membersView.js';
-import UpdatePass from './../pages/updatePass.js';
+import ListeActiviteAdmin from './../pages/ListeActiviteAdmin.js';
+import GererActiviteAdmin from './../pages/GererActiviteAdmin.js';
+import ListeMembreAdmin from './../pages/ListeMembreAdmin.js';
+import GererMembreAdmin from './../pages/GererMembreAdmin.js';
+import InfoCompte from './../pages/InfoCompte.js';
 
 import {
   HashRouter as Router,
@@ -53,14 +54,15 @@ class LaWebRouter extends Component {
           <Route path='/activite'component={ListeActivite}/>
           <Route path='/inscription'component={Inscription}/>
           
-          <Route path='/validMembers'component={ValidMembers}/>
-          <Route path='/validActivity'component={ValidActivity}/>
-          <Route path='/createActivity'component={createActivity}/>
-          <Route path='/member'component={Member}/>
-          <Route path ='/updatePass' component = {UpdatePass}/>
           <Route path ='/navigation' component = {Navigation}/>
+          <Route path='/listeActiviteAdmin'component={ListeActiviteAdmin}/>
+          <Route path='/gererActiviteAdmin'component={GererActiviteAdmin}/>
+          <Route path='/listeMembreAdmin'component={ListeMembreAdmin}/>
+          <Route path='/gererMembreAdmin'component={GererMembreAdmin}/>
+          <Route path='/member'component={Member}/>
+          <Route path ='/infoCompte' component = {InfoCompte}/>
           <Route component={Error} />
-          <PrivateRoute component={Accueil} isConnected={this.props.sessionConnect.isConnected} />
+          {/* <PrivateRoute component={Accueil} isConnected={this.props.sessionConnect.isConnected} /> */}
         </Switch>
       </Router>
     );

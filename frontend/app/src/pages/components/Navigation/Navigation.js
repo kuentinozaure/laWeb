@@ -50,12 +50,12 @@ class Navigation extends Component {
                 </li>
                 <li>
                   <a href="#/contact" exact={true} activeClassName='is-active' className="menu_text" >
-                    Contact
+                    Contacts
                   </a>
                 </li>
                 <li>
                 <a href="#member" exact={true} activeClassName='is-active'  className="menu_text">
-                  Comptes
+                  Membres
                 </a>
                 </li>          
               </ul>
@@ -107,7 +107,7 @@ class Navigation extends Component {
                 </li>
                 <li>
                   <a href="#/contact" exact={true} activeClassName='is-active' className="menu_text" >
-                    Contact
+                    Contacts
                   </a>
                 </li>
                 <li>

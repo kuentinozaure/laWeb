@@ -28,9 +28,8 @@ class NavbarMembres extends Component {
                   Activites
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#validActivity">Valider des activites</a>
-                  <a className="dropdown-item" href="#createActivity">Creer des activites</a>
-                  <a className="dropdown-item" href="#">Supprimer des activites</a>
+                  <a className="dropdown-item" href="/listeActiviteAdmin">Liste des activités</a>
+                  <a className="dropdown-item" href="/gererActiviteAdmin">Gérer les activités</a>
                 </div>
               </li>
               <li className="nav-item dropdown">
@@ -38,9 +37,8 @@ class NavbarMembres extends Component {
                   Membres
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#validMembers">Valider des membres</a>
-                  <a className="dropdown-item" href="#">Modification membres</a>
-                  <a className="dropdown-item" href="#">Suppression membres</a>
+                <a className="dropdown-item" href="/listeMembreAdmin">Liste des membres</a>
+                  <a className="dropdown-item" href="/gererMembreAdmin">Gérer les membres</a>
                 </div>
               </li>
               <li className="nav-item dropdown">
@@ -58,9 +56,7 @@ class NavbarMembres extends Component {
                   Mon compte
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#updatePass">Changer mon mot de passe</a>
-                  <a className="dropdown-item" href="#">Changer mes info</a>
-                  <a className="dropdown-item" href="#">Supprimer mon compte</a>
+                  <a className="dropdown-item" href="/infoCompte">Informations de mon compte</a>
                 </div>
               </li>
             </ul>
