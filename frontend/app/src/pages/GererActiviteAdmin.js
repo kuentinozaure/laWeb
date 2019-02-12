@@ -1,131 +1,86 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
+import ActiviteNonValide from './ActiviteNonValide.js';
+import axios from 'axios';
 
 class GererActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activites: []
         };
       }
 
+      componentDidMount() {
+        const url = 'http://laweb.alwaysdata.net/?choix=15';
+        axios.get(url)
+          .then(response => {
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.activite.length; i++) {
+              tab.push(response.data.activite[i]);
+            }
+            this.setState({
+              activites: tab,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
 
-    render() {
+          
+      }
+
+      display(){
+        let listeActivite =[]
+        let content = this.state.activites.map((activite, index) => {
+    
+          listeActivite.push(
+              < ActiviteNonValide 
+                titre={activite.titre}
+                description={activite.description}
+                dateDebut={activite.dateDebut}
+                dateFin={activite.dateFin}
+                salle={activite.salle}
+                nombrePlaceDispo={activite.nombrePlaceDispo}
+                />
+            );
+        });
+        
+        return content = listeActivite;
+      }      
+
+      render() {
         return (
-
             <div>
-                <br></br>
             <br></br>
-                 <NavbarMembres/>
-                        <div class="container">
-                        <div class="row col-md-12 col-md-offset-2 custyle">
-                        <table class="table table-striped custab">
+            <br></br>
+                    <NavbarMembres/>
+                        <div className="container">
+                        <div className="row col-md-12 col-md-offset-2 custyle">
+                        <a className='btn btn btn-info btn-sm' href="#" align="center">
+                            Ajouter une activité
+                        </a>
+                        <table className="table table-striped custab">
                         <thead>
                             <tr>
-                                <th>Id Client</th>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th class="text-center">Action</th>
+                                <th>Titre</th>
+                                <th>Description</th>
+                                <th>Date de début</th>
+                                <th>Date de fin</th>
+                                <th>Salle</th>
+                                <th>Nombre de places</th>
+                                <th className="text-center">Action</th>
                             </tr>
                         </thead>
-                                <tr>
-                                    <td>0</td>
-                                    <td>TEST</td>
-                                    <td>XXXXXXXXXXXXX</td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            Edit
-                                        </a> 
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove">
-                                            </span> 
-                                            Del
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0</td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="TEST" /></td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXX" /></td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            OK
-                                        </a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>TEST</td>
-                                    <td>XXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            Edit
-                                        </a> 
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove">
-                                            </span> 
-                                            Del
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="TEST" /></td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXXX" /></td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            OK
-                                        </a> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>XXXXXXXXXXXXXXXXXXXXXXX</td>
-                                    <td>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</td>
-                                    <td class="text-right">
-                                        <a class='btn btn-info btn-sm' href="#">
-                                            <span class=" glyphicon-pencil"/>
-                                            Edit
-                                        </a> 
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <span class="glyphicon glyphicon-remove">
-                                            </span> 
-                                            Del
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXX" /></td>
-                                    <td><input type="text" class="  search-query form-control" placeholder="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" /></td>
-                                    <td class="text-right">
-                                        <a class='btn btn btn-info btn-sm' href="#">
-                                            <span class="glyphicon glyphicon-edit">
-                                            </span> 
-                                            OK
-                                        </a> 
-                                    </td>
-                                </tr>
+                        <tbody>
+                            {this.display()}
+                        </tbody>
                         </table>
-                        </div>
-                            <div class="row col-md-12 col-md-offset-2 custyle">
-                            <div class="col-md-4">             
-                            </div>
-                            <div class="col-md-4">  
-                            </div>
-                            <div class="col-md-4">  
-                                <a href="#" class="btn btn-primary btn-sm pull-right"><b>+</b></a>
-                            </div>
                         </div>
                     </div>
                 </div>
+
         );
       }
 }
