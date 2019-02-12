@@ -1,30 +1,30 @@
 import React,{ Component } from 'react';
 
-class MembreNonValide  extends React.Component {
+class ActiviteValide  extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
         };
       }
-
-   
 
     render() {
         return (
             <React.Fragment> 
             <tr>
-                <td>{this.props.nom}</td>
-                <td>{this.props.prenom}</td>    
-                <td>{this.props.login}</td>
-                <td>{this.props.telephone}</td>
-                <td>{this.props.mail}</td>
-                <td>{this.props.description}</td>
+                {console.log(this.state.id)}
+                <td>{this.props.titre}</td>
+                <td>{this.props.description}</td>    
+                <td>{this.props.dateDebut}</td>
+                <td>{this.props.dateFin}</td>
+                <td>{this.props.salle}</td>
+                <td>{this.props.nombrePlaceDispo}</td>
                 <td className="text-right">
                 <a className='btn btn btn-info btn-sm' href="#">
-                        Valider
+                        Modifier
                 </a>
                 <a className='btn btn btn-danger btn-sm' href="#">
-                        Refuser
+                        Supprimer
                 </a>  
                 </td>
             </tr>
@@ -34,4 +34,4 @@ class MembreNonValide  extends React.Component {
       }
 }
 
-export default MembreNonValide;
+export default ActiviteValide;

@@ -60,7 +60,7 @@ class Membre extends Component {
                     <div class="panel-body">
                       <div class="text-center">
                         <h3><i class="fa fa-user fa-4x"></i></h3>
-                        <h2 class="text-center">Vous voulez devenir membre?</h2>
+                        <h2 class="text-center">Vous voulez devenir membre ?</h2>
                         <p>Faites votre demande ici</p>
                         <div class="panel-body">
           
