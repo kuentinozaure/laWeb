@@ -17,7 +17,6 @@ import ListeActiviteAdmin from './ListeActiviteAdmin.js';
 import GererMembreAdmin from './GererMembreAdmin.js';
 import ListeMembreAdmin from './ListeMembreAdmin.js';
 import InfoCompte from './InfoCompte.js';
-import UpdatePass from './updatePass.js';
 import Navigation from "./components/Navigation/Navigation";
 import Footer from "./components/Navigation/Footer";
 
