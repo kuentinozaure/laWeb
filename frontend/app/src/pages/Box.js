@@ -32,43 +32,41 @@ class Box extends Component {
   handleShow() {
     this.setState({ show: true });
   }
-
+//
   render() {
     return (
-
-
-
-
       <div>
-
-<div className="container">
-  <div className="well">
-      <div className="media">
-  		  <div className="media-body">
-    		<h2 className="media-heading">{this.props.modtitre}</h2>
-        <h3><p>{this.props.moddescription}</p></h3>
-        <ul className="list-inline list-unstyled">
-          <li>|</li>
-          <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
-          <li>|</li>
-          <span><i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES</span>
-          <li>|</li>
-          <li>
-              <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
-          </li>
-          <li>|</li>
-			  </ul>
-        <Button id="BtAct" className="center-right" onClick={this.handleShow}>
-          INSCRIVEZ-VOUS
-        </Button>
-       </div>
-    </div>
-  </div>
-
-      </div>
-
-
-      
+        <div className="container">
+          <div className="row">
+            <div className="container">
+              <div className="well">
+                <div className="media">
+                  {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" alt="Image"/>*/}
+                  <div className="media-body">
+                    <h2 className="media-heading">{this.props.modtitre}</h2>
+                    <h3><p>{this.props.moddescription}</p></h3>
+                    <ul className="list-inline list-unstyled">
+                      <li>|</li>
+                      <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
+                      <li>|</li>
+                      <span>
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                      </span>
+                      <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
+                      </li>
+                      <li>|</li>
+			              </ul>
+                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                      INSCRIVEZ-VOUS
+                    </Button> 
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
