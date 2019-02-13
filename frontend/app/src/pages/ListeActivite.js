@@ -42,6 +42,7 @@ class ListeActivite extends Component {
         this.setState({
           activities: tab,
         });
+        console.log(this.state.activities);
       })
       .catch(error => {
         console.log(error);
@@ -50,35 +51,13 @@ class ListeActivite extends Component {
   }
 
   display(){
-    let listActivity =[]
+    let listActivityEvent =[]
+    let listActivityA =[]
     if(this.activitySearch === ""){
       let content = this.state.activities.map((activity, index) => {
-
-        listActivity.push(
-            <Box 
-                imgnom= {activity.titre}
-                modnom= {activity.id}
-                modtitre={activity.titre}
-                moddate= {activity.dateDebut}
-                modnbplace={activity.placeDispo}
-                modnbplaceRestante={activity.placeRestante}
-                moddescription={activity.description}
-            />
-          );
-      });
-      
-      return content = listActivity;
-
-    }else{
-      let titre="";
-      let description = "";
-
-      let content = this.state.activities.map((activity, index) => {
-        titre = activity.titre;
-        description = activity.description
-
-        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch)){
-          listActivity.push(
+        
+        if(activity.type == "EVENEMENT"){
+          listActivityEvent.push(
             <Box 
                 imgnom= {activity.titre}
                 modnom= {activity.id}
@@ -90,9 +69,86 @@ class ListeActivite extends Component {
             />
           );
         }
+        else{
+          listActivityA.push(
+            <Box 
+                imgnom= {activity.titre}
+                modnom= {activity.id}
+                modtitre={activity.titre}
+                moddate= {activity.dateDebut}
+                modnbplace={activity.placeDispo}
+                modnbplaceRestante={activity.placeRestante}
+                moddescription={activity.description}
+            />
+          );
+        }
+        
       });
       
-      return content = listActivity;
+      return (
+          <div>
+          <div class="container">
+            <h1>Evènements</h1>
+              {content = listActivityEvent}   
+          </div>
+          <div class="container">
+              <h1>Ateliers</h1>
+                {content = listActivityA}   
+          </div>
+          </div>
+      );
+      
+
+    }else{
+      let titre="";
+      let description = "";
+
+      let content = this.state.activities.map((activity, index) => {
+        titre = activity.titre;
+        description = activity.description
+
+        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch)){
+          if(activity.type == "EVENEMENT"){
+            listActivityEvent.push(
+              <Box 
+                  imgnom= {activity.titre}
+                  modnom= {activity.id}
+                  modtitre={activity.titre}
+                  moddate= {activity.dateDebut}
+                  modnbplace={activity.placeDispo}
+                  modnbplaceRestante={activity.placeRestante}
+                  moddescription={activity.description}
+              />
+            );
+          }
+          else{
+            listActivityA.push(
+              <Box 
+                  imgnom= {activity.titre}
+                  modnom= {activity.id}
+                  modtitre={activity.titre}
+                  moddate= {activity.dateDebut}
+                  modnbplace={activity.placeDispo}
+                  modnbplaceRestante={activity.placeRestante}
+                  moddescription={activity.description}
+              />
+            );
+          }
+        }
+      });
+      
+      return (
+        <div>
+        <div class="container">
+          <h1>Evènements</h1>
+            {content = listActivityEvent}   
+        </div>
+        <div class="container">
+            <h1>Ateliers</h1>
+              {content = listActivityA}   
+        </div>
+        </div>
+    );
     }
   }
 
