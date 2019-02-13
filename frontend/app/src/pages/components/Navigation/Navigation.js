@@ -36,12 +36,12 @@ class Navigation extends Component {
                 <ul id="list_menu">
                 <li>
                   <a href="#" exact={true} activeClassName='is-active' className="menu_text">
-                    Accueil
+                    Viens Découvrir
                   </a>
                 </li>
                 <li>
                   <a href="#activite"  exact={true} activeClassName='is-active' className="menu_text">
-                    Viens découvrir
+                    Nos Activités
                   </a>
                 </li>
                 <li>
@@ -55,8 +55,8 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                <a href="#member" exact={true} activeClassName='is-active'  className="menu_text">
-                  Membres
+                <a href="#reseaux" exact={true} activeClassName='is-active'  className="menu_text">
+                  Gestion
                 </a>
                 </li>          
               </ul>
@@ -92,12 +92,12 @@ class Navigation extends Component {
                 <ul id="list_menu">
                 <li>
                   <a href="#" exact={true} activeClassName='is-active' className="menu_text">
-                    Accueil
+                    Viens Découvrir
                   </a>
                 </li>
                 <li>
                   <a href="#activite"  exact={true} activeClassName='is-active' className="menu_text">
-                    Viens découvrir
+                    Nos Activités
                   </a>
                 </li>
                 <li>
@@ -106,13 +106,13 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="#/contact" exact={true} activeClassName='is-active' className="menu_text" >
+                  <a href="#contact" exact={true} activeClassName='is-active' className="menu_text" >
                     Contacts
                   </a>
                 </li>
                 <li>
-                <a href="#membre" exact={true} activeClassName='is-active'  className="menu_text">
-                  Rejoins nous
+                <a href="#reseaux" exact={true} activeClassName='is-active'  className="menu_text">
+                  Restons Connectés
                 </a>
                 </li>          
               </ul>

@@ -13,6 +13,7 @@ import GererActiviteAdmin from './../pages/GererActiviteAdmin.js';
 import ListeMembreAdmin from './../pages/ListeMembreAdmin.js';
 import GererMembreAdmin from './../pages/GererMembreAdmin.js';
 import InfoCompte from './../pages/InfoCompte.js';
+import Reseaux from './../pages/Reseaux.js';
 
 import {
   HashRouter as Router,
@@ -50,7 +51,7 @@ class LaWebRouter extends Component {
           <Route path='/contact'component={Section}/>
           <Route path='/activite'component={ListeActivite}/>
           <Route path='/inscription'component={Inscription}/>
-          
+          <Route path='/reseaux' component={Reseaux}/>
           <Route path ='/navigation' component = {Navigation}/>
           <Route path='/listeActiviteAdmin'component={ListeActiviteAdmin}/>
           <Route path='/gererActiviteAdmin'component={GererActiviteAdmin}/>

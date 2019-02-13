@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import Mdp from "./Mdp.js";
-import axios from 'axios';
-import MemberPage from './membersView.js'
 
 import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
 
-import sessionReducer from './../LaWeb_reducer/session_reducer'
 
 class Connexion extends React.Component {
     constructor(props) {

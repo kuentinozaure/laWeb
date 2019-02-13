@@ -38,7 +38,7 @@
 
         $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ACTIVITE";
         //$req="SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE";
-        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER,ORGANISER WHERE ACTIVITE.id_activite =ORGANISER.id_activite AND PARTICIPER.id_activite = ACTIVITE.id_activite AND ACTIVITE.id_president IN (SELECT PRESIDENT.id_president FROM PRESIDENT) GROUP BY id_activite";
+        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante,type_activite,UTILISATEUR.nom,UTILISATEUR.prenom FROM ACTIVITE,PARTICIPER,ORGANISER,UTILISATEUR WHERE ACTIVITE.id_activite =ORGANISER.id_activite AND PARTICIPER.id_activite = ACTIVITE.id_activite AND UTILISATEUR.id_utilisateur = ORGANISER.id_membre AND ACTIVITE.id_president IN (SELECT PRESIDENT.id_president FROM PRESIDENT) GROUP BY id_activite";
         $i=0;
         $res=$connexion->query($req);
 
@@ -53,6 +53,8 @@
             $retour['activite'][$i]['salle'] = $ligne[5];
             $retour['activite'][$i]['placeDispo'] = $ligne[6];
             $retour['activite'][$i]['placeRestante'] = $ligne[7];
+            $retour['activite'][$i]['type'] = $ligne[8];
+            $retour['activite'][$i]['animateur'] = $ligne[9]." ".$ligne[10];
             $i++;
         }
         
@@ -515,6 +517,23 @@ case 17 : //MODIFICATION DES INFORMATIONS D'UNE ACTIVITE
 	    $retour['ooo'] =  $req;
         $retour['OK'] ="MODIFICATION D'UNE ACTIVITE";
 break;
+case 18 : //AJOUT D'UN ABONNE A LA NEWS LETTER
+        //http://laweb.alwaysdata.net/?choix=18&nom=['nom']&prenom=['prenom']&mail=['mail']
+
+        $retour['choixUtilisateur'] ="MODIFICATION D'UNE ACTIVITE";
+
+       
+        $nom = $_GET['nom'];
+        $prenom = $_GET['prenom'];
+        $mail = $_GET['mail'];
+
+        $req ="INSERT INTO NEWSLETTER (id, nom, prenom, mail) VALUES (NULL, '".$nom."', '".$prenom."', '".$mail."')";
+        $res=$connexion->exec($req);
+        $retour['OK'] = "add Activity";
+break;
+
+
+
     }
         echo json_encode($retour);
 ?>
