@@ -64,24 +64,67 @@ class Astuce extends Component {
       }
 
     display () {
-        let listeAstuce =[]
+        let listeAstuceFaculté =[]
+        let listeAstuceBureautique =[]
+        let listeAstuceApprends =[]
         if(this.astuceSearch === ""){
             let content = this.state.astuces.map((astuce, index) => {
                 
-                listeAstuce.push(
-                    <BoxAstuce 
-                        modtitre={astuce.titre}
-                        modlien={astuce.lienAstuce}
-                        modid={astuce.id}
-                        modauteur={astuce.auteur}
-                        modimage={astuce.image}
-                        modtype={astuce.type}
-                        moddescription={astuce.description}
-                    />
+              if(astuce.type == "Faculté"){
+                listeAstuceFaculté.push(
+                  <BoxAstuce 
+                      modtitre={astuce.titre}
+                      modlien={astuce.lienAstuce}
+                      modid={astuce.id}
+                      modauteur={astuce.auteur}
+                      modimage={astuce.image}
+                      modtype={astuce.type}
+                      moddescription={astuce.description}
+                  />
+              );
+              }
+              else if(astuce.type == "Bureautique"){
+                listeAstuceBureautique.push(
+                  <BoxAstuce 
+                      modtitre={astuce.titre}
+                      modlien={astuce.lienAstuce}
+                      modid={astuce.id}
+                      modauteur={astuce.auteur}
+                      modimage={astuce.image}
+                      modtype={astuce.type}
+                      moddescription={astuce.description}
+                  />
                 );
-            
+              }else{
+                listeAstuceApprends.push(
+                  <BoxAstuce 
+                      modtitre={astuce.titre}
+                      modlien={astuce.lienAstuce}
+                      modid={astuce.id}
+                      modauteur={astuce.auteur}
+                      modimage={astuce.image}
+                      modtype={astuce.type}
+                      moddescription={astuce.description}
+                  />
+                );
+              }
             });
-            return content = listeAstuce;
+              return (
+                <div>
+                <div class="container">
+                  <h1>Faculté</h1>
+                    {content = listeAstuceFaculté}   
+                </div>
+                <div class="container">
+                    <h1>Bureautique</h1>
+                      {content = listeAstuceBureautique}   
+                </div>
+                <div class="container">
+                    <h1>Apprends avec nous</h1>
+                      {content = listeAstuceApprends}   
+                </div>
+                </div>
+            );
         } else{
             let titre="";
             let description = "";
@@ -96,21 +139,62 @@ class Astuce extends Component {
                     auteur = astuce.auteur;
 
                     if(titre.includes(this.state.astuceSearch) || description.includes(this.state.astuceSearch) || auteur.includes(this.state.astuceSearch)){
-                    
-                    listeAstuce.push(
-                        <BoxAstuce 
-                            modtitre={astuce.titre}
-                            modlien={astuce.lienAstuce}
-                            modid={astuce.id}
-                            modauteur={astuce.auteur}
-                            modimage={astuce.image}
-                            modtype={astuce.type}
-                            moddescription={astuce.description}
-                        />
-                    );
+                      if(astuce.type == "Faculté"){
+                        listeAstuceFaculté.push(
+                          <BoxAstuce 
+                              modtitre={astuce.titre}
+                              modlien={astuce.lienAstuce}
+                              modid={astuce.id}
+                              modauteur={astuce.auteur}
+                              modimage={astuce.image}
+                              modtype={astuce.type}
+                              moddescription={astuce.description}
+                          />
+                      );
+                      }
+                      else if(astuce.type == "Bureautique"){
+                        listeAstuceBureautique.push(
+                          <BoxAstuce 
+                              modtitre={astuce.titre}
+                              modlien={astuce.lienAstuce}
+                              modid={astuce.id}
+                              modauteur={astuce.auteur}
+                              modimage={astuce.image}
+                              modtype={astuce.type}
+                              moddescription={astuce.description}
+                          />
+                        );
+                      }else{
+                        listeAstuceApprends.push(
+                          <BoxAstuce 
+                              modtitre={astuce.titre}
+                              modlien={astuce.lienAstuce}
+                              modid={astuce.id}
+                              modauteur={astuce.auteur}
+                              modimage={astuce.image}
+                              modtype={astuce.type}
+                              moddescription={astuce.description}
+                          />
+                        );
+                      }
                     }
-                });
-                return content = listeAstuce;
+                    });
+                      return (
+                        <div>
+                        <div class="container">
+                          <h1>Faculté</h1>
+                            {content = listeAstuceFaculté}   
+                        </div>
+                        <div class="container">
+                            <h1>Bureautique</h1>
+                              {content = listeAstuceBureautique}   
+                        </div>
+                        <div class="container">
+                            <h1>Apprends avec nous</h1>
+                              {content = listeAstuceApprends}   
+                        </div>
+                        </div>
+                    );
         
 }}
 
