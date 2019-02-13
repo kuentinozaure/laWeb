@@ -104,12 +104,14 @@ class ListeActivite extends Component {
     }else{
       let titre="";
       let description = "";
+      let typeEvenement = "";
 
       let content = this.state.activities.map((activity, index) => {
         titre = activity.titre;
         description = activity.description
+        typeEvenement = activity.type
 
-        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch)){
+        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch) || typeEvenement.includes(this.state.activitySearch)){
           if(activity.type == "EVENEMENT"){
             listActivityEvent.push(
               <Box 
