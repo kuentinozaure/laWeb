@@ -531,9 +531,44 @@ case 18 : //AJOUT D'UN ABONNE A LA NEWS LETTER
         $res=$connexion->exec($req);
         $retour['OK'] = "add Activity";
 break;
+case 19 : //RECUPERATION DE TOUTE LES  ASTUCE
+                //http://laweb.alwaysdata.net/?choix=19
 
+        $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ASTUCE";
+        $req= "SELECT id,titre,description,auteur,image,lienAstuce,type FROM ASTUCE";
+        $i=0;
+        $res=$connexion->query($req);
 
-
+        
+        while($ligne=$res->fetch())
+        {
+            $retour['astuce'][$i]['id'] = $ligne[0];
+            $retour['astuce'][$i]['titre'] = $ligne[1];
+            $retour['astuce'][$i]['description'] = $ligne[2];
+            $retour['astuce'][$i]['auteur'] = $ligne[3];
+            $retour['astuce'][$i]['image'] = $ligne[4];
+            $retour['astuce'][$i]['lienAstuce'] = $ligne[5];
+            $retour['astuce'][$i]['type'] = $ligne[6];
+            $i++;
+        }
+        
+        break;
+        case 20 : 
+        $retour['choixUtilisateur'] ="CREER ASTUCE";
+        //http://laweb.alwaysdata.net/?choix=20&nom=['nom']&description=['description']&auteur=['auteur']&lien=['lien']&type=['type']
+    
+            
+        $titre = $_GET['titre'];
+        $description = $_GET['description'];
+        $auteur = $_GET['auteur'];
+        $lien = $_GET['lien'];
+        $type =  $_GET['type'];
+    
+        $req = "INSERT INTO ASTUCE (id, titre, description, auteur, image, lienAstuce, type) VALUES (NULL, '".$titre."', '".$description."', '".$auteur."', '', '".$lien."', '".$type."')";
+        $res=$connexion->exec($req);
+        $retour['OK'] = "AJOUT DE VOTRE ASTUCES";
+    
+    break;
     }
         echo json_encode($retour);
 ?>
