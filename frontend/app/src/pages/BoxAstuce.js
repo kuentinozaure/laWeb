@@ -33,7 +33,7 @@ class Box extends Component {
                         <ul className="list-inline list-unstyled">
                         <li>|</li>
                         <li><span><i className="glyphicon glyphicon-education"></i>
-                            {this.props.modauteur}
+                            Proposé par : {this.props.modauteur}
                         </span></li>
                         <li>|</li>
                         {console.log(this.props.modlien)}
