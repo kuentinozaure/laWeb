@@ -24,7 +24,8 @@ class Navigation extends Component {
         <header id="header">
         
           <div id="div_titre">
-            <img src="images/logo_mirail.png" alt="logo_ut2j" id="div_logo_mirail" title="Université Jean Jaurès"/>
+          {/* LOGO DU MIRAIL EN ATTENTE DE VALIDATION */}
+            {/* <img src="images/logo_mirail.png" alt="logo_ut2j" id="div_logo_mirail" title="Université Jean Jaurès"/> */}
             <img src="images/logo3.png" alt="logo" id="img_logo"/>
             <h1>~ LaWeb ~</h1>
             <p>Association d'informatique</p>
@@ -79,7 +80,8 @@ class Navigation extends Component {
         <header id="header">
         
           <div id="div_titre">
-            <img src="images/logo_mirail.png" alt="logo_ut2j" id="div_logo_mirail" title="Université Jean Jaurès"/>
+          {/* LOGO DU MIRAIL EN ATTENTE DE VALIDATION */}
+            {/* <img src="images/logo_mirail.png" alt="logo_ut2j" id="div_logo_mirail" title="Université Jean Jaurès"/> */}
             <img src="images/logo3.png" alt="logo" id="img_logo"/>
             <h1>~ LaWeb ~</h1>
             <p>Association d'informatique</p>
