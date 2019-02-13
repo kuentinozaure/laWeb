@@ -13,6 +13,7 @@ class Astuce extends Component {
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     
         this.state = {
           show: false,
@@ -22,6 +23,7 @@ class Astuce extends Component {
           lien: '',
           astuces : [],
           astuceSearch : "",
+          type: "Faculté"
         };
 
        
@@ -112,11 +114,24 @@ class Astuce extends Component {
         
 }}
 
+handleSubmit(event) {
+    const url ="http://laweb.alwaysdata.net/?choix=20&nom="+this.state.titre+"&description="+this.state.description+"&auteur="+this.state.nom+"&lien="+this.state.lien+"&type="+this.state.type
+    console.log(url);
+    alert(url);
+    axios.get(url)
+      .then(response => {
+        this.handleClose();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
     render() {
         return (
             <div>
+            <div>
                 <h1 align="center">Astuces</h1>
-                <a class="btn btn-info btn-lg " role="button" onClick={this.handleShow}>Proposer une astuce</a>
+                <a className="btn btn-info btn-lg " role="button" onClick={this.handleShow}>Proposer une astuce</a>
                 <p></p>
                 <p></p>
                 <h2 align="center">
@@ -126,7 +141,7 @@ class Astuce extends Component {
               <div className="col-12">
                 <div id="custom-search-input">
                   <div className="input-group">
-                      <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
+                      <input type="text" className="search-query form-control" placeholder="Rechercher une astuce" onChange={e => this.handleSearch(e)}/>
                   </div>
                 </div>
               </div>
@@ -134,6 +149,60 @@ class Astuce extends Component {
             <br></br>
                 {this.display()}
             </div>
+            <div className="Box">
+            <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Body>
+                <h2 className="text-center">Vous voulez proposer une astuce ?</h2>
+                <h4 className="text-center">Vous avez une idée d'astuce qui pourrait aider d'autres utilisateurs et qui touche à l'informatique ? Faites-nous en part !</h4>
+      
+                <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
+                      <div className="form-group">
+                                    <div className="input-group">
+                                      <span className="input-group-addon"><i className="glyphicon glyphicon-chevron-right" aria-hidden="true"></i></span>
+                                      <input id="titre" name="titre" placeholder="Titre" required="Remplir le titre" className="form-control"  type="text" onChange={e => this.setState({titre: e.target.value})}/>
+                                    </div>
+                                  </div>
+                        
+                        <div className="form-group">
+                                    <div className="input-group">
+                                      <span className="input-group-addon"><i className="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
+                                      <textarea  id="description" name="description" placeholder="Description" required="Remplir la description" className="form-control"  type="text" onChange={e => this.setState({description: e.target.value})}/>
+                                    </div>
+                                  </div>
+      
+                      <div className="form-group">
+                                    <div className="input-group">
+                                      <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                      <input id="auteur" name="auteur" placeholder="Auteur de l'astuce" required="Remplir le nom de l'auteur" className="form-control"  type="text" onChange={e => this.setState({nom: e.target.value})}/>
+                                    </div>
+                                  </div>
+      
+                      <div className="form-group">
+                                    <div className="input-group">
+                                      <span className="input-group-addon"><i className="glyphicon glyphicon-link" aria-hidden="true"></i></span>
+                                      <input id="lien" name="lien" placeholder="Lien de l'astuce" required="Remplir le lien de l'astuce" className="form-control"  type="text" onChange={e => this.setState({lien: e.target.value})}/>
+                                    </div>
+                                  </div>
+
+                        <div className="form-group">
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({type: e.target.value})}>
+                              <option id="1">Faculté</option>
+                              <option id="2">Bureautique</option>
+                              <option id="3">Apprends avec nous</option>
+                              </select>
+                            </div>
+      
+                        <input type="submit" className="center-block btn btn-danger" value="Proposer une activité" />
+                        </form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.handleClose}>FERMER</Button>
+              </Modal.Footer>
+            </Modal>
+            </div>
+            </div>
+
+            
         )
     }
     
