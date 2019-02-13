@@ -66,6 +66,7 @@ class ListeActivite extends Component {
                 modnbplace={activity.placeDispo}
                 modnbplaceRestante={activity.placeRestante}
                 moddescription={activity.description}
+                modanimateur={activity.animateur}
             />
           );
         }
@@ -79,6 +80,7 @@ class ListeActivite extends Component {
                 modnbplace={activity.placeDispo}
                 modnbplaceRestante={activity.placeRestante}
                 moddescription={activity.description}
+                modanimateur={activity.animateur}
             />
           );
         }
@@ -118,6 +120,7 @@ class ListeActivite extends Component {
                   modnbplace={activity.placeDispo}
                   modnbplaceRestante={activity.placeRestante}
                   moddescription={activity.description}
+                  modanimateur={activity.animateur}
               />
             );
           }
@@ -131,6 +134,7 @@ class ListeActivite extends Component {
                   modnbplace={activity.placeDispo}
                   modnbplaceRestante={activity.placeRestante}
                   moddescription={activity.description}
+                  modanimateur={activity.animateur}
               />
             );
           }
