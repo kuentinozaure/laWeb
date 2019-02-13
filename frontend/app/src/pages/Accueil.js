@@ -11,7 +11,7 @@ class Accueil extends Component {
             <div className="col-xs-12 col-sm-12 col-md-4 col-lg-8 col-md-offset-2">
                            <p>
                                <div id="div_titreAccueil">
-                                     ~ Qu'est-ce que la web ? ~
+                                     ~ Qu'est-ce que LaWeb ? ~
                                  </div>
                                  <br/>
                                  <div id="div_presentation" align="center">
