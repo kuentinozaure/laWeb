@@ -1,11 +1,40 @@
 import React, { Component } from 'react';
 import './Astuce.css';
 
+import {Button,Modal} from 'react-bootstrap';
+
 class Astuce extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+    
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    
+        this.state = {
+          show: false,
+          titre: '',
+          description: '',
+          nom: '',
+          lien: ''
+        };
+
+       
+      }
+
+      handleClose() {
+        this.setState({ show: false });
+      }
+    
+      handleShow() {
+        this.setState({ show: true });
+      }
+
     render () {
         return(
             <div>
         <h1 align="center">Astuces</h1>
+        <a class="btn btn-info btn-lg " role="button" onClick={this.handleShow}>Proposes une astuce</a>
         <p></p>
         <p></p>
         <h2 align="center">
@@ -121,7 +150,50 @@ class Astuce extends Component {
          </div>
         </div>
     </div>   
+    <div className="Box">
+      <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Body>
+          <h2 className="text-center">Vous voulez proposer une astuce ?</h2>
+
+          <form id="register-form" role="form" autoComplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="glyphicon glyphicon-chevron-right" aria-hidden="true"></i></span>
+                                <input id="titre" name="titre" placeholder="Titre" required="Remplir le titre" className="form-control"  type="text" onChange={e => this.setState({titre: e.target.value})}/>
+                              </div>
+                            </div>
+                  
+                  <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
+                                <textarea  id="description" name="description" placeholder="Description" required="Remplir la description" className="form-control"  type="text" onChange={e => this.setState({description: e.target.value})}/>
+                              </div>
+                            </div>
+
+                <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input id="auteur" name="auteur" placeholder="Auteur de l'astuce" required="Remplir le nom de l'auteur" className="form-control"  type="text" onChange={e => this.setState({nom: e.target.value})}/>
+                              </div>
+                            </div>
+
+                <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="glyphicon glyphicon-link" aria-hidden="true"></i></span>
+                                <input id="lien" name="lien" placeholder="Lien de l'astuce" required="Remplir le lien de l'astuce" className="form-control"  type="text" onChange={e => this.setState({lien: e.target.value})}/>
+                              </div>
+                            </div>
+
+                  <input type="submit" className="center-block btn btn-danger" value="Proposer une activité" />
+                  </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.handleClose}>FERMER</Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
 </div>
+
         )
     }
 }
