@@ -36,9 +36,10 @@ class Box extends Component {
                             Proposé par : {this.props.modauteur}
                         </span></li>
                         <li>|</li>
-                        {console.log(this.props.modlien)}
                         </ul>
-                        <a href={this.props.modlien} class="btn btn-info btn-lg " role="button" >En savoir plus</a>
+                        <Button id="BtAstuce" className="center-right" href={this.props.modlien} >
+                          En savoir plus
+                        </Button> 
                     </div>
                     
                 </div>
