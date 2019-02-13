@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Button,Modal} from 'react-bootstrap';
-import Inscription from './Inscription.js'
 import axios from 'axios'
 
 class Box extends Component {
@@ -22,6 +21,7 @@ class Box extends Component {
       numero: '',
       newsletter: false,
       listeUfr : [],
+      ready : false
     };
   }
 
@@ -33,12 +33,18 @@ class Box extends Component {
     this.setState({ show: true });
   }
 
+  verifnom(pnom){
+      var res = pnom.match(/[A-Za-z]{1,}/);
+      return pnom==res;
+  }
+  
+  veriftel(ptel){
+      var res = ptel.match(/[0-9]{10}/);
+      return ptel==res;
+  }
+
   render() {
     return (
-
-
-
-
       <div>
 
 <div className="container">
@@ -69,8 +75,6 @@ class Box extends Component {
   </div>
 
       </div>
-
-
       
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
@@ -78,47 +82,64 @@ class Box extends Component {
           <h2 className="text-center">Vous voulez vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
 
-          <form id="register-form" role="form" autoComplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
+          <form id="register-form" role="form" autoComplete="off" className="form" method="get">
+           
+                
                 <div className="form-group">
-                              <div className="input-group">
-                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
-                              </div>
-                            </div>
+                    <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="fa fa-user fa" aria-hidden="true"></i>
+                        </span>
+                        <input id="name" name="nom" placeholder="Nom" required="Nom" 
+                        className="form-control"  type="name" pattern='[A-Za-z]' title="prenom sans caractères spéciaux"
+                        onChange={e => this.setState({name: e.target.value})}
+                        />
+                    </div>
+                </div>
                   
                   <div className="form-group">
-                              <div className="input-group">
-                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prenom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
-                              </div>
-                            </div>
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                        <i className="fa fa-user fa" aria-hidden="true"></i>
+                      </span>
+                      <input id="prenom" name="prenom" placeholder="Prenom" required="remplir votre prenom" 
+                      className="form-control"  type="text" pattern='[A-Za-z]' title="prenom sans caractères spéciaux"
+                      onChange={e=>this.setState({name: e.target.value})}/>
+                    </div>
+                  </div>
 
-                            <div className="form-group">
-                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
-                                  <option id="1" >1 -Sciences Espaces et Sociétés</option>
-                                  <option id="2" >2 - Langue Etrangères Appliquées</option>
-                                  <option id="3" >3 - Histoire</option>
-                              </select>
-                            </div>
+                  <div className="form-group">
+                    <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
+                        <option id="1" >1 -Sciences Espaces et Sociétés</option>
+                        <option id="2" >2 - Langue Étrangères Appliquées</option>
+                        <option id="3" >3 - Histoire</option>
+                    </select>
+                  </div>
                   
                   <div className="form-group">
-                              <div className="input-group">
-                                <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
-                              </div>
-                            </div>
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                      <i className="glyphicon glyphicon-envelope color-blue"></i>
+                      </span>
+                      <input id="email" name="email" placeholder="Email" required="remplir votre email"
+                      className="form-control"  type="email" 
+                      onChange={e => this.setState({adresse: e.target.value})}/>
+                    </div>
+                  </div>
                   
                   <div className="form-group">
-                              <div className="input-group">
-                                <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Telephone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
-                              </div>
-                            </div>
+                    <div className="input-group">
+                      <span className="input-group-addon"><i className="fa fa-phone"></i></span>
+                      <input id="tel" name="tel" placeholder="Telephone" required="remplir votre telephone" 
+                      className="form-control"  type="tel" pattern='[0-9]{10}' title="10 chiffres" 
+                      onChange={e => this.setState({numero: e.target.value})}/>
+                    </div>
+                  </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
+                  <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
                   <label htmlFor="scales">S'abonner aux newsletter</label>
 
-                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" />
+                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={console.log("bjr")}/>
                   </form>
         </Modal.Body>
         <Modal.Footer>
@@ -143,15 +164,63 @@ class Box extends Component {
     }
   }
 
+  checkifSubmit(){
+
+    var checkprenom=this.verifnom(this.state.prenom);
+    var checknom=this.verifnom(this.state.name);
+    //gérer mail
+    var checktel=this.veriftel(this.state.numero);
+
+    if(checknom && checkprenom && checktel){
+      //this.submitform();
+      this.state.ready=true;
+      console.log("Entrée valide");
+    }
+    else{
+      if(!checktel){
+        console.log("Veuillez entrer un numéro à 10 chiffres");
+        this.state.ready=false;
+      }
+      else{
+        if(!checknom || !checkprenom){
+          this.state.ready=false;
+          console.log("Veuillez ne pas utiliser de caractère spéciaux ni de valeur numérique");
+        }
+      }
+    }
+    
+  }
+
   handleSubmit(event) {
-    const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
-    axios.get(url)
-      .then(response => {
-        this.handleClose();
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if(this.verifnom(this.state.name)){
+      /*const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
+      axios.get(url)
+        .then(response => {
+          this.handleClose();
+        })
+        .catch(error => {
+          console.log(error);
+        });*/
+        alert("toutes les entrées sont valides");
+        
+      }else{
+        alert("toutes les entrées ne sont pas valides");
+      }
+    }
+
+    submitform(){
+
+      const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name 
+      +'&prenom='+this.state.prenom+'&mail='+this.state.adresse 
+      +'&tel='+this.state.numero +'&abonne='+this.state.newsletter
+      +'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
+      axios.get(url)
+        .then(response => {
+          this.handleClose();
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
 
     componentDidMount() {
