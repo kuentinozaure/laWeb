@@ -62,6 +62,10 @@ display(){
                         <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
                       </li>
                       <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-user"></i> ANIME PAR {this.props.modanimateur} </span>
+                      </li>
+                      <li>|</li>
 			              </ul>
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
@@ -154,6 +158,10 @@ display(){
                       <li>|</li>
                       <li>
                         <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
+                      </li>
+                      <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-user"></i> ANIME PAR {this.props.modanimateur.toUpperCase()} </span>
                       </li>
                       <li>|</li>
 			              </ul>
