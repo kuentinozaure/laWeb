@@ -19,15 +19,10 @@ constructor(props) {
 
     
     }
-    
-     
-    
     this.handleSubmit = this.handleSubmit.bind(this);
     
     }
-    
-     
-    
+
     handleSubmit() {
     const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
     axios.get(url)
@@ -42,16 +37,15 @@ constructor(props) {
       });
 
     }
-    
-     
-    
+
     render() {
-    
     return (
         <div className="card mb">
             <div className="card-body mb">
+            
             <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous contacter ? </h2>
-
+            <p>Si tu souhaites avoir des informations supplémentaires
+            à propos d'une activité ou de l'association n'hésite pas à nous le dire.</p>
 
              <form onSubmit={this.handleSubmit}>
     
@@ -79,12 +73,12 @@ constructor(props) {
     </div>
 
     <div className="form-group">
-          <div className="input-group ">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-              <input id="message" name="message" placeholder="Message" className="form-control" required="remplir votre message" type="text"  onChange={e => this.setState({message: e.target.value})}/>
+          <div className="input-group">
+              <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue "></i></span>
+              <textarea class="form-control" rows="2" placeholder="Écrit ton message ici..." id="message" required="remplir votre message" type="text" onChange={e => this.setState({message: e.target.value})}></textarea>
           </div>
     </div>
-    
+    <em>Ces informations ne seront utilisées que pour vous répondre et ne seront pas concervées.</em>
     <div className="form-group">
       <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit" />
     </div>

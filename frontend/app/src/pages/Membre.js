@@ -14,7 +14,8 @@ class Membre extends Component {
           ufr: [],
           description :'',
           newsletter: 0,
-          listUFR: []
+          listUFR: [],
+          ufrSelected: ''
       };
     
         this.handleSubmit = this.handleSubmit.bind(this);
