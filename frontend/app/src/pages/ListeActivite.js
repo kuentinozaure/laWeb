@@ -144,7 +144,7 @@ class ListeActivite extends Component {
       return (
         <div>
         <div class="container">
-          <h1>Evènements</h1>
+          <h1>Évènements</h1>
             {content = listActivityEvent}   
         </div>
         <div class="container">
@@ -175,7 +175,7 @@ class ListeActivite extends Component {
         <br></br>
           <div id="div_presentation" align="center">
             LaWeb te propose des activités au sein de l'université.<div id="sautdeligne"></div>
-            Viens découvrir le domaine de l'informatique autour d'évènements ou d'ateliers.<div id="sautdeligne"></div>
+            Viens découvrir le domaine de l'informatique autour d'évènements et ateliers.<div id="sautdeligne"></div>
             Tu peux découvrir nos activités sur cette page et t'y inscrire.<div id="sautdeligne"></div>
           </div>
           <br></br>

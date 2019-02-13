@@ -94,10 +94,5 @@ constructor(props) {
     }
     
     }
-    
-    
-    
-
-
 
 export default FormulaireCard ;
