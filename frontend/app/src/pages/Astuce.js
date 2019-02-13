@@ -129,8 +129,8 @@ handleSubmit(event) {
     render() {
         return (
             <div>
-            <div>
-                <h1 align="center">~ Astuces ~</h1>
+            <div className="container">
+                <div id="div_titreAccueil">~ Astuces ~</div>
                 <p></p>
                 <p></p>
                 <div id="div_presentation" align="center">
@@ -138,9 +138,10 @@ handleSubmit(event) {
                   de nouvelles choses. Vous trouverez votre bonheur ici !
                   <div id="sautdeligne"></div>
                 </div>
-                <a className="btn btn-primary btn-lg " role="button" onClick={this.handleShow}>Proposer une astuce</a>
-                <p></p>
-                <p></p>
+                <a className="btn btn-primary btn-lg pull-right " role="button" onClick={this.handleShow}>Proposer une astuce</a>
+                <br></br>
+                <br></br>
+                <br></br>
                 <div className="row">
               <div className="col-12">
                 <div id="custom-search-input">
