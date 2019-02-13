@@ -154,6 +154,7 @@ class Astuce extends Component {
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
           <h2 className="text-center">Vous voulez proposer une astuce ?</h2>
+          <h4 className="text-center">Vous avez une idée d'astuce qui pourrait aider d'autres utilisateurs et qui touche à l'informatique ? Faites-nous en part !</h4>
 
           <form id="register-form" role="form" autoComplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
                 <div className="form-group">
