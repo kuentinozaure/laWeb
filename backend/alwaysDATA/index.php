@@ -38,7 +38,7 @@
 
         $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ACTIVITE";
         //$req="SELECT id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE";
-        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante FROM ACTIVITE,PARTICIPER,ORGANISER WHERE ACTIVITE.id_activite =PARTICIPER.id_activite AND ORGANISER.id_activite=ACTIVITE.id_activite GROUP BY id_activite";
+        $req= "SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo,PARTICIPER.placeRestante,type_activite,UTILISATEUR.nom,UTILISATEUR.prenom FROM ACTIVITE,PARTICIPER,ORGANISER,UTILISATEUR WHERE ACTIVITE.id_activite =ORGANISER.id_activite AND PARTICIPER.id_activite = ACTIVITE.id_activite AND UTILISATEUR.id_utilisateur = ORGANISER.id_membre AND ACTIVITE.id_president IN (SELECT PRESIDENT.id_president FROM PRESIDENT) GROUP BY id_activite";
         $i=0;
         $res=$connexion->query($req);
 
@@ -53,6 +53,8 @@
             $retour['activite'][$i]['salle'] = $ligne[5];
             $retour['activite'][$i]['placeDispo'] = $ligne[6];
             $retour['activite'][$i]['placeRestante'] = $ligne[7];
+            $retour['activite'][$i]['type'] = $ligne[8];
+            $retour['activite'][$i]['animateur'] = $ligne[9]." ".$ligne[10];
             $i++;
         }
         
@@ -299,9 +301,9 @@
                                                                             $message .= '<tbody> ';
                                                                                 $message .= '<tr>';
                                                                                     $message .= '<td  width="580">';
-                                                                                        $message .= '<h2 style="color:#0E7693; font-size:22px; padding-top:12px;">VOICI LES INFORMATIONS POUR'.$nom.' '.$prenom.'</h2>';
+                                                                                        $message .= '<h2 style="color:#0E7693; font-size:22px; padding-top:12px;">VOICI LES INFORMATIONS POUR </h2>';
                                                                                             $message .= '<div align="left" class="article-content">';
-                                                                                                $message .= '<p> NOM + PRENOM</p>';
+                                                                                                $message .= '<p'  .$nom.' ' .$prenom. '</p>';
                                                                                                 $message .= 'A ecrit :';
                                                                                                 $message .= '<p>';
                                                                                                     $message .= '<div style="text-indent: 20">';
@@ -309,7 +311,7 @@
                                                                                                     $message .= '</div>';
                                                                                                 $message .= '</p>';
                                                                                                 $message .= '<p>';
-                                                                                                    $message .= 'voici son mail pour le recontacter : <a href="mailto:test@test.com">nom + prenom</a>';
+                                                                                                    $message .= 'voici son mail pour le recontacter : '.$destinataire.'</a>';
                                                                                                 $message .= '</p>';
                                                                                             $message .= '</div>';
                                                                                     $message .= '</td>';
@@ -385,7 +387,6 @@
                 //http://laweb.alwaysdata.net/?choix=11
 
                 $retour['choixUtilisateur'] ="RECUPERATION DES UFR ";
-                $idAct = $_GET['act'];
 
                 $req="SELECT * FROM UFR";
                 $i=0;
@@ -398,7 +399,176 @@
                     $i++;
                 }
         break;
+        case 12 : //RECUPERATION DES MEMBRES NON VALIDE
+                //http://laweb.alwaysdata.net/?choix=12
+
+                $retour['choixUtilisateur'] ="RECUPERATION DES MEMBRES NON VALIDE";
+
+                $req ='SELECT UTILISATEUR.telephone,UTILISATEUR.mail,UTILISATEUR.nom,UTILISATEUR.prenom,login,description FROM MEMBRE,UTILISATEUR WHERE UTILISATEUR.id_utilisateur = MEMBRE.id_membre AND estValide = 0 GROUP BY id_utilisateur';
+                
+                $i=0;
+                $res=$connexion->query($req);
+                
+                while($ligne=$res->fetch())
+                {
+                    $retour['membre'][$i]['telephone'] = $ligne[0];
+                    $retour['membre'][$i]['mail'] = $ligne[1];
+                    $retour['membre'][$i]['nom'] = $ligne[2];
+                    $retour['membre'][$i]['prenom'] = $ligne[3];
+                    $retour['membre'][$i]['login'] = $ligne[4];
+                    $retour['membre'][$i]['description'] = $ligne[5];
+                    $i++;
+                }
         
+        break;
+        case 13 : //VALIDATION D'UNE ACTIVITE
+                //http://laweb.alwaysdata.net/?choix=13&idActivite=['idActivite']&idResponsable=['idResponsable']
+
+        $retour['choixUtilisateur'] ="VALIDATION D'UNE ACTIVITE";
+        $idActivite = $_GET['idActivite'];
+        $idResponsable = $_GET['idResponsable'];
+        
+        $req = "UPDATE `ACTIVITE` SET `id_president` = '".$idResponsable."' WHERE `ACTIVITE`.`id_activite` = ".$idActivite."";
+        $res=$connexion->exec($req);
+
+        $retour['OK'] ="VOTRE ACTIVITE EST VALIDE";
+        break;
+
+        case 14 : //CREER UNE ACTIVITE
+                //http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']&nombrePlaceDispo=['nombrePlaceDispo']&idOrganisateur=['idOrganisateur']
+
+        $retour['choixUtilisateur'] ="CREER UNE ACTIVITE";
+
+        $titre = $_GET['titre'];
+        $description = $_GET['description'];
+        $dateDebut = $_GET['dateDebut'];
+        $dateFin = $_GET['dateFin'];
+        $salle = $_GET['salle'];
+        $nbPlaceDispo = $_GET['nombrePlaceDispo'];
+        $idOrga = $_GET['idOrganisateur'];
+
+        $req = "INSERT INTO ACTIVITE (`id_activite`, `titre`, `description`, `dateDebut`, `dateFin`, `salle`, `nombrePlaceDispo`, `id_president`) VALUES (NULL, '".$titre."', '".$description."', '".$dateDebut."', '".$dateFin."', '".$salle."', '".$nbPlaceDispo."', NULL)";
+        $res=$connexion->exec($req);
+
+        $req1 = "INSERT INTO `ORGANISER` (`id_membre`, `id_activite`) VALUES (".$idOrga.", (SELECT id_activite FROM `ACTIVITE` WHERE titre ='".$titre."' AND description = '".$description."' AND dateDebut = '".$dateDebut."' AND dateFin = '".$dateFin."' AND salle = '".$salle."' AND nombrePlaceDispo = '".$nbPlaceDispo."'))";
+        $res1=$connexion->exec($req1);
+
+        $req1 = "INSERT INTO `PARTICIPER`(`id_utilisateur`, `id_activite`, `placeRestante`) VALUES ('".$idOrga."',(SELECT id_activite FROM `ACTIVITE` WHERE titre ='".$titre."' AND description = '".$description."' AND dateDebut = '".$dateDebut."' AND dateFin = '".$dateFin."' AND salle = '".$salle."' AND nombrePlaceDispo = '".$nbPlaceDispo."'),'".$nbPlaceDispo."')";
+        $res1=$connexion->exec($req1);
+
+        $retour['OK'] = "ajout ok";
+        
+        break;
+        case 15 : //RECUPERATION DES ACTIVITE NON VALIDE
+        //http://laweb.alwaysdata.net/?choix=15
+
+        $retour['choixUtilisateur'] ="RECUPERATION DES ACTIVITE NON VALIDE";
+
+        $req ='SELECT ACTIVITE.id_activite,titre,description,dateDebut,dateFin,salle,nombrePlaceDispo FROM ACTIVITE WHERE ACTIVITE.id_activite NOT IN(SELECT id_activite FROM ORGANISER) OR ACTIVITE.id_president IS NULL GROUP BY id_activite';
+                
+                $i=0;
+                $res=$connexion->query($req);
+                
+                while($ligne=$res->fetch())
+                {
+                    $retour['activite'][$i]['id'] = $ligne[0];
+                    $retour['activite'][$i]['titre'] = $ligne[1];
+                    $retour['activite'][$i]['description'] = $ligne[2];
+                    $retour['activite'][$i]['dateDebut'] = $ligne[3];
+                    $retour['activite'][$i]['dateFin'] = $ligne[4];
+                    $retour['activite'][$i]['salle'] = $ligne[5];
+                    $retour['activite'][$i]['nbPlaceDispo'] = $ligne[6];
+                    $i++;
+                }
+break;
+case 16 : //SUPPRESSION D'UNE ACTIVITE
+        //http://laweb.alwaysdata.net/?choix=16&idAct=['idAct']
+
+        $retour['choixUtilisateur'] ="SUPPRESSION D'UN ACTIVITE";
+        $idAct = $_GET['idAct'];
+
+        $req ="DELETE FROM ORGANISER WHERE ORGANISER.id_activite =".$idAct."";
+        $res=$connexion->exec($req);
+
+        $req1="DELETE FROM PARTICIPER WHERE PARTICIPER.id_activite = ".$idAct."";
+        $res1=$connexion->exec($req1);
+
+        $req2="DELETE FROM ACTIVITE WHERE ACTIVITE.id_activite =".$idAct."";
+        $res2=$connexion->exec($req2);
+
+
+        $retour['OK'] ="SUPPRESSION D'UNE ACTIVITE";
+break;
+case 17 : //MODIFICATION DES INFORMATIONS D'UNE ACTIVITE
+        //http://laweb.alwaysdata.net/?choix=17&idAct=['idAct']&'titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']
+
+        $retour['choixUtilisateur'] ="MODIFICATION D'UNE ACTIVITE";
+
+        $idAct = $_GET['idAct'];
+        $titre = $_GET['titre'];
+        $description = $_GET['description'];
+        $dateDebut = $_GET['dateDebut'];
+        $dateFin = $_GET['dateFin'];
+        $salle = $_GET['salle'];
+        //$idOrga = $_GET['idOrganisateur'];
+
+        $req ="UPDATE ACTIVITE SET titre = '".$titre."', description = '".$description."', dateDebut = '".$dateDebut."' ,dateFin ='".$dateFin."',salle ='".$salle."'WHERE id_activite = ".$idAct;
+        $res=$connexion->exec($req);
+	    $retour['ooo'] =  $req;
+        $retour['OK'] ="MODIFICATION D'UNE ACTIVITE";
+break;
+case 18 : //AJOUT D'UN ABONNE A LA NEWS LETTER
+        //http://laweb.alwaysdata.net/?choix=18&nom=['nom']&prenom=['prenom']&mail=['mail']
+
+        $retour['choixUtilisateur'] ="MODIFICATION D'UNE ACTIVITE";
+
+       
+        $nom = $_GET['nom'];
+        $prenom = $_GET['prenom'];
+        $mail = $_GET['mail'];
+
+        $req ="INSERT INTO NEWSLETTER (id, nom, prenom, mail) VALUES (NULL, '".$nom."', '".$prenom."', '".$mail."')";
+        $res=$connexion->exec($req);
+        $retour['OK'] = "add Activity";
+break;
+case 19 : //RECUPERATION DE TOUTE LES  ASTUCE
+                //http://laweb.alwaysdata.net/?choix=19
+
+        $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ASTUCE";
+        $req= "SELECT id,titre,description,auteur,image,lienAstuce,type FROM ASTUCE WHERE estValide = 1";
+        $i=0;
+        $res=$connexion->query($req);
+
+        
+        while($ligne=$res->fetch())
+        {
+            $retour['astuce'][$i]['id'] = $ligne[0];
+            $retour['astuce'][$i]['titre'] = $ligne[1];
+            $retour['astuce'][$i]['description'] = $ligne[2];
+            $retour['astuce'][$i]['auteur'] = $ligne[3];
+            $retour['astuce'][$i]['image'] = $ligne[4];
+            $retour['astuce'][$i]['lienAstuce'] = $ligne[5];
+            $retour['astuce'][$i]['type'] = $ligne[6];
+            $i++;
+        }
+        
+        break;
+        case 20 : 
+        $retour['choixUtilisateur'] ="CREER ASTUCE";
+        //http://laweb.alwaysdata.net/?choix=20&nom=['nom']&description=['description']&auteur=['auteur']&lien=['lien']&type=['type']
+    
+            
+        $titre = $_GET['titre'];
+        $description = $_GET['description'];
+        $auteur = $_GET['auteur'];
+        $lien = $_GET['lien'];
+        $type =  $_GET['type'];
+    
+        $req = "INSERT INTO ASTUCE (id, titre, description, auteur, image, lienAstuce, type,estValide) VALUES (NULL, '".$titre."', '".$description."', '".$auteur."', '', '".$lien."', '".$type."',0)";
+        $res=$connexion->exec($req);
+        $retour['OK'] = "AJOUT DE VOTRE ASTUCES";
+    
+    break;
     }
         echo json_encode($retour);
 ?>

@@ -39,3 +39,30 @@ http://laweb.alwaysdata.net/?choix=10&nom=['nomUser']&prenom=['prenomUser']&mail
 
 ## RECUPERATION DES UFR 
 http://laweb.alwaysdata.net/?choix=11
+
+## RECUPERATION DES MEMBRES NON VALIDE
+http://laweb.alwaysdata.net/?choix=12
+
+## VALIDATION D'UNE ACTIVITE 
+http://laweb.alwaysdata.net/?choix=13&idActivite=['idActivite']&idResponsable=['idResponsable']
+
+## CREER UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=14&titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']&nombrePlaceDispo=['nombrePlaceDispo']&idOrganisateur=['idOrganisateur']
+
+##  RECUPERATION DES ACTIVITE NON VALIDE
+http://laweb.alwaysdata.net/?choix=15
+
+## SUPPRESSION D'UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=16&idAct=['idAct']
+
+## MODIFICATION D'UNE ACTIVITE
+http://laweb.alwaysdata.net/?choix=17&idAct=['idAct']&'titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']
+
+## AJOUT D'UN UTILISATEUR A LA NEWSLETTER
+http://laweb.alwaysdata.net/?choix=18&nom=['nom']&prenom=['prenom']&mail=['mail']
+
+## LISTER LES ASTUCES
+http://laweb.alwaysdata.net/?choix=19
+
+## CREER UNE ASTUCE
+http://laweb.alwaysdata.net/?choix=20&nom=['nom']&description=['description']&auteur=['auteur']&lien=['lien']&type=['type']

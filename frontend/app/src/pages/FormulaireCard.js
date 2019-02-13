@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+
+import "./FormulaireCard.css"
+
 
 
 
@@ -12,43 +15,37 @@ constructor(props) {
     this.state = {
     
     Nom: '',
-    
     Prenom: '',
     mail:'',
     message:'',
 
     
     }
-    
-     
-    
     this.handleSubmit = this.handleSubmit.bind(this);
     
     }
-    
-     
-    
+
     handleSubmit() {
     const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
     axios.get(url)
       .then(response => {
+        document.getElementsByClassName("message-envoye")[0].style.display = "block";
         console.log('mail envoye')
       })
       .catch(error => {
         console.log(error);
       });
-
     }
-    
-     
-    
+
+
     render() {
-    
     return (
         <div className="card mb">
             <div className="card-body mb">
-            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous Contacter ? </h2>
-
+            
+            <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous contacter ? </h2>
+            <p>Si tu souhaites avoir des informations supplémentaires
+            à propos d'une activité ou de l'association n'hésite pas à nous le dire.</p>
 
              <form onSubmit={this.handleSubmit}>
     
@@ -62,7 +59,7 @@ constructor(props) {
     <div className="form-group">
       <div className="input-group">
         <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-        <input id="prenom" name="prenom" placeholder="Prenom" className="form-control"  required="remplir votre prenom" type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
+        <input id="prenom" name="prenom" placeholder="Prénom" className="form-control"  required="remplir votre prenom" type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
       </div>
     </div>
     
@@ -74,20 +71,17 @@ constructor(props) {
         <input id="email" name="email" placeholder="Email" className="form-control"  required="remplir votre email" type="email" onChange={e => this.setState({mail: e.target.value})}/>
       </div>
     </div>
-    
-    
-    
-    
 
     <div className="form-group">
-          <div className="input-group ">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-              <input id="message" name="message" placeholder="Message" className="form-control" required="remplir votre message" type="text"  onChange={e => this.setState({message: e.target.value})}/>
+          <div className="input-group">
+              <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue "></i></span>
+              <textarea class="form-control" rows="2" placeholder="Écrit ton message ici..." id="message" required="remplir votre message" type="text" onChange={e => this.setState({message: e.target.value})}></textarea>
           </div>
     </div>
-    
+    <em>Ces informations ne seront utilisées que pour vous répondre et ne seront pas conservées.</em>
     <div className="form-group">
-      <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit" />
+      <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit"/>
+      <p className="message-envoye">message envoyé</p>
     </div>
     
     <input type="hidden" className="hide" name="token" id="token" value=""/>
@@ -95,60 +89,10 @@ constructor(props) {
   
      </div>
     </div>
-    
-    
-
-
-
-
-
-
-    /*
-    <form onSubmit={this.handleSubmit}>
-    
-    <label>
-    Nom:
-    <input type="text" id="name" onChange={e => this.setState({Nom: e.target.value})} />
-    </label>
-    
-    
-    <label>
-    Prénom:
-    <input type="text" id="prenom" onChange={e => this.setState({Prenom: e.target.value})} />
-    </label>
-
-
-
-    <label>
-    Mail:
-    <input type="text" id="mail" onChange={e => this.setState({mail: e.target.value})} />
-    </label>
-    <label>
-    
-    Message
-    
-    <input type="text" id="message" onChange={e => this.setState({message: e.target.value})} />
-    
-    </label>
-    
-    
-    
-    <input type="submit" value="Submit" />
-    
-    </form>
-    */
-    
-    
-    
     );
     
     }
     
     }
-    
-    
-    
-
-
 
 export default FormulaireCard ;
