@@ -45,6 +45,7 @@ class InfoCompte extends Component {
         <div style={styles}>
         <NavbarMembres/>
           
+          
           <button onClick={this.onOpenModal}>Mes informations </button>
           <Modal open={open} onClose={this.onCloseModal} center>
             <h2>Mon Profil</h2>
