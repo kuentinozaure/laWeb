@@ -1,28 +1,27 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
-import MemberTab from './memberTab.js'
+import ActiviteNonValide from './ActiviteNonValide.js';
 import axios from 'axios';
 
-
-class ValidationMembre extends Component {
+class GererActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            membres:[],
+            activites: []
         };
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=12';
+        const url = 'http://laweb.alwaysdata.net/?choix=15';
         axios.get(url)
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.membre.length; i++) {
-              tab.push(response.data.membre[i]);
+            for (i = 0; i < response.data.activite.length; i++) {
+              tab.push(response.data.activite[i]);
             }
             this.setState({
-              membres: tab,
+              activites: tab,
             });
           })
           .catch(error => {
@@ -33,25 +32,25 @@ class ValidationMembre extends Component {
       }
 
       display(){
-        let listmembre =[]
-        let content = this.state.membres.map((membre, index) => {
+        let listeActivite =[]
+        let content = this.state.activites.map((activite, index) => {
     
-          listmembre.push(
-              < MemberTab 
-                nom={membre.nom}
-                prenom={membre.prenom}
-                login={membre.login}
-                telephone={membre.telephone}
-                mail={membre.mail}
-                description={membre.description}
-            />
+          listeActivite.push(
+              < ActiviteNonValide 
+                titre={activite.titre}
+                description={activite.description}
+                dateDebut={activite.dateDebut}
+                dateFin={activite.dateFin}
+                salle={activite.salle}
+                nombrePlaceDispo={activite.nombrePlaceDispo}
+                />
             );
         });
         
-        return content = listmembre;
-      }
+        return content = listeActivite;
+      }      
 
-    render() {
+      render() {
         return (
             <div>
             <br></br>
@@ -59,15 +58,18 @@ class ValidationMembre extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
+                        <a className='btn btn btn-info btn-sm' href="#" align="center">
+                            Ajouter une activité
+                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Login</th>
-                                <th>Telephone</th>
-                                <th>Mail</th>
+                                <th>Titre</th>
                                 <th>Description</th>
+                                <th>Date de début</th>
+                                <th>Date de fin</th>
+                                <th>Salle</th>
+                                <th>Nombre de places</th>
                                 <th className="text-center">Action</th>
                             </tr>
                         </thead>
@@ -83,4 +85,4 @@ class ValidationMembre extends Component {
       }
 }
 
-export default ValidationMembre;
+export default GererActiviteAdmin;
