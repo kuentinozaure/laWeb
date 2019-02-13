@@ -18,6 +18,7 @@ class ListeActivite extends Component {
     this.state = {
       show: false,
       activities : [],
+      activitySearch : "",
     };
   }
 
@@ -50,48 +51,76 @@ class ListeActivite extends Component {
 
   display(){
     let listActivity =[]
-    let content = this.state.activities.map((activity, index) => {
+    if(this.activitySearch === ""){
+      let content = this.state.activities.map((activity, index) => {
 
-      listActivity.push(
-          <Box 
-              imgnom= {activity.titre}
-              modnom= {activity.id}
-              modtitre={activity.titre}
-              moddate= {activity.dateDebut}
-              modnbplace={activity.placeDispo}
-              modnbplaceRestante={activity.placeRestante}
-              moddescription={activity.description}
-          />
-        );
-    });
-    
-    return content = listActivity;
-    //modanimateur={activity.id}
-    //imglink={}
+        listActivity.push(
+            <Box 
+                imgnom= {activity.titre}
+                modnom= {activity.id}
+                modtitre={activity.titre}
+                moddate= {activity.dateDebut}
+                modnbplace={activity.placeDispo}
+                modnbplaceRestante={activity.placeRestante}
+                moddescription={activity.description}
+            />
+          );
+      });
+      
+      return content = listActivity;
+
+    }else{
+      let titre="";
+      let description = "";
+
+      let content = this.state.activities.map((activity, index) => {
+        titre = activity.titre;
+        description = activity.description
+
+        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch)){
+          listActivity.push(
+            <Box 
+                imgnom= {activity.titre}
+                modnom= {activity.id}
+                modtitre={activity.titre}
+                moddate= {activity.dateDebut}
+                modnbplace={activity.placeDispo}
+                modnbplaceRestante={activity.placeRestante}
+                moddescription={activity.description}
+            />
+          );
+        }
+      });
+      
+      return content = listActivity;
+    }
+  }
+
+  handleSearch(e){
+    this.setState({
+      activitySearch:e.target.value,
+    })
+    this.display()
   }
 
   render() {
 
     return (
       <div>
-        <TypeActivite title='Activites'/>
+        <br></br>
         <div className="container">
-        <div className="container">
-            <div className="row">
-                  <div className="input-group col-md-11">
-                    <span className="input-group-btn">
-                      <input type="text" className="search-query form-control" placeholder="Rechercher une activite" />
-                        <button className="btn btn-secondary btn-md" type="button">
-                          Rechercher
-                        </button>
-                    </span>
-                  </div>
+	        <div className="row">
+	          <div className="col-12">
+    	        <div id="custom-search-input">
+                <div className="input-group">
+                    <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
+                </div>
               </div>
-          </div><br></br>
-          <div className="row">
-              {this.display()}
-          </div>
+            </div>
+	        </div>
         </div>
+        <br></br>
+          {this.display()}
       </div>
     )
   }

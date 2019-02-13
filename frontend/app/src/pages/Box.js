@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Box.css';
 import {Button,Modal} from 'react-bootstrap';
-import axios from 'axios'
+import Inscription from './Inscription.js'
+import axios from 'axios';
+
+import { connect } from 'react-redux';
 
 class Box extends Component {
 
@@ -15,13 +18,13 @@ class Box extends Component {
     this.state = {
       show: false,
       name: '',
-      prenom: '', 
-      ufr: 0,
+      prenom: '',
       adresse: '',
+      ufr: [],
       numero: '',
       newsletter: false,
-      listeUfr : [],
-      ready : false
+      ufrSelected:"",
+      //listeUfr : []
     };
   }
 
@@ -32,54 +35,141 @@ class Box extends Component {
   handleShow() {
     this.setState({ show: true });
   }
+//
 
-  verifnom(pnom){
-      var res = pnom.match(/[A-Za-z]{1,}/);
-      return pnom==res;
-  }
-  
-  veriftel(ptel){
-      var res = ptel.match(/[0-9]{10}/);
-      return ptel==res;
-  }
-
-  render() {
+display(){
+  if (this.props.sessionConnect.isConnected == true){
     return (
       <div>
-
-<div className="container">
-  <div className="well">
-      <div className="media">
-      	<a className="pull-left" href="#">
-    		  <img id="imgbox" src="https://image.freepik.com/free-icon/activity-feed_318-1665.jpg" alt="Image"/>
-  		  </a>
-  		  <div className="media-body">
-    		<h2 className="media-heading">{this.props.modtitre}</h2>
-        <h3><p>{this.props.moddescription}</p></h3>
-        <ul className="list-inline list-unstyled">
-          <li>|</li>
-          <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
-          <li>|</li>
-          <span><i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES</span>
-          <li>|</li>
-          <li>
-              <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTALES</span>
-          </li>
-          <li>|</li>
-			  </ul>
-        <Button id="BtAct" className="center-right" onClick={this.handleShow}>
-          INSCRIVEZ-VOUS
-        </Button>
-       </div>
-    </div>
-  </div>
-
-      </div>
-      
+        <div className="container">
+          <div className="row">
+            <div className="container">
+              <div className="well">
+                <div className="media">
+                  {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" alt="Image"/>*/}
+                  <div className="media-body">
+                    <h2 className="media-heading">{this.props.modtitre}</h2>
+                    <h3><p>{this.props.moddescription}</p></h3>
+                    <ul className="list-inline list-unstyled">
+                      <li>|</li>
+                      <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
+                      <li>|</li>
+                      <span>
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                      </span>
+                      <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
+                      </li>
+                      <li>|</li>
+			              </ul>
+                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                      INSCRIVEZ-VOUS
+                    </Button> 
+                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                      DETAILS
+                    </Button>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
-          <h2 className="text-center">Vous voulez vous inscrire à cette activité ?</h2>
+          <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
+          <h3 className="text-center">Inscrivez vous ici</h3>
+
+          <form id="register-form" role="form" autoComplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
+                              </div>
+                            </div>
+                  
+                  <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                              </div>
+                            </div>
+
+                            <div className="form-group">
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
+                              {
+                                this.displayUfr()
+                              }
+                              </select>
+                            </div>
+                  
+                  <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
+                                <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
+                              </div>
+                            </div>
+                  
+                  <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-phone"></i></span>
+                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                              </div>
+                            </div>
+
+                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
+                  <label htmlFor="scales">S'abonner aux newsletters</label>
+
+                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" />
+                  </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.handleClose}>FERMER</Button>
+        </Modal.Footer>
+      </Modal>
+      </div>
+
+    </div>
+    );
+  } else{
+    return (
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="container">
+              <div className="well">
+                <div className="media">
+                  {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" alt="Image"/>*/}
+                  <div className="media-body">
+                    <h2 className="media-heading">{this.props.modtitre}</h2>
+                    <h3><p>{this.props.moddescription}</p></h3>
+                    <ul className="list-inline list-unstyled">
+                      <li>|</li>
+                      <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
+                      <li>|</li>
+                      <span>
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                      </span>
+                      <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
+                      </li>
+                      <li>|</li>
+			              </ul>
+                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                      INSCRIVEZ-VOUS
+                    </Button> 
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div className="Box">
+      <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Body>
+          <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
 
           <form id="register-form" role="form" autoComplete="off" className="form" method="get">
@@ -98,23 +188,19 @@ class Box extends Component {
                 </div>
                   
                   <div className="form-group">
-                    <div className="input-group">
-                      <span className="input-group-addon">
-                        <i className="fa fa-user fa" aria-hidden="true"></i>
-                      </span>
-                      <input id="prenom" name="prenom" placeholder="Prenom" required="remplir votre prenom" 
-                      className="form-control"  type="text" pattern='[A-Za-z]' title="prenom sans caractères spéciaux"
-                      onChange={e=>this.setState({name: e.target.value})}/>
-                    </div>
-                  </div>
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                              </div>
+                            </div>
 
-                  <div className="form-group">
-                    <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
-                        <option id="1" >1 -Sciences Espaces et Sociétés</option>
-                        <option id="2" >2 - Langue Étrangères Appliquées</option>
-                        <option id="3" >3 - Histoire</option>
-                    </select>
-                  </div>
+                            <div className="form-group">
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
+                              {
+                                this.displayUfr()
+                              }
+                              </select>
+                            </div>
                   
                   <div className="form-group">
                     <div className="input-group">
@@ -128,16 +214,14 @@ class Box extends Component {
                   </div>
                   
                   <div className="form-group">
-                    <div className="input-group">
-                      <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                      <input id="tel" name="tel" placeholder="Telephone" required="remplir votre telephone" 
-                      className="form-control"  type="tel" pattern='[0-9]{10}' title="10 chiffres" 
-                      onChange={e => this.setState({numero: e.target.value})}/>
-                    </div>
-                  </div>
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-phone"></i></span>
+                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                              </div>
+                            </div>
 
-                  <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label htmlFor="scales">S'abonner aux newsletter</label>
+                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
+                  <label htmlFor="scales">S'abonner aux newsletters</label>
 
                   <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={console.log("bjr")}/>
                   </form>
@@ -150,11 +234,19 @@ class Box extends Component {
 
     </div>
     );
-    //<--<h4><b>Animateur : </b>{this.props.modanimateur}</h4>!-->
+  }
+}
+render(){
+  return (
+    <div>
+      {this.display()}
+    </div>
+  
+    );
   }
 
 
-  displaySelect(){
+  /*displaySelect(){
     let i;
     let option =[];
     for (i = 0; i < this.state.listeUfr.length; i++) {
@@ -163,86 +255,60 @@ class Box extends Component {
       
     }
   }
-
-  checkifSubmit(){
-
-    var checkprenom=this.verifnom(this.state.prenom);
-    var checknom=this.verifnom(this.state.name);
-    //gérer mail
-    var checktel=this.veriftel(this.state.numero);
-
-    if(checknom && checkprenom && checktel){
-      //this.submitform();
-      this.state.ready=true;
-      console.log("Entrée valide");
-    }
-    else{
-      if(!checktel){
-        console.log("Veuillez entrer un numéro à 10 chiffres");
-        this.state.ready=false;
-      }
-      else{
-        if(!checknom || !checkprenom){
-          this.state.ready=false;
-          console.log("Veuillez ne pas utiliser de caractère spéciaux ni de valeur numérique");
-        }
-      }
-    }
-    
-  }
-
+*/
   handleSubmit(event) {
-    if(this.verifnom(this.state.name)){
-      /*const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
-      axios.get(url)
-        .then(response => {
-          this.handleClose();
-        })
-        .catch(error => {
-          console.log(error);
-        });*/
-        alert("toutes les entrées sont valides");
-        
-      }else{
-        alert("toutes les entrées ne sont pas valides");
-      }
+    const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufrSelected+'&idAct='+this.props.modnom
+    axios.get(url)
+      .then(response => {
+        this.handleClose();
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
 
-    submitform(){
-
-      const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name 
-      +'&prenom='+this.state.prenom+'&mail='+this.state.adresse 
-      +'&tel='+this.state.numero +'&abonne='+this.state.newsletter
-      +'&ufr='+ this.state.ufr+'&idAct='+this.props.modnom
-      axios.get(url)
-        .then(response => {
-          this.handleClose();
-        })
-        .catch(error => {
-          console.log(error);
-        })
+    displayUfr(){
+      let listUfr = [];
+      let content;
+      content = this.state.ufr.map((ufr, index) =>{
+        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.ufr}</option>)
+      })
+      return content = listUfr
     }
-
     componentDidMount() {
       const url = 'http://laweb.alwaysdata.net/?choix=11';
       axios.get(url)
-
-        let i;
-        let tab =[];
-        axios.get(url)
         .then(response => {
+          let i
+          let tab =[]
+          
           for (i = 0; i < response.data.ufr.length; i++) {
-            tab.push(response.data.ufr);
+            tab.push(response.data.ufr[i]);
           }
           this.setState({
-            listeUfr: tab,
+            ufr: tab,
           });
-
         })
         .catch(error => {
           console.log(error);
         });
-      }
+
+        
+    }
     }
 
-export default Box;
+
+    const mapStateToProps = state => {
+      return { sessionConnect: state.sessionReducer}
+    }
+    
+    // const mapDispatchToProps = dispatch => {
+    //   console.log("ok");
+    //   return {
+    //     removeSession: (name) => {
+    //       dispatch(removeSession(name))
+    //     }
+    //   }
+    // }
+    
+    export default connect(mapStateToProps,null)(Box)

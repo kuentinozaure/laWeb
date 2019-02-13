@@ -11,16 +11,35 @@ class Membre extends Component {
           numero: '',
           identifiant: '',
           mdp: '',
-          ufr:1,
+          ufr: [],
           description :'',
-          newsletter: 0
+          newsletter: 0,
+          ufrSelected:"",
       };
     
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
+    componentDidMount() {
+      const url = 'http://laweb.alwaysdata.net/?choix=11';
+      axios.get(url)
+        .then(response => {
+          let i
+          let tab =[]
+          for (i = 0; i < response.data.ufr.length; i++) {
+            tab.push(response.data.ufr[i]);
+          }
+          this.setState({
+            ufr: tab,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
     handleSubmit() {
-      const url = 'http://laweb.alwaysdata.net/?choix=8&nom='+this.state.name+'&prenom='+this.state.prenom+'&mail='+this.state.adresse+'&tel='+this.state.numero+'&abonne='+this.state.newsletter+'&ufr='+this.state.ufr+'&login='+this.state.identifiant+'&mdp='+this.state.mdp+'&desc='+this.state.description;
+      const url = 'http://laweb.alwaysdata.net/?choix=8&nom='+this.state.name+'&prenom='+this.state.prenom+'&mail='+this.state.adresse+'&tel='+this.state.numero+'&abonne='+this.state.newsletter+'&ufr='+this.state.ufrSelected+'&login='+this.state.identifiant+'&mdp='+this.state.mdp+'&desc='+this.state.description;
       axios.get(url)
         axios.get(url)
         .then(response => {
@@ -42,7 +61,7 @@ class Membre extends Component {
                     <div class="panel-body">
                       <div class="text-center">
                         <h3><i class="fa fa-user fa-4x"></i></h3>
-                        <h2 class="text-center">Vous voulez devenir membre?</h2>
+                        <h2 class="text-center">Vous voulez devenir membre ?</h2>
                         <p>Faites votre demande ici</p>
                         <div class="panel-body">
           
@@ -58,7 +77,7 @@ class Membre extends Component {
                   <div class="form-group">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prenom" class="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" placeholder="Prénom" class="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
                   
@@ -72,15 +91,16 @@ class Membre extends Component {
                   <div class="form-group">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Telephone" class="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" placeholder="Téléphone" class="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 
                             <div className="form-group">
-                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
-                                  <option id="1" >1 -Sciences Espaces et Sociétés</option>
-                                  <option id="2" >2 - Langue Etrangères Appliquées</option>
-                                  <option id="3" >3 - Histoire</option>
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
+                                {
+                                  this.state.ufr.map((ufr, index) =>
+                                    <option id={ufr.id} >{ufr.id} - {ufr.ufr}</option>
+                                  )}
                               </select>
                             </div>
 
