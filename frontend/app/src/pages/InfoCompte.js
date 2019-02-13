@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Mdp from './Mdp.js';
 import NavbarMembres from './NavbarMembres.js';
 import Modal from 'react-responsive-modal';
+import "./FormulaireCard.css"
+
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
@@ -42,11 +44,14 @@ class InfoCompte extends Component {
     render() {
       const { open } = this.state;
       return (
-        <div style={styles}>
+
+        <div style={styles} >
+        <div id="infocomptenavbar">
         <NavbarMembres/>
+        </div>
           
-          <button onClick={this.onOpenModal}>Mes informations </button>
-          <Modal open={open} onClose={this.onCloseModal} center>
+          
+          <div id="infocompte">
             <h2>Mon Profil</h2>
             <p>
               Nom : <br/>
@@ -58,14 +63,15 @@ class InfoCompte extends Component {
 
             </p>
             
-            <button onClick={this.handleClose} color="primary">
+            <button onClick={this.onOpenModal} color="primary">
               Modifier
             </button>
             <button onClick={this.handleClose} color="primary">
               Fermer
             </button>
-          
+            <Modal open={open} onClose={this.onCloseModal} center>
           </Modal>
+          </div>
         </div>
       );
     }

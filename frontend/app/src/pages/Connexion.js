@@ -1,35 +1,64 @@
 import React, { Component } from 'react';
-
-import { connect } from 'react-redux';
-import setSession from './../actions/setSession'
-
+import Mdp from "./Mdp.js";
+import axios from 'axios';
+import MemberPage from './membersView.js'
 
 class Connexion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          name: '',
+          identifiant: '',
           mdp: '',
           mdpServ: '',
           logServ:'',
           logDebug : 'laweb@admin',
           mdpDebug : 'azerty',
+          isConnect:false,
         };
     
         this.handleSubmit = this.handleSubmit.bind(this);
       }
       
        handleSubmit() {
-        if(this.state.mdpDebug == this.state.mdp && this.state.logDebug == this.state.name){
-          this.props.setSession(this.state.name);
-          console.log("a "+this.props.setSession);
-          this.props.history.push(process.env.PUBLIC_URL + "/member");
-          
-        }
+
+      if(this.state.mdpDebug == this.state.mdp && this.state.logDebug == this.state.identifiant){
+        this.setState({
+          isConnect:true,
+        });
       }
+        
+        /*const url = '../membre.json';
+         axios.get(url)
+          .then(response => {
+            let taille = Object.keys(response.data).length
+            let log=""
+            let mdp=""
+            for (let i = 0; i < taille; i++) {
+              log=response.data[i].login 
+              mdp=response.data[i].mdp
+            }
+            this.setState({
+              mdpServ: mdp,
+              logServ:log,
+            });
+
+          })
+          .catch(error => {
+            console.log(error);
+          });*/
+          
+          /*if((this.state.mdp ===this.state.mdpServ) && (this.state.logServ ===this.state.identifiant)){
+            alert("Bonjour " + this.state.identifiant + " !");
+
+          }else{
+            alert("Identifiant ou mot de passe incorrect.");   
+          }*/
 
 
+      }
+      
       display(){
+        if(this.state.isConnect == false){
           return (
             <div>
               <div className="container">
@@ -48,7 +77,7 @@ class Connexion extends React.Component {
                               <div className="form-group">
                                 <div className="input-group">
                                   <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="Identifiant" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
+                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="Identifiant" className="form-control"  type="text" onChange={e => this.setState({identifiant: e.target.value})}/>
                                 </div>
                               </div>
                     
@@ -75,7 +104,12 @@ class Connexion extends React.Component {
           </div>
           </div>
           )
-      };
+        }else{
+          return( 
+                <MemberPage isConnect={this.state.isConnect} loginUser={this.state.identifiant}/>
+          )
+        }
+      }
 
   render() {
     return (
@@ -83,20 +117,7 @@ class Connexion extends React.Component {
           {this.display()}
         </div>
     );
-  
-}}
-
-const mapStateToProps = state => {
-  return { sessionConnect: state.sessionReducer}
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setSession: (name) => {
-      dispatch(setSession(name))
-    }
   }
+}
 
-};
-
-export default connect(mapStateToProps,mapDispatchToProps)(Connexion)
+export default Connexion;
