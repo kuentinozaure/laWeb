@@ -23,7 +23,7 @@ class Box extends Component {
       ufr: [],
       numero: '',
       newsletter: false,
-      ufrSelected:"",
+      ufrSelected:1,
       //listeUfr : []
     };
   }
@@ -62,6 +62,10 @@ display(){
                         <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
                       </li>
                       <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-user"></i> ANIME PAR {this.props.modanimateur} </span>
+                      </li>
+                      <li>|</li>
 			              </ul>
                     <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
@@ -81,7 +85,7 @@ display(){
           <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
 
-          <form id="register-form" role="form" autoComplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
+          <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
@@ -156,6 +160,10 @@ display(){
                         <span><i className="glyphicon glyphicon-asterisk"></i> IL Y A {this.props.modnbplace} PLACES AU TOTAL</span>
                       </li>
                       <li>|</li>
+                      <li>
+                        <span><i className="glyphicon glyphicon-user"></i> ANIME PAR {this.props.modanimateur.toUpperCase()} </span>
+                      </li>
+                      <li>|</li>
 			              </ul>
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
@@ -172,9 +180,7 @@ display(){
           <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
 
-          <form id="register-form" role="form" autoComplete="off" className="form" method="get">
-           
-                
+          <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <div className="input-group">
                         <span className="input-group-addon">
@@ -257,7 +263,7 @@ render(){
   }
 */
   handleSubmit(event) {
-    const url = 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufrSelected+'&idAct='+this.props.modnom
+    const url = "http://laweb.alwaysdata.net/?choix=9&nom="+this.state.name +"&prenom="+this.state.prenom+"&mail="+this.state.adresse +"&tel="+this.state.numero +"&abonne="+this.state.newsletter+"&ufr="+ this.state.ufrSelected+"&idAct="+this.props.modnom
     axios.get(url)
       .then(response => {
         this.handleClose();

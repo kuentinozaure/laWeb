@@ -14,7 +14,8 @@ class Membre extends Component {
           ufr: [],
           description :'',
           newsletter: 0,
-          ufrSelected:"",
+          listUFR: [],
+          ufrSelected: ''
       };
     
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,9 +53,26 @@ class Membre extends Component {
         alert(url);
     }
 
+    // recupererUFR(){
+    //   const url = 'http://laweb.alwaysdata.net/?choix=11';
+    //   axios.get(url)
+    //     axios.get(url)
+    //     .then(response => {
+
+    //       console.log(response.data.ufr)
+    //       this.setState({listeUFR: response.data.ufr.slice()})
+    //     })
+    //     .catch(error => {
+    //       console.log(error);
+    //     });
+    // }
+
   render() {
+    console.log(this.state.listUFR)
     return (
+      
         <div class="container">
+        {/* {this.recupererUFR()} */}
         <div class="row">
           <div class="col-md-4 col-md-offset-4">
                   <div class="panel panel-default">

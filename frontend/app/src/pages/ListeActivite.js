@@ -42,6 +42,7 @@ class ListeActivite extends Component {
         this.setState({
           activities: tab,
         });
+        console.log(this.state.activities);
       })
       .catch(error => {
         console.log(error);
@@ -50,11 +51,13 @@ class ListeActivite extends Component {
   }
 
   display(){
-    let listActivity =[]
+    let listActivityEvent =[]
+    let listActivityA =[]
     if(this.activitySearch === ""){
       let content = this.state.activities.map((activity, index) => {
-
-        listActivity.push(
+        
+        if(activity.type == "EVENEMENT"){
+          listActivityEvent.push(
             <Box 
                 imgnom= {activity.titre}
                 modnom= {activity.id}
@@ -63,11 +66,40 @@ class ListeActivite extends Component {
                 modnbplace={activity.placeDispo}
                 modnbplaceRestante={activity.placeRestante}
                 moddescription={activity.description}
+                modanimateur={activity.animateur}
             />
           );
+        }
+        else{
+          listActivityA.push(
+            <Box 
+                imgnom= {activity.titre}
+                modnom= {activity.id}
+                modtitre={activity.titre}
+                moddate= {activity.dateDebut}
+                modnbplace={activity.placeDispo}
+                modnbplaceRestante={activity.placeRestante}
+                moddescription={activity.description}
+                modanimateur={activity.animateur}
+            />
+          );
+        }
+        
       });
       
-      return content = listActivity;
+      return (
+          <div>
+          <div class="container">
+            <h1>Evènements</h1>
+              {content = listActivityEvent}   
+          </div>
+          <div class="container">
+              <h1>Ateliers</h1>
+                {content = listActivityA}   
+          </div>
+          </div>
+      );
+      
 
     }else{
       let titre="";
@@ -78,21 +110,49 @@ class ListeActivite extends Component {
         description = activity.description
 
         if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch)){
-          listActivity.push(
-            <Box 
-                imgnom= {activity.titre}
-                modnom= {activity.id}
-                modtitre={activity.titre}
-                moddate= {activity.dateDebut}
-                modnbplace={activity.placeDispo}
-                modnbplaceRestante={activity.placeRestante}
-                moddescription={activity.description}
-            />
-          );
+          if(activity.type == "EVENEMENT"){
+            listActivityEvent.push(
+              <Box 
+                  imgnom= {activity.titre}
+                  modnom= {activity.id}
+                  modtitre={activity.titre}
+                  moddate= {activity.dateDebut}
+                  modnbplace={activity.placeDispo}
+                  modnbplaceRestante={activity.placeRestante}
+                  moddescription={activity.description}
+                  modanimateur={activity.animateur}
+              />
+            );
+          }
+          else{
+            listActivityA.push(
+              <Box 
+                  imgnom= {activity.titre}
+                  modnom= {activity.id}
+                  modtitre={activity.titre}
+                  moddate= {activity.dateDebut}
+                  modnbplace={activity.placeDispo}
+                  modnbplaceRestante={activity.placeRestante}
+                  moddescription={activity.description}
+                  modanimateur={activity.animateur}
+              />
+            );
+          }
         }
       });
       
-      return content = listActivity;
+      return (
+        <div>
+        <div class="container">
+          <h1>Evènements</h1>
+            {content = listActivityEvent}   
+        </div>
+        <div class="container">
+            <h1>Ateliers</h1>
+              {content = listActivityA}   
+        </div>
+        </div>
+    );
     }
   }
 
@@ -109,15 +169,25 @@ class ListeActivite extends Component {
       <div>
         <br></br>
         <div className="container">
-	        <div className="row">
-	          <div className="col-12">
-    	        <div id="custom-search-input">
-                <div className="input-group">
-                    <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
+        <div id="div_titreAccueil">
+          ~ Quelles activités te propose LaWeb ? ~
+        </div>
+        <br></br>
+          <div id="div_presentation" align="center">
+            LaWeb te propose des activités au sein de l'université.<div id="sautdeligne"></div>
+            Viens découvrir le domaine de l'informatique autour d'évènements ou d'ateliers.<div id="sautdeligne"></div>
+            Tu peux découvrir nos activités sur cette page et t'y inscrire.<div id="sautdeligne"></div>
+          </div>
+          <br></br>
+            <div className="row">
+              <div className="col-12">
+                <div id="custom-search-input">
+                  <div className="input-group">
+                      <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
+                  </div>
                 </div>
               </div>
             </div>
-	        </div>
         </div>
         <br></br>
           {this.display()}
