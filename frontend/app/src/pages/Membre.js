@@ -39,7 +39,7 @@ class Membre extends Component {
     }
 
     handleSubmit() {
-      const url = 'http://laweb.alwaysdata.net/?choix=8&nom='+this.state.name+'&prenom='+this.state.prenom+'&mail='+this.state.adresse+'&tel='+this.state.numero+'&abonne='+this.state.newsletter+'&ufr='+this.state.ufr+'&login='+this.state.identifiant+'&mdp='+this.state.mdp+'&desc='+this.state.description;
+      const url = 'http://laweb.alwaysdata.net/?choix=8&nom='+this.state.name+'&prenom='+this.state.prenom+'&mail='+this.state.adresse+'&tel='+this.state.numero+'&abonne='+this.state.newsletter+'&ufr='+this.state.ufrSelected+'&login='+this.state.identifiant+'&mdp='+this.state.mdp+'&desc='+this.state.description;
       axios.get(url)
         axios.get(url)
         .then(response => {
@@ -113,7 +113,7 @@ class Membre extends Component {
                             </div>
 
                             <div className="form-group">
-                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
+                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
                                 {
                                   this.state.ufr.map((ufr, index) =>
                                     <option id={ufr.id} >{ufr.id} - {ufr.ufr}</option>
