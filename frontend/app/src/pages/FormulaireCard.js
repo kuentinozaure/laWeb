@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+
+import Swal from 'sweetalert2';
 
 
 
@@ -32,8 +34,11 @@ constructor(props) {
     const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
     axios.get(url)
       .then(response => {
-        alert(
-          'Mail envoyé',
+        
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
         )
         console.log('mail envoye')
       })
