@@ -29,19 +29,6 @@ class Accueil extends Component {
         </div>
          <br>
          </br>
-         <div className="col-sm-5">
-             <Timeline
-             dataSource={{sourceType:"profile",screenName:"AssociationLaW1"}}
-             options={{username:"AssociationLaW1"}}/>
-         </div>
-         <div className="col-sm-2">
-         </div>
-         <div className="col-sm-5" >
-         
-         <FacebookProvider appId="2079577735665543">
-        <Page href="https://www.facebook.com/Association-LaWeb-1334130680060783/?modal=suggested_action&notif_id=1549887853715466&notif_t=page_user_activity" tabs="timeline"  />
-         </FacebookProvider> 
-         </div>
      </div>
     );
   }
