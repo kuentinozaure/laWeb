@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Swal from 'sweetalert2';
+import "./FormulaireCard.css"
 
 
 
@@ -29,19 +29,14 @@ constructor(props) {
     const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
     axios.get(url)
       .then(response => {
-        
-        Swal.fire(
-          'Good job!',
-          'You clicked the button!',
-          'success'
-        )
+        document.getElementsByClassName("message-envoye")[0].style.display = "block";
         console.log('mail envoye')
       })
       .catch(error => {
         console.log(error);
       });
-
     }
+
 
     render() {
     return (
@@ -83,9 +78,10 @@ constructor(props) {
               <textarea class="form-control" rows="2" placeholder="Écrit ton message ici..." id="message" required="remplir votre message" type="text" onChange={e => this.setState({message: e.target.value})}></textarea>
           </div>
     </div>
-    <em>Ces informations ne seront utilisées que pour vous répondre et ne seront pas concervées.</em>
+    <em>Ces informations ne seront utilisées que pour vous répondre et ne seront pas conservées.</em>
     <div className="form-group">
-      <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit" />
+      <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit"/>
+      <p className="message-envoye">message envoyé</p>
     </div>
     
     <input type="hidden" className="hide" name="token" id="token" value=""/>
