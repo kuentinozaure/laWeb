@@ -60,3 +60,6 @@ http://laweb.alwaysdata.net/?choix=17&idAct=['idAct']&'titre=['titre']&descripti
 
 ## AJOUT D'UN UTILISATEUR A LA NEWSLETTER
 http://laweb.alwaysdata.net/?choix=18&nom=['nom']&prenom=['prenom']&mail=['mail']
+
+## LISTER LES ACTIVITE
+http://laweb.alwaysdata.net/?choix=19
