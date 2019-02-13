@@ -58,21 +58,21 @@ class Reseaux extends Component {
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                                        <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" onChange={e => this.setState({ name: e.target.value })} />
+                                                        <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" required onChange={e => this.setState({ name: e.target.value })} />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className="input-group">
                                                         <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                                        <input id="prenom" name="prenom" placeholder="Prenom" className="form-control" type="text" onChange={e => this.setState({ prenom: e.target.value })} />
+                                                        <input id="prenom" name="prenom" placeholder="Prenom" className="form-control" type="text" required onChange={e => this.setState({ prenom: e.target.value })} />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className="input-group">
                                                         <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                        <input id="email" name="email" placeholder="Email" className="form-control" type="email" onChange={e => this.setState({ adresse: e.target.value })} />
+                                                        <input id="email" name="email" placeholder="Email" className="form-control" type="email" requrired onChange={e => this.setState({ adresse: e.target.value })} />
                                                     </div>
                                                 </div>
 
