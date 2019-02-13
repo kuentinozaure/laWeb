@@ -535,7 +535,7 @@ case 19 : //RECUPERATION DE TOUTE LES  ASTUCE
                 //http://laweb.alwaysdata.net/?choix=19
 
         $retour['choixUtilisateur'] ="RECUPERATION DE TOUTE LES  ASTUCE";
-        $req= "SELECT id,titre,description,auteur,image,lienAstuce,type FROM ASTUCE";
+        $req= "SELECT id,titre,description,auteur,image,lienAstuce,type FROM ASTUCE WHERE estValide = 1";
         $i=0;
         $res=$connexion->query($req);
 
@@ -564,7 +564,7 @@ case 19 : //RECUPERATION DE TOUTE LES  ASTUCE
         $lien = $_GET['lien'];
         $type =  $_GET['type'];
     
-        $req = "INSERT INTO ASTUCE (id, titre, description, auteur, image, lienAstuce, type) VALUES (NULL, '".$titre."', '".$description."', '".$auteur."', '', '".$lien."', '".$type."')";
+        $req = "INSERT INTO ASTUCE (id, titre, description, auteur, image, lienAstuce, type,estValide) VALUES (NULL, '".$titre."', '".$description."', '".$auteur."', '', '".$lien."', '".$type."',0)";
         $res=$connexion->exec($req);
         $retour['OK'] = "AJOUT DE VOTRE ASTUCES";
     
