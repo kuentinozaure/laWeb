@@ -222,7 +222,17 @@ handleSubmit(event) {
                   de nouvelles choses. Vous trouverez votre bonheur ici !
                   <div id="sautdeligne"></div>
                 </div>
+                <div className="col-sm-10">
+                </div>
+                
+                <div className="col-sm-1">
                 <a className="btn btn-primary btn-lg " role="button" onClick={this.handleShow}>Proposer une astuce</a>
+                </div>
+                <div className="col-sm-1" >
+                </div>
+                
+                <br></br>
+                <br></br>
                 <p></p>
                 <p></p>
                 <div className="row">
