@@ -130,13 +130,17 @@ handleSubmit(event) {
         return (
             <div>
             <div>
-                <h1 align="center">Astuces</h1>
-                <a className="btn btn-info btn-lg " role="button" onClick={this.handleShow}>Proposer une astuce</a>
+                <h1 align="center">~ Astuces ~</h1>
                 <p></p>
                 <p></p>
-                <h2 align="center">
-                    Vous avez un problème ? Nos astuces peuvent peut-être vous aider à le résoudre.
-                </h2>
+                <div id="div_presentation" align="center">
+                  Vous rencontrez des problèmes avec les services en ligne de l'université ou bien vous voulez apprendre
+                  de nouvelles choses. Vous trouverez votre bonheur ici !
+                  <div id="sautdeligne"></div>
+                </div>
+                <a className="btn btn-primary btn-lg " role="button" onClick={this.handleShow}>Proposer une astuce</a>
+                <p></p>
+                <p></p>
                 <div className="row">
               <div className="col-12">
                 <div id="custom-search-input">
