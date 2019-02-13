@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "./Accueil.css";
 import { FacebookProvider, Page, Share } from 'react-facebook';
 import axios from 'axios';
+import { Timeline } from 'react-twitter-widgets';
 
 
 class Reseaux extends Component {
@@ -84,15 +85,14 @@ class Reseaux extends Component {
                             </div>
                         </div>
                     </div>
-                
+                    
                 <div className="col-sm-5">
-                    <h4>Nos derniers tweets</h4>
-                    <a className="twitter-timeline" href="https://twitter.com/AssociationLaW1"
-                        data-width="380"
-                        data-height="545">
-                        Nos derniers tweets
-             </a>
+                <h4>Nos derniers tweets</h4>
+                <Timeline
+                    dataSource={{sourceType:"profile",screenName:"AssociationLaW1"}}
+                    options={{username:"AssociationLaW1"}}/>
                 </div>
+                
                 <div className="col-sm-2">
                 </div>
                 <div className="col-sm-5" >
