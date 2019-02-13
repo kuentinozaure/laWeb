@@ -165,15 +165,25 @@ class ListeActivite extends Component {
       <div>
         <br></br>
         <div className="container">
-	        <div className="row">
-	          <div className="col-12">
-    	        <div id="custom-search-input">
-                <div className="input-group">
-                    <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
+        <div id="div_titreAccueil">
+          ~ Quelles activités te propose LaWeb ? ~
+        </div>
+        <br></br>
+          <div id="div_presentation" align="center">
+            LaWeb te propose des activités au sein de l'université.<div id="sautdeligne"></div>
+            Viens découvrir le domaine de l'informatique autour d'évènements ou d'ateliers.<div id="sautdeligne"></div>
+            Tu peux découvrir nos activités sur cette page et t'y inscrire.<div id="sautdeligne"></div>
+          </div>
+          <br></br>
+            <div className="row">
+              <div className="col-12">
+                <div id="custom-search-input">
+                  <div className="input-group">
+                      <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
+                  </div>
                 </div>
               </div>
             </div>
-	        </div>
         </div>
         <br></br>
           {this.display()}
