@@ -63,7 +63,7 @@ display(){
                       </li>
                       <li>|</li>
 			              </ul>
-                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                    <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
                     </Button> 
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
