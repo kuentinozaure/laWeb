@@ -57,3 +57,6 @@ http://laweb.alwaysdata.net/?choix=16&idAct=['idAct']
 
 ## MODIFICATION D'UNE ACTIVITE
 http://laweb.alwaysdata.net/?choix=17&idAct=['idAct']&'titre=['titre']&description=['description']&dateDebut=['dateDebut']&dateFin=['dateFin']&salle=['salle']
+
+## AJOUT D'UN UTILISATEUR A LA NEWSLETTER
+http://laweb.alwaysdata.net/?choix=18&nom=['nom']&prenom=['prenom']&mail=['mail']

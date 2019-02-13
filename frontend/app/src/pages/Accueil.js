@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./Accueil.css";
 import { FacebookProvider, Page } from 'react-facebook';
+import { Timeline } from 'react-twitter-widgets';
 
 
 class Accueil extends Component {
@@ -11,7 +12,7 @@ class Accueil extends Component {
             <div className="col-xs-12 col-sm-12 col-md-4 col-lg-8 col-md-offset-2">
                            <p>
                                <div id="div_titreAccueil">
-                                     ~ Qu'est-ce que la web ? ~
+                                     ~ Qu'est-ce que LaWeb ? ~
                                  </div>
                                  <br/>
                                  <div id="div_presentation" align="center">
@@ -29,11 +30,9 @@ class Accueil extends Component {
          <br>
          </br>
          <div className="col-sm-5">
-             <a className="twitter-timeline" href="https://twitter.com/AssociationLaW1"
-             data-width="500"
-             data-height="500">
-             Nos derniers tweets
-             </a>
+             <Timeline
+             dataSource={{sourceType:"profile",screenName:"AssociationLaW1"}}
+             options={{username:"AssociationLaW1"}}/>
          </div>
          <div className="col-sm-2">
          </div>
