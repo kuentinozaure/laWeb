@@ -218,7 +218,7 @@ handleSubmit(event) {
                 <p></p>
                 <p></p>
                 <div id="div_presentation" align="center">
-                  Vous rencontrez des problèmes avec les services en ligne de l'université ou bien vous voulez apprendre
+                  Vous rencontrez des problèmes avec les services en ligne de l'université ou bien apprendre
                   de nouvelles choses. Vous trouverez votre bonheur ici !
                   <div id="sautdeligne"></div>
                 </div>
