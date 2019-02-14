@@ -48,28 +48,28 @@ class InfoCompte extends Component {
         <div style={styles} >
         <div id="infocomptenavbar">
         <NavbarMembres/>
-        </div>
-          
-          
-          <div id="infocompte">
-            <h2>Mon Profil</h2>
-            <p>
-              Nom : <br/>
-              Prenom:<br/>
-              email:<br/>
-              Telephone:<br/>
-              Description:<br/>
-              Identifiant:<br/>
+          <p>
+            Nom : <br/>
+            Prenom:<br/>
+            email:<br/>
+            Telephone:<br/>
+            Description:<br/>
+            Identifiant:<br/>
+          </p>
 
-            </p>
-            
-            <button onClick={this.onOpenModal} color="primary">
-              Modifier
-            </button>
-            <button onClick={this.handleClose} color="primary">
-              Fermer
-            </button>
-            <Modal open={open} onClose={this.onCloseModal} center>
+          <button onClick={this.onOpenModal} color="primary">Modifier Profil</button>
+          <button onClick={this.onOpenModal}color="secondary">Supprimer Compte</button>
+          <Modal open={open} onClose={this.onCloseModal} center>
+          <h2>Mon Profil</h2>
+          <p>
+            Nom : <br/>
+            Prenom:<br/>
+            email:<br/>
+            Telephone:<br/>
+            Description:<br/>
+            Identifiant:<br/>
+          </p>
+          <button onClick={this.onCloseModal} color="primary">Enregistrer</button>
           </Modal>
           </div>
         </div>

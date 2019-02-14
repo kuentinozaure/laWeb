@@ -67,7 +67,7 @@ display(){
                       </li>
                       <li>|</li>
 			              </ul>
-                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                    <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
                     </Button> 
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
@@ -182,11 +182,16 @@ display(){
 
           <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                              <div className="input-group">
-                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
-                              </div>
-                            </div>
+                    <div className="input-group">
+                        <span className="input-group-addon">
+                          <i className="fa fa-user fa" aria-hidden="true"></i>
+                        </span>
+                        <input id="name" name="nom" placeholder="Nom" required="Nom" 
+                        className="form-control"  type="name" pattern='[A-Za-z]' title="prenom sans caractères spéciaux"
+                        onChange={e => this.setState({name: e.target.value})}
+                        />
+                    </div>
+                </div>
                   
                   <div className="form-group">
                               <div className="input-group">
@@ -204,11 +209,15 @@ display(){
                             </div>
                   
                   <div className="form-group">
-                              <div className="input-group">
-                                <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
-                              </div>
-                            </div>
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                      <i className="glyphicon glyphicon-envelope color-blue"></i>
+                      </span>
+                      <input id="email" name="email" placeholder="Email" required="remplir votre email"
+                      className="form-control"  type="email" 
+                      onChange={e => this.setState({adresse: e.target.value})}/>
+                    </div>
+                  </div>
                   
                   <div className="form-group">
                               <div className="input-group">
@@ -220,7 +229,7 @@ display(){
                             <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
                   <label htmlFor="scales">S'abonner aux newsletters</label>
 
-                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" />
+                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={console.log("bjr")}/>
                   </form>
         </Modal.Body>
         <Modal.Footer>

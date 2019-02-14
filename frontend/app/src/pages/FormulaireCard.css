@@ -5,10 +5,11 @@
 
 #infocompte{
     text-align: center;
+    border-bottom: 2px;
     
     
 }
 #infocomptenavbar{
-    top: 200px;
+    position:relative
 
 }
