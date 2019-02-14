@@ -35,7 +35,7 @@ class Reseaux extends Component {
         return (
             <div className="container">
                 <div id="div_titreAccueil">
-                    ~ Nos activités en temps réel sur les réseaux ? ~
+                    ~ Nos activités en temps réel sur les réseaux ~
                  </div>
                 <div id="div_presentation" align="center">
                     Pour suivre nos activités et être au courant en direct des mouvements au sein de l'association LaWeb, tu peux nous suivre
