@@ -87,12 +87,49 @@ class InfoCompte extends Component {
         <div id="infocomptenavbar">
         <NavbarMembres/>
         
+        <div className="container">
+          <div className="row col-md-12 col-md-offset-2 custyle">
+            <table className="table table-striped custab">
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>Telephone</th>
+                  <th>Description</th>
+                  <th>Identifiant</th>
+                  <th className="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    <th>laweb</th>
+                    <th>admin </th>
+                    <th>laweb@admin</th>
+                    <th>02020202</th>
+                    <th>je suis bien</th>
+                    <th>laweb@admin</th>
+                    <th className="text-center">
+                      <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
+                      <button type="button" onClick={this.handleShow1} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
+                      <button type="button" onClick={this.handleShow2}  class="btn btn-warning btn-lg"> Supprimer </button>
+                    </th>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
           <p>
           <br/>
           <br/>
           <br/>
           <br/>
           <br/>
+          <br/>
+          <br/>
+          </p>
+          
+          {/*<button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
             Nom : <br/>
             Prenom:<br/>
             email:<br/>
@@ -105,10 +142,9 @@ class InfoCompte extends Component {
           </p>
 
           
-          <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
           <button type="button" onClick={this.handleShow1} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
           <button type="button" onClick={this.handleShow2}  class="btn btn-warning btn-lg"> Supprimer </button>
-          {/* <Modal open={open} onClose={this.onCloseModal} center>
+           <Modal open={open} onClose={this.onCloseModal} center>
           <h2>Mon Profil</h2>
           <p>
             Nom : <br/>
