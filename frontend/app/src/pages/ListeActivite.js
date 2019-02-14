@@ -104,12 +104,14 @@ class ListeActivite extends Component {
     }else{
       let titre="";
       let description = "";
+      let typeEvenement = "";
 
       let content = this.state.activities.map((activity, index) => {
         titre = activity.titre;
         description = activity.description
+        typeEvenement = activity.type
 
-        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch)){
+        if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch) || typeEvenement.includes(this.state.activitySearch)){
           if(activity.type == "EVENEMENT"){
             listActivityEvent.push(
               <Box 
@@ -144,7 +146,7 @@ class ListeActivite extends Component {
       return (
         <div>
         <div class="container">
-          <h1>Evènements</h1>
+          <h1>Évènements</h1>
             {content = listActivityEvent}   
         </div>
         <div class="container">
@@ -175,7 +177,7 @@ class ListeActivite extends Component {
         <br></br>
           <div id="div_presentation" align="center">
             LaWeb te propose des activités au sein de l'université.<div id="sautdeligne"></div>
-            Viens découvrir le domaine de l'informatique autour d'évènements ou d'ateliers.<div id="sautdeligne"></div>
+            Viens découvrir le domaine de l'informatique autour d'évènements et ateliers.<div id="sautdeligne"></div>
             Tu peux découvrir nos activités sur cette page et t'y inscrire.<div id="sautdeligne"></div>
           </div>
           <br></br>
