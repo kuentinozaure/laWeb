@@ -21,44 +21,13 @@ class Accueil extends Component {
         
         </div>
         <div className="row div-zone1">
-        <section className="section-laWeb col-xs-4 col-sm-4 col-lg-6 ">
+        <section className="section-laWeb col-xs-4 col-sm-4 col-lg-12 ">
           <h1 className="titre">Nos activités</h1>
           <article>
-            les activités sont fait pour tout les etudiants et non etudiant voulant....
-            <ul>
-              <li>
-                Aide au etudiants
-              </li>
-              <li>
-                Aide au etudiants
-              </li>
-              <li>
-                Aide au etudiants
-              </li>
-              <li>
-                Aide au etudiants
-              </li>
-            </ul>
-          </article>
-        </section>
-        <section className="section-laWeb col-xs-4 col-sm-4 col-lg-6">
-          <h1 className="titre">Nos évènements</h1>
-          <article>
-            les eévènement sont des...
-            <ul>
-              <li>
-                Conférence
-              </li>
-              <li>
-                soirées rabta ztenda
-              </li>
-              <li>
-                Aide au etudiants
-              </li>
-              <li>
-                Aide au etudiants
-              </li>
-            </ul>
+          Les activités que l'on propose sont variées. On peut y trouver des ateliers visant à prendre en main des outils
+          informatiques (bureautique, logiciel de programmation web...), des évènements autour de l'informatique touchant à plusieurs domaines.
+          Ces évènements seront accèssible à tout public. Les ateliers quant à eux seront diviser en différents niveaux. Ces activités
+          seront animés par des personnes choisies pour leurs compétences d'encadrement et leurs connaissances. 
           </article>
         </section>
         </div>
