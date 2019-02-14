@@ -3,6 +3,7 @@ import "./Accueil.css";
 import { FacebookProvider, Page, Share } from 'react-facebook';
 import axios from 'axios';
 import { Timeline } from 'react-twitter-widgets';
+import './/Section.css';
 
 
 class Reseaux extends Component {
@@ -87,10 +88,12 @@ class Reseaux extends Component {
                     </div>
 
                 <div className="col-sm-5">
+                <div id="twitter">
                 <h4>Nos derniers tweets</h4>
                 <Timeline
                     dataSource={{sourceType:"profile",screenName:"AssociationLaW1"}}
-                    options={{username:"AssociationLaW1"}}/>
+                    options={{username:"AssociationLaW1",height: '545',width:'100%'}}/>
+                </div>
                 </div>
                 
                 <div className="col-sm-2">
