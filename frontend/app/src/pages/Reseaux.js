@@ -34,9 +34,9 @@ class Reseaux extends Component {
     render() {
         return (
             <div className="container">
-
-                <h1>Nos activités en temps réel sur les réseaux</h1>
-
+                <div id="div_titreAccueil">
+                    ~ Nos activités en temps réel sur les réseaux ? ~
+                 </div>
                 <div id="div_presentation" align="center">
                     Pour suivre nos activités et être au courant en direct des mouvements au sein de l'association LaWeb, tu peux nous suivre
                     sur nos réseaux sociaux Twitter et Facebook.
@@ -86,7 +86,7 @@ class Reseaux extends Component {
                             </div>
                         </div>
                     </div>
-                    
+
                 <div className="col-sm-5">
                 <div id="twitter">
                 <h4>Nos derniers tweets</h4>
