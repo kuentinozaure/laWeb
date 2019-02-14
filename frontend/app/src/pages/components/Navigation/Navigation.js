@@ -35,27 +35,27 @@ class Navigation extends Component {
             <nav id="menu">
                 <ul id="list_menu">
                 <li>
-                  <a href="#" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#" exact={true} ClassName='is-active' className="menu_text">
                     Viens Découvrir
                   </a>
                 </li>
                 <li>
-                  <a href="#activite"  exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#activite"  exact={true} ClassName='is-active' className="menu_text">
                     Nos Activités
                   </a>
                 </li>
                 <li>
-                  <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#astuces" exact={true} ClassName='is-active' className="menu_text">
                     Astuces
                   </a>
                 </li>
                 <li>
-                  <a href="#/contact" exact={true} activeClassName='is-active' className="menu_text" >
+                  <a href="#/contact" exact={true} ClassName='is-active' className="menu_text" >
                     Contacts
                   </a>
                 </li>
                 <li>
-                <a href="#reseaux" exact={true} activeClassName='is-active'  className="menu_text">
+                <a href="#reseaux" exact={true} ClassName='is-active'  className="menu_text">
                   Gestion
                 </a>
                 </li>          
