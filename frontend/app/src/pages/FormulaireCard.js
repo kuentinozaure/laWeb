@@ -46,7 +46,6 @@ constructor(props) {
             <h2 id="h252" className="h1-responsive font-weight-bold my-5">Nous contacter ? </h2>
             <p>Si tu souhaites avoir des informations supplémentaires
             à propos d'une activité ou de l'association n'hésite pas à nous le dire.</p>
-
              <form onSubmit={this.handleSubmit}>
     
     <div className="form-group">
@@ -75,7 +74,7 @@ constructor(props) {
     <div className="form-group">
           <div className="input-group">
               <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue "></i></span>
-              <textarea class="form-control" rows="2" placeholder="Écrit ton message ici..." id="message" required="remplir votre message" type="text" onChange={e => this.setState({message: e.target.value})}></textarea>
+              <textarea class="form-control" rows="2" placeholder="Écris ton message ici..." id="message" required="remplir votre message" type="text" onChange={e => this.setState({message: e.target.value})}></textarea>
           </div>
     </div>
     <em>Ces informations ne seront utilisées que pour vous répondre et ne seront pas conservées.</em>

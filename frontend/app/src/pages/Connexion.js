@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
-
-
 class Connexion extends React.Component {
     constructor(props) {
         super(props);
@@ -27,8 +24,6 @@ class Connexion extends React.Component {
           
         }
       }
-
-
       display(){
           return (
             <div>
@@ -48,14 +43,14 @@ class Connexion extends React.Component {
                               <div className="form-group">
                                 <div className="input-group">
                                   <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="Identifiant" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
+                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="laweb@admin" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                                 </div>
                               </div>
                     
                     <div className="form-group">
                                 <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                  <input id="mdp" name="mdp" placeholder="Mot de passe" required="Remplir votre mot de passe" className="form-control"  type="password" onChange={e => this.setState({mdp: e.target.value})}/>
+                                  <input id="mdp" name="mdp" placeholder="azerty" required="Remplir votre mot de passe" className="form-control"  type="password" onChange={e => this.setState({mdp: e.target.value})}/>
                                 </div>
                               </div>
   
@@ -76,7 +71,6 @@ class Connexion extends React.Component {
           </div>
           )
       };
-
   render() {
     return (
         <div>
@@ -85,18 +79,14 @@ class Connexion extends React.Component {
     );
   
 }}
-
 const mapStateToProps = state => {
   return { sessionConnect: state.sessionReducer}
 };
-
 const mapDispatchToProps = dispatch => {
   return {
     setSession: (name) => {
       dispatch(setSession(name))
     }
   }
-
 };
-
 export default connect(mapStateToProps,mapDispatchToProps)(Connexion)
