@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "./Inscription.css";
-
+import Formgroup from "./Formgroup.js";
 class Inscription extends React.Component {
     constructor(props) {
       super(props);
@@ -40,17 +40,30 @@ class Inscription extends React.Component {
           
                           <form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
           
-                            <div class="form-group">
+                          <div class="form-group">
                               <div class="input-group">
                                 <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="name" name="nom" placeholder="Nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
+                                <input id="name" name="nom" placeholder="Nom" className="form-control"  
+                                type="text" onChange={e => this.setState({name: e.target.value})}
+                                />
+                                
+                              </div>
+                            </div><div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input id="name" name="nom" placeholder="Nom" className="form-control"  
+                                type="text" onChange={e => this.setState({name: e.target.value})}
+                                />
+                                
                               </div>
                             </div>
                   
                   <div className="form-group">
                               <div className="input-group">
                                 <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" placeholder="Prenom" className="form-control"  
+                                type="password" onChange={e => this.setState({prenom: e.target.value})}
+                                pattern="tel"/>
                               </div>
                             </div>
 
@@ -71,7 +84,7 @@ class Inscription extends React.Component {
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" placeholder="Telephone" className="form-control"  type="tel" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 

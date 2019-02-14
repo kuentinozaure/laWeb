@@ -46,7 +46,7 @@ class Navigation extends Component {
                 </li>
                 <li>
                   <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
-                    Astuces
+                    Nos Astuces
                   </a>
                 </li>
                 <li>
@@ -102,7 +102,7 @@ class Navigation extends Component {
                 </li>
                 <li>
                   <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
-                    Astuces
+                    Nos Astuces
                   </a>
                 </li>
                 <li>
