@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
-
-
 class Connexion extends React.Component {
     constructor(props) {
         super(props);
@@ -27,8 +24,6 @@ class Connexion extends React.Component {
           
         }
       }
-
-
       display(){
           return (
             <div>
@@ -48,7 +43,7 @@ class Connexion extends React.Component {
                               <div className="form-group">
                                 <div className="input-group">
                                   <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="laweb@admin" className="form-control"  type="text" onChange={e => this.setState({identifiant: e.target.value})}/>
+                                  <input id="identifiant" name="identifiant"  required="Remplir votre identifiant" placeholder="laweb@admin" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                                 </div>
                               </div>
                     
@@ -76,7 +71,6 @@ class Connexion extends React.Component {
           </div>
           )
       };
-
   render() {
     return (
         <div>
@@ -85,18 +79,14 @@ class Connexion extends React.Component {
     );
   
 }}
-
 const mapStateToProps = state => {
   return { sessionConnect: state.sessionReducer}
 };
-
 const mapDispatchToProps = dispatch => {
   return {
     setSession: (name) => {
       dispatch(setSession(name))
     }
   }
-
 };
-
 export default connect(mapStateToProps,mapDispatchToProps)(Connexion)
