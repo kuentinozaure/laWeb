@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Activite;
-use AppBundle\Entity\Participe;
 use AppBundle\Entity\CategorieActivite;
 use AppBundle\Entity\MembreResponsable;
 
@@ -55,7 +54,7 @@ class ActiviteControler extends Controller
     /**
      * @Route("/activity/{activity_id}/", name="activite_once",methods={"GET"})
      */
-    public function getNauticBase(Request $request)
+    public function getOneActivity(Request $request)
     {
         $formatted =[];
         $activity = $this->get('doctrine.orm.entity_manager')

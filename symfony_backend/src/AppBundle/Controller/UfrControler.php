@@ -13,7 +13,7 @@ class UfrControler extends Controller
     /**
      * @Route("/ufr/", name="ufr_list", methods={"GET"})
      */
-    public function getActivite(Request $request)
+    public function getUfr(Request $request)
     {
         $ufrs = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Ufr')
@@ -33,9 +33,9 @@ class UfrControler extends Controller
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
     /**
-     * @Route("/ufr/{ufr_id}/", name="activite_once",methods={"GET"})
+     * @Route("/ufr/{ufr_id}/", name="ufr_once",methods={"GET"})
      */
-    public function getNauticBase(Request $request)
+    public function getOneUfr(Request $request)
     {
         $formatted =[];
         $Ufrs = $this->get('doctrine.orm.entity_manager')
