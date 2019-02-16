@@ -9,23 +9,24 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\MembreResponsable;
 use AppBundle\Entity\Ufr;
 
-class MembreResponsableController extends Controller
+class VisibleMemberController extends Controller
 {
     /**
-     * @Route("/members/", name="member_list", methods={"GET"})
+     * @Route("/visible/", name="Visible_member_list", methods={"GET"})
      */
-    public function getMember(Request $request)
+    public function getVisibleMember(Request $request)
     {
         $members = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:MembreResponsable')
                         ->findBy(array(
                             'estValide'=>1,
+                            'visible'=>1,
                         ));
 
 
         if (empty($members))
         {
-          return new JsonResponse(['message' => 'Responsable member not found'], Response::HTTP_NOT_FOUND);
+          return new JsonResponse(['message' => 'Visible responsable member  not found'], Response::HTTP_NOT_FOUND);
         }
                 $formatted = [];
                 foreach ($members as $member) {
@@ -50,11 +51,10 @@ class MembreResponsableController extends Controller
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
-
     /**
-     * @Route("/members/{member_id}/",name="members_once",methods={"GET"})
+     * @Route("/visible/{member_id}/", name="visible_members_once",methods={"GET"})
      */
-    public function getOneMembers(Request $request)
+    public function getOneVisibleMembers(Request $request)
     {
         $formatted =[];
         $members = $this->get('doctrine.orm.entity_manager')
@@ -62,10 +62,12 @@ class MembreResponsableController extends Controller
                         ->findBy(array(
                             'id'=>$request->get('member_id'),
                             'estValide'=>1,
+                            'visible'=>1,
                         ));
 
+
         if (empty($members)) {
-            return new JsonResponse(['message' => 'Responsable member not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'Visible responsable member not found'], Response::HTTP_NOT_FOUND);
         }
         if(count($members)>1)
         {
