@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Ufr;
 
-class UfrControler extends Controller
+class UfrController extends Controller
 {
     /**
      * @Route("/ufr/", name="ufr_list", methods={"GET"})

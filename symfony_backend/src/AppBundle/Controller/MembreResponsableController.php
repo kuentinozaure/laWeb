@@ -6,112 +6,114 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Activite;
-use AppBundle\Entity\CategorieActivite;
 use AppBundle\Entity\MembreResponsable;
+use AppBundle\Entity\Ufr;
 
-class ActiviteControler extends Controller
+class MembreResponsableController extends Controller
 {
     /**
-     * @Route("/activity/", name="activity_list", methods={"GET"})
+     * @Route("/members/", name="member_list", methods={"GET"})
      */
-    public function getActivite(Request $request)
+    public function getMember(Request $request)
     {
-        $activites = $this->get('doctrine.orm.entity_manager')
-                        ->getRepository('AppBundle:Activite')
+        $members = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:MembreResponsable')
                         ->findAll();
 
-        if (empty($activites))
+
+        if (empty($members))
         {
-          return new JsonResponse(['message' => 'activities not found'], Response::HTTP_NOT_FOUND);
+          return new JsonResponse(['message' => 'Responsable member not found'], Response::HTTP_NOT_FOUND);
         }
                 $formatted = [];
-                foreach ($activites as $activity) {
-
-                  $categorie = $this->get('doctrine.orm.entity_manager')
-                                 ->getRepository('AppBundle:CategorieActivite')
-                                 ->findById($activity->getIdCategorieActivite());
-
-                  $validationMembre = $this->get('doctrine.orm.entity_manager')
-                                ->getRepository('AppBundle:MembreResponsable')
-                                ->findById($activity->getIdMembre());
+                foreach ($members as $member) {
+                  $ufr = $this->get('doctrine.orm.entity_manager')
+                                  ->getRepository('AppBundle:Ufr')
+                                  ->findAll($member->getIdUfr());
 
                     $formatted[] = [
-                       'id' => $activity->getId(),
-                       'titre' => $activity->getTitre(),
-                       'description' => $activity->getDescription(),
-                       'dateDebut' => $activity->getDateDebut(),
-                       'dateFin' => $activity->getDateFin(),
-                       'animateur' => $activity->getAnimateur(),
-                       'salle' => $activity->getSalle(),
-                       'placeDisponible' => $activity->getPlaceDisponible(),
-                       'categorie' => $categorie[0]->getIntitule(),
-                       'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                       'id' => $member->getId(),
+                       'nom' => $member->getNom(),
+                       'prenom' => $member->getPrenom(),
+                       'mail' => $member->getMail(),
+                       'image' => $member->getImage(),
+                       'telephone' =>$member ->getTelephone(),
+                       'description' => $member->getDescription(),
+                       'login' => $member->getLogin(),
+                       'mdp' => $member->getMdp(),
+                       'estVisible' => $member->getVisible(),
+                       'estValide' => $member->getEstValide(),
+                       'ufr' => $ufr[0]->getIntitule(),
                     ];
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
+
     /**
-     * @Route("/activity/{activity_id}/", name="activite_once",methods={"GET"})
+     * @Route("/members/{member_id}/", name="ufr_once",methods={"GET"})
      */
-    public function getOneActivity(Request $request)
+    public function getOneUfr(Request $request)
     {
         $formatted =[];
-        $activity = $this->get('doctrine.orm.entity_manager')
-                        ->getRepository('AppBundle:Activite')
-                        ->findById($request->get('activity_id'));
-        if (empty($activity)) {
-            return new JsonResponse(['message' => 'Activity not found'], Response::HTTP_NOT_FOUND);
+        $Ufrs = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:Ufr')
+                        ->findById($request->get('ufr_id'));
+
+        if (empty($Ufrs)) {
+            return new JsonResponse(['message' => 'UFR not found'], Response::HTTP_NOT_FOUND);
         }
-        if(count($activity)>1)
+        if(count($Ufrs)>1)
         {
-          for($i=0;$i< count($activity);$i++)
+          for($i=0;$i< count($Ufrs);$i++)
           {
-            $categorie = $this->get('doctrine.orm.entity_manager')
-                           ->getRepository('AppBundle:CategorieActivite')
-                           ->findById($activity[$i]->getIdCategorieActivite());
-
-            $validationMembre = $this->get('doctrine.orm.entity_manager')
-                          ->getRepository('AppBundle:MembreResponsable')
-                          ->findById($activity[$i]->getIdMembre());
-
             $formatted[$i]=[
-                          'id' => $activity[$i]->getId(),
-                          'titre' => $activity[$i]->getTitre(),
-                          'description' => $activity[$i]->getDescription(),
-                          'dateDebut' => $activity[$i]->getDateDebut(),
-                          'dateFin' => $activity[$i]->getDateFin(),
-                          'animateur' => $activity[$i]->getAnimateur(),
-                          'salle' => $activity[$i]->getSalle(),
-                          'placeDisponible' => $activity[$i]->getPlaceDisponible(),
-                          'categorie' => $categorie[0]->getIntitule(),
-                          'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                          'id' => $Ufrs[$i]->getId(),
+                          'intitule' => $Ufrs[$i]->getIntitule(),
                          ];
           }
           return new JsonResponse($formatted);
         }
 
-        $categorie = $this->get('doctrine.orm.entity_manager')
-                       ->getRepository('AppBundle:CategorieActivite')
-                       ->findById($activity[0]->getIdCategorieActivite());
-
-        $validationMembre = $this->get('doctrine.orm.entity_manager')
-                      ->getRepository('AppBundle:MembreResponsable')
-                      ->findById($activity[0]->getIdMembre());
-
         $formatted = [
-                      'id' => $activity[0]->getId(),
-                      'titre' => $activity[0]->getTitre(),
-                      'description' => $activity[0]->getDescription(),
-                      'dateDebut' => $activity[0]->getDateDebut(),
-                      'dateFin' => $activity[0]->getDateFin(),
-                      'animateur' => $activity[0]->getAnimateur(),
-                      'salle' => $activity[0]->getSalle(),
-                      'placeDisponible' => $activity[0]->getPlaceDisponible(),
-                      'categorie' => $categorie[0]->getIntitule(),
-                      'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                      'id' => $Ufrs[0]->getId(),
+                      'intitule' => $Ufrs[0]->getIntitule(),
                      ];
         return new JsonResponse($formatted);
+    }
+    /**
+     * @Route("/memberI/", name="Invalid_member_list", methods={"GET"})
+     */
+    public function getInvalidMember(Request $request)
+    {
+        $members = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:MembreResponsable')
+                        ->findByEstValide(0);
+        if (empty($members))
+        {
+          return new JsonResponse(['message' => 'Responsable member not found'], Response::HTTP_NOT_FOUND);
+        }
+                $formatted = [];
+                foreach ($members as $member) {
+                  $ufr = $this->get('doctrine.orm.entity_manager')
+                                  ->getRepository('AppBundle:Ufr')
+                                  ->findAll($member->getIdUfr());
+
+                    $formatted[] = [
+                       'id' => $member->getId(),
+                       'nom' => $member->getNom(),
+                       'prenom' => $member->getPrenom(),
+                       'mail' => $member->getMail(),
+                       'image' => $member->getImage(),
+                       'telephone' =>$member ->getTelephone(),
+                       'description' => $member->getDescription(),
+                       'login' => $member->getLogin(),
+                       'mdp' => $member->getMdp(),
+                       'estVisible' => $member->getVisible(),
+                       'estValide' => $member->getEstValide(),
+                       'ufr' => $ufr[0]->getIntitule(),
+                    ];
+                }
+        return new JsonResponse($formatted,Response::HTTP_OK);
     }
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})

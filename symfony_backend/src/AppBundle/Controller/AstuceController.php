@@ -10,7 +10,7 @@ use AppBundle\Entity\Astuce;
 use AppBundle\Entity\CategorieAstuce;
 use AppBundle\Entity\MembreResponsable;
 
-class AstuceControler extends Controller
+class AstuceController extends Controller
 {
     /**
      * @Route("/astuce/", name="astuce_list", methods={"GET"})

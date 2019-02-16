@@ -41,7 +41,7 @@ class MembreResponsable
     /**
      * @ORM\Column(type="string",length=255)
      */
-    protected $descritpion;
+    protected $description;
     /**
      * @ORM\Column(type="string",length=255)
      */
@@ -80,19 +80,38 @@ class MembreResponsable
     {
         return $this->prenom;
     }
+    public function getImage()
+    {
+      return $this->image;
+    }
     public function getMail()
     {
         return $this->mail;
     }
-    public function getMessage()
+    public function getTelephone()
     {
-        return $this->message;
+      return $this->telephone;
     }
-    public function getAuteur()
+    public function getDescription()
     {
-        return $this->auteur;
+        return $this->description;
     }
-
+    public function getlogin()
+    {
+        return $this->login;
+    }
+    public function getMdp()
+    {
+        return $this->mdp;
+    }
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+    public function getEstValide()
+    {
+        return $this->estValide;
+    }
     public function getIdUfr()
     {
       return $this->idUfr;
@@ -114,19 +133,44 @@ class MembreResponsable
         return $this;
     }
 
+    public function setImage($image)
+    {
+      $this->image = $image;
+      return $this;
+    }
     public function setMail($mail)
     {
         $this->mail = $mail;
         return $this;
     }
-    public function setMessage($message)
+    public function setTelephone($tel)
     {
-        $this->message = $message;
+      $this->telephone = $tel;
+      return $this;
+    }
+    public function setDescription($des)
+    {
+        $this->description = $des;
         return $this;
     }
-    public function setAuteur($auteur)
+    public function setlogin($login)
     {
-        $this->auteur = $auteur;
+        $this->login = $login;
+        return $this;
+    }
+    public function setMdp($mdp)
+    {
+        $this->mdp = $mdp;
+        return $this;
+    }
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+        return $this;
+    }
+    public function setEstValide($estValide)
+    {
+        $this->estValide = $estValide;
         return $this;
     }
     public function setIdUfr($idUfr)
