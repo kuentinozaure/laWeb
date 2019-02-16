@@ -18,7 +18,7 @@ class MembreResponsableController extends Controller
     {
         $members = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:MembreResponsable')
-                        ->findAll();
+                        ->findByEstValide(1);
 
 
         if (empty($members))
@@ -50,38 +50,66 @@ class MembreResponsableController extends Controller
     }
 
     /**
-     * @Route("/members/{member_id}/", name="ufr_once",methods={"GET"})
+     * @Route("/members/{member_id}/", name="members_once",methods={"GET"})
      */
-    public function getOneUfr(Request $request)
+    public function getOneMembers(Request $request)
     {
         $formatted =[];
-        $Ufrs = $this->get('doctrine.orm.entity_manager')
-                        ->getRepository('AppBundle:Ufr')
-                        ->findById($request->get('ufr_id'));
+        $members = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:MembreResponsable')
+                        ->findById($request->get('member_id'));
 
-        if (empty($Ufrs)) {
-            return new JsonResponse(['message' => 'UFR not found'], Response::HTTP_NOT_FOUND);
+        if (empty($members)) {
+            return new JsonResponse(['message' => 'Responsable member not found'], Response::HTTP_NOT_FOUND);
         }
-        if(count($Ufrs)>1)
+        if(count($members)>1)
         {
-          for($i=0;$i< count($Ufrs);$i++)
+          for($i=0;$i< count($members);$i++)
           {
+            $ufr = $this->get('doctrine.orm.entity_manager')
+                            ->getRepository('AppBundle:Ufr')
+                            ->findAll($members[$i]->getIdUfr());
+
             $formatted[$i]=[
-                          'id' => $Ufrs[$i]->getId(),
-                          'intitule' => $Ufrs[$i]->getIntitule(),
+                          'id' => $members[$i]->getId(),
+                          'nom' => $members[$i]->getNom(),
+                          'prenom' => $members[$i]->getPrenom(),
+                          'mail' => $members[$i]->getMail(),
+                          'image' => $members[$i]->getImage(),
+                          'telephone' =>$members[$i] ->getTelephone(),
+                          'description' => $members[$i]->getDescription(),
+                          'login' => $members[$i]->getLogin(),
+                          'mdp' => $members[$i]->getMdp(),
+                          'estVisible' => $members[$i]->getVisible(),
+                          'estValide' => $members[$i]->getEstValide(),
+                          'ufr' => $ufr[0]->getIntitule(),
                          ];
           }
           return new JsonResponse($formatted);
         }
 
+        $ufr = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:Ufr')
+                        ->findAll($members[0]->getIdUfr());
+
         $formatted = [
-                      'id' => $Ufrs[0]->getId(),
-                      'intitule' => $Ufrs[0]->getIntitule(),
+                      'id' => $members[0]->getId(),
+                      'nom' => $members[0]->getNom(),
+                      'prenom' => $members[0]->getPrenom(),
+                      'mail' => $members[0]->getMail(),
+                      'image' => $members[0]->getImage(),
+                      'telephone' =>$members[0] ->getTelephone(),
+                      'description' => $members[0]->getDescription(),
+                      'login' => $members[0]->getLogin(),
+                      'mdp' => $members[0]->getMdp(),
+                      'estVisible' => $members[0]->getVisible(),
+                      'estValide' => $members[0]->getEstValide(),
+                      'ufr' => $ufr[0]->getIntitule(),
                      ];
         return new JsonResponse($formatted);
     }
     /**
-     * @Route("/memberI/", name="Invalid_member_list", methods={"GET"})
+     * @Route("/Imembers/", name="Invalid_member_list", methods={"GET"})
      */
     public function getInvalidMember(Request $request)
     {
@@ -115,6 +143,7 @@ class MembreResponsableController extends Controller
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
+    
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
   //  */
