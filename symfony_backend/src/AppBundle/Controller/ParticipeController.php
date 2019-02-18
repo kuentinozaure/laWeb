@@ -68,17 +68,61 @@ class ParticipeController extends Controller
      */
     public function addParticipantByActivity(Request $request)
     {
-      $name = $request->get('name');
-      $description = $request->get('description');
-      $address = $request->get('address');
-      $city = $request->get('city');
-      $postalCode = $request->get('postalCode');
+      $idActivity = $request->get('idActivity');
+      $idParticipant= $request->get('idParticipant');
 
-        $participants = $this->get('doctrine.orm.entity_manager')
-                        ->getRepository('AppBundle:Participe')
-                        ->findByIdActivite($request->get('activity_id'));
+      if(empty($idActivity) || empty($idParticipant))
+      {
+        return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+      }
+      //CHECK SI L'UTILISATEUR EST DANS L'ACTIVITE
+      $em = $this->getDoctrine()
+                 ->getManager();
 
-        return new JsonResponse($formatted,Response::HTTP_OK);
+      $query = $em->createQuery(
+          'SELECT count(p.idParticipant)
+          FROM AppBundle:Participe p
+          WHERE p.idParticipant = :idParticipant
+          AND p.idActivite = :idActivity'
+      )->setParameter('idParticipant', $idParticipant)
+       ->setParameter('idActivity',$idActivity);
+
+      $countUser = $query->getResult();
+      $count = $countUser[0][1];
+
+      if($count == 1)
+      {
+        return new JsonResponse(['message' => 'Participant is already participed'], Response::HTTP_NOT_ACCEPTABLE);
+      }
+
+      //RECUPERE LE NOMBRE DE PLACE DISPO DANS L'ACTIVITE
+      $query = $em->createQuery(
+          'SELECT DISTINCT p.placeDisponible
+          FROM AppBundle:Participe p
+          WHERE p.idActivite = :idActivity'
+      )->setParameter('idActivity',$idActivity);
+
+      $NbPlace = $query->getResult();
+
+      //DECREMENTE LES PLACE DISPONIBLE DE L'ACTIVITE
+      $placeDispo = $NbPlace[0]["placeDisponible"] -1;
+      $query = $em->createQuery(
+          'UPDATE AppBundle:Participe p
+          SET p.placeDisponible = :placeDispo
+          WHERE p.idActivite = :idActivity'
+      )->setParameter('idActivity',$idActivity)
+       ->setParameter('placeDispo',$placeDispo);
+      $exec = $query->getResult();
+
+      $participant = new Participe();
+      $participant->setIdActivite(intval($idActivity))
+                 ->setIdParticipant(intval($idParticipant))
+                 ->setPlaceDisponible($placeDispo);
+
+      $em = $this->get('doctrine.orm.entity_manager');
+      $em->persist($participant);
+      $em->flush();
+      return new JsonResponse(['message' => 'Participant is created'], Response::HTTP_CREATED);
     }
 
   // /**

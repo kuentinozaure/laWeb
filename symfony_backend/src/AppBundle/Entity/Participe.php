@@ -18,12 +18,14 @@ class Participe
    */
   protected $id;
   /**
+   *@ORM\Column(type="integer")
    * @ManyToOne(targetEntity="Activite")
    * @JoinColumn(name="activite_id", referencedColumnName="id")
    */
   protected $idActivite;
 
   /**
+   *@ORM\Column(type="integer")
    * @ManyToOne(targetEntity="Participant")
    * @JoinColumn(name="participant_id", referencedColumnName="id")
    */
@@ -71,5 +73,15 @@ class Participe
     {
         $this->placeDisponible = $placeDisponible;
         return $this;
+    }
+    public function count()
+    {
+      $query = $this->createQueryBuilder('p')
+                    ->select('count(p.id)')
+                    ->from('PARTICIPANT', 'p')
+                    ->getQuery()
+                    ->getSingleScalarResult()
+                    ->getQuery();
+      return $query;
     }
 }
