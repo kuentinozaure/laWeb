@@ -13,6 +13,7 @@ use AppBundle\Entity\Activite;
 
 class ParticipeController extends Controller
 {
+    
     /**
      * @Route("/participe/{activity_id}/", name="participants_list", methods={"GET"})
      */
@@ -74,7 +75,7 @@ class ParticipeController extends Controller
     }
 
     /**
-     * @Route("/participe/{activity_id}/", name="add_participant_list", methods={"POST"})
+     * @Route("/participe/", name="add_participant_list", methods={"POST"})
      */
     public function addParticipantByActivity(Request $request)
     {
@@ -107,9 +108,9 @@ class ParticipeController extends Controller
 
       //RECUPERE LE NOMBRE DE PLACE DISPO DANS L'ACTIVITE
       $query = $em->createQuery(
-          'SELECT DISTINCT p.placeDisponible
-          FROM AppBundle:Participe p
-          WHERE p.idActivite = :idActivity'
+        'SELECT count(p.id)
+         FROM AppBundle:Participe p
+         WHERE p.idActivite = :idActivity'
       )->setParameter('idActivity',$idActivity);
 
       $NbPlace = $query->getResult();
@@ -118,15 +119,6 @@ class ParticipeController extends Controller
       {
         return new JsonResponse(['message' => 'Particpant cant add because the activity is full'], Response::HTTP_NOT_ACCEPTABLE);
       }
-
-      //DECREMENTE LES PLACE DISPONIBLE DE L'ACTIVITE
-      $query = $em->createQuery(
-          'UPDATE AppBundle:Participe p
-          SET p.placeDisponible = :placeDispo
-          WHERE p.idActivite = :idActivity'
-      )->setParameter('idActivity',$idActivity)
-       ->setParameter('placeDispo',$placeDispo);
-      $exec = $query->getResult();
 
       $participant = new Participe();
       $participant->setIdActivite(intval($idActivity))
@@ -138,21 +130,36 @@ class ParticipeController extends Controller
       return new JsonResponse(['message' => 'Participant is created'], Response::HTTP_CREATED);
     }
 
-  //   /**
-  //    * @Route("/nauticbases/{id}", name="nauticBase_delete_once", methods={"DELETE"})
-  //    */
-  //   public function deleteNauticBase(Request $request)
-  //   {
-  //       $em = $this->get('doctrine.orm.entity_manager');
-  //       $bases = $em->getRepository('AppBundle:NauticBase')
-  //                   ->find($request->get('id'));
-  //       if (empty($bases)) {
-  //         return new JsonResponse(['message' => 'Nautic base not found'], Response::HTTP_NOT_FOUND);
-  //       }
-  //       $em->remove($bases);
-  //       $em->flush();
-  //       return new JsonResponse(['message' => 'Nautic base deleted'],Response::HTTP_NO_CONTENT);
-  //   }
+    /**
+     * @Route("/participe/{activity_id}/{user_id}/", name="participant_delete_once", methods={"DELETE"})
+     */
+    public function deleteParticipant(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $participant = $em->getRepository('AppBundle:Participe')
+                          ->findBy(array(
+                            'idParticipant'=>$request->get('user_id'),
+                            'idActivite' =>$request->get('activity_id'),
+                          ));
+
+        if(empty($participant))
+        {
+          return new JsonResponse(['message' => 'Participant not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $partRemove = $em->getRepository('AppBundle:Participe')
+                          ->find($participant[0]->getId());
+
+        if (empty($partRemove)) {
+          return new JsonResponse(['message' => 'Participant not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $em->remove($partRemove);
+        $em->flush();
+        return new JsonResponse(['message' => 'participant deleted from activity'], Response::HTTP_NOT_FOUND);
+    }
+
   //   /**
   //    * @Route("/nauticbases/{id}", name="nauticBase_put_once", methods={"PUT"})
   //    */
