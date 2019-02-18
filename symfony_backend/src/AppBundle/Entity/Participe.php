@@ -24,10 +24,10 @@ class Participe
   protected $idActivite;
 
   /**
-   * @ManyToOne(targetEntity="PARTICIPANT")
+   * @ManyToOne(targetEntity="Participant")
    * @JoinColumn(name="participant_id", referencedColumnName="id")
    */
-  protected $idparticipant;
+  protected $idParticipant;
 
   /**
    * @ORM\Column(type="integer")
