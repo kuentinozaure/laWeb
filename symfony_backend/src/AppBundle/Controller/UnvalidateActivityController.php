@@ -11,18 +11,17 @@ use AppBundle\Entity\CategorieActivite;
 use AppBundle\Entity\MembreResponsable;
 use AppBundle\Entity\Participe;
 
-class ActiviteController extends Controller
+class UnvalidateActivityController extends Controller
 {
     /**
-     * @Route("/activity/", name="activity_list", methods={"GET"})
+     * @Route("/unvalidate/",name="Uactivity_list",methods={"GET"})
      */
-    public function getActivite(Request $request)
+    public function getActiviteUnvalidate(Request $request)
     {
         $activites = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Activite')
                         ->findBy(array(
-                            'estValide' => 1,
-
+                            'estValide' => 0,
                         ));
 
         if (empty($activites))
@@ -35,10 +34,6 @@ class ActiviteController extends Controller
                   $categorie = $this->get('doctrine.orm.entity_manager')
                                  ->getRepository('AppBundle:CategorieActivite')
                                  ->findById($activity->getIdCategorieActivite());
-
-                  $validationMembre = $this->get('doctrine.orm.entity_manager')
-                                ->getRepository('AppBundle:MembreResponsable')
-                                ->findById($activity->getIdMembre());
 
                   $em = $this->getDoctrine()
                              ->getManager();
@@ -63,24 +58,25 @@ class ActiviteController extends Controller
                          'placeDisponible' => $activity->getPlaceDisponible(),
                          'placeRestante' =>$activity->getPlaceDisponible()-$placeDispo,
                          'categorie' => $categorie[0]->getIntitule(),
-                         'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                         'valide_par' => "NULL",
                       ];
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
     /**
-     * @Route("/activity/{activity_id}/", name="activite_once",methods={"GET"})
+     * @Route("/unvalidate/{activity_id}/", name="Uactivite_once",methods={"GET"})
      */
-    public function getOneActivity(Request $request)
+    public function getOneUnvalidActivity(Request $request)
     {
         $formatted =[];
         $activity = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Activite')
                         ->findBy(array(
-                            'estValide' => 1,
+                            'estValide' => 0,
                             'id' => $request->get('activity_id')
 
                         ));
+
         if (empty($activity)) {
             return new JsonResponse(['message' => 'Activity not found'], Response::HTTP_NOT_FOUND);
         }
@@ -91,10 +87,6 @@ class ActiviteController extends Controller
             $categorie = $this->get('doctrine.orm.entity_manager')
                            ->getRepository('AppBundle:CategorieActivite')
                            ->findById($activity[$i]->getIdCategorieActivite());
-
-            $validationMembre = $this->get('doctrine.orm.entity_manager')
-                          ->getRepository('AppBundle:MembreResponsable')
-                          ->findById($activity[$i]->getIdMembre());
 
                           $em = $this->getDoctrine()
                                      ->getManager();
@@ -119,7 +111,7 @@ class ActiviteController extends Controller
                           'placeDisponible' => $activity[$i]->getPlaceDisponible(),
                           'placeRestante' =>$activity[$i]->getPlaceDisponible()-$placeDispo,
                           'categorie' => $categorie[0]->getIntitule(),
-                          'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                          'estValidePar' => "NULL",
                          ];
           }
           return new JsonResponse($formatted);
@@ -156,15 +148,57 @@ class ActiviteController extends Controller
                       'placeDisponible' => $activity[0]->getPlaceDisponible(),
                       'placeRestante' =>$activity[0]->getPlaceDisponible()-$placeDispo,
                       'categorie' => $categorie[0]->getIntitule(),
-                      'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                      'estValidePar' => "NULL",
                      ];
         return new JsonResponse($formatted);
     }
 
+    /**
+     * @Route("/unvalidate/", name="Uactivity_add", methods={"POST"})
+     */
+     public function addInvalidActivite(Request $request)
+       {
+           //get data from HTTP get method
+           $titre = $request->get('titre');
+           $description = $request->get('description');
+           $dateDebut = $request->get('dateDebut');
+           $dateFin = $request->get('dateFin');
+           $salle = $request->get('salle');
+           $animateur = $request ->get('animateur');
+           $placeDisponible = $request -> get('placeDispo');
+           $idCateg= $request-> get('idCateg');
+
+           //Check if one of all HTTP:GET value are empty
+           if(empty($titre) || empty($description) || empty($dateDebut) || empty($dateFin) || empty($salle) || empty($animateur) || empty($placeDisponible) || empty($idCateg))
+            {
+              return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+            }
+            $categorie = $this->get('doctrine.orm.entity_manager')
+                           ->getRepository('AppBundle:CategorieActivite')
+                           ->findById($idCateg);
+
+
+              $activity = new Activite();
+              $activity->setTitre($titre)
+                       ->setDescription($description)
+                         ->setDateDebut($dateDebut)
+                         ->setDateFin($dateFin)
+                         ->setSalle($salle)
+                         ->setPlaceDisponible($placeDisponible)
+                         ->setIdCategorieActivite($categorie[0])
+                         ->setAnimateur($animateur)
+                         ->setEstValide(false);
+
+              $em = $this->get('doctrine.orm.entity_manager');
+              $em->persist($activity);
+              $em->flush();
+              return new JsonResponse(['message' => 'activity is added'], Response::HTTP_CREATED);
+       }
+
        /**
-        * @Route("/activity/{id}/", name="activity_delete_once", methods={"DELETE"})
+        * @Route("/unvalidate/{id}/", name="Uactivity_delete_once", methods={"DELETE"})
         */
-       public function deleteActivity(Request $request)
+       public function deleteInvalidActivity(Request $request)
        {
            $em = $this->get('doctrine.orm.entity_manager');
            $activity = $em->getRepository('AppBundle:Activite')
@@ -179,9 +213,9 @@ class ActiviteController extends Controller
 
 
     /**
-     * @Route("/activity/{id}/", name="activity_put_once", methods={"PUT"})
+     * @Route("/unvalidate/{id}/", name="Uactivity_put_once", methods={"PUT"})
      */
-    public function putActivity(Request $request)
+    public function putUnvalidActivity(Request $request)
     {
       //get data from HTTP get method
       $titre = $request->get('titre');
