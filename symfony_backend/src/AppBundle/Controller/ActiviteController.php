@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Activite;
 use AppBundle\Entity\CategorieActivite;
 use AppBundle\Entity\MembreResponsable;
+use AppBundle\Entity\Participe;
 
 class ActiviteController extends Controller
 {
@@ -36,18 +37,31 @@ class ActiviteController extends Controller
                                 ->getRepository('AppBundle:MembreResponsable')
                                 ->findById($activity->getIdMembre());
 
-                    $formatted[] = [
-                       'id' => $activity->getId(),
-                       'titre' => $activity->getTitre(),
-                       'description' => $activity->getDescription(),
-                       'dateDebut' => $activity->getDateDebut(),
-                       'dateFin' => $activity->getDateFin(),
-                       'animateur' => $activity->getAnimateur(),
-                       'salle' => $activity->getSalle(),
-                       'placeDisponible' => $activity->getPlaceDisponible(),
-                       'categorie' => $categorie[0]->getIntitule(),
-                       'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
-                    ];
+                  $em = $this->getDoctrine()
+                             ->getManager();
+
+                  $query = $em->createQuery(
+                      'SELECT count(p.id)
+                       FROM AppBundle:Participe p
+                       WHERE p.idActivite = :idActivity'
+                      )->setParameter('idActivity',$activity->getId());
+
+                      $NbPlace = $query->getResult();
+                      $placeDispo = $NbPlace[0][1];
+
+                      $formatted[] = [
+                         'id' => $activity->getId(),
+                         'titre' => $activity->getTitre(),
+                         'description' => $activity->getDescription(),
+                         'dateDebut' => $activity->getDateDebut(),
+                         'dateFin' => $activity->getDateFin(),
+                         'animateur' => $activity->getAnimateur(),
+                         'salle' => $activity->getSalle(),
+                         'placeDisponible' => $activity->getPlaceDisponible(),
+                         'placeRestante' =>$activity->getPlaceDisponible()-$placeDispo,
+                         'categorie' => $categorie[0]->getIntitule(),
+                         'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                      ];
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
@@ -75,6 +89,18 @@ class ActiviteController extends Controller
                           ->getRepository('AppBundle:MembreResponsable')
                           ->findById($activity[$i]->getIdMembre());
 
+                          $em = $this->getDoctrine()
+                                     ->getManager();
+
+                          $query = $em->createQuery(
+                              'SELECT count(p.id)
+                               FROM AppBundle:Participe p
+                               WHERE p.idActivite = :idActivity'
+                              )->setParameter('idActivity',$activity[$i]->getId());
+
+                              $NbPlace = $query->getResult();
+                              $placeDispo = $NbPlace[0][1];
+
             $formatted[$i]=[
                           'id' => $activity[$i]->getId(),
                           'titre' => $activity[$i]->getTitre(),
@@ -84,6 +110,7 @@ class ActiviteController extends Controller
                           'animateur' => $activity[$i]->getAnimateur(),
                           'salle' => $activity[$i]->getSalle(),
                           'placeDisponible' => $activity[$i]->getPlaceDisponible(),
+                          'placeRestante' =>$activity[$i]->getPlaceDisponible()-$placeDispo,
                           'categorie' => $categorie[0]->getIntitule(),
                           'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
                          ];
@@ -99,6 +126,18 @@ class ActiviteController extends Controller
                       ->getRepository('AppBundle:MembreResponsable')
                       ->findById($activity[0]->getIdMembre());
 
+                      $em = $this->getDoctrine()
+                                 ->getManager();
+
+                      $query = $em->createQuery(
+                          'SELECT count(p.id)
+                           FROM AppBundle:Participe p
+                           WHERE p.idActivite = :idActivity'
+                          )->setParameter('idActivity',$activity[0]->getId());
+
+                          $NbPlace = $query->getResult();
+                          $placeDispo = $NbPlace[0][1];
+
         $formatted = [
                       'id' => $activity[0]->getId(),
                       'titre' => $activity[0]->getTitre(),
@@ -108,6 +147,7 @@ class ActiviteController extends Controller
                       'animateur' => $activity[0]->getAnimateur(),
                       'salle' => $activity[0]->getSalle(),
                       'placeDisponible' => $activity[0]->getPlaceDisponible(),
+                      'placeRestante' =>$activity[0]->getPlaceDisponible()-$placeDispo,
                       'categorie' => $categorie[0]->getIntitule(),
                       'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
                      ];

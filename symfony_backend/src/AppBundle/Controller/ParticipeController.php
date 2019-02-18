@@ -14,7 +14,7 @@ use AppBundle\Entity\Activite;
 class ParticipeController extends Controller
 {
     /**
-     * @Route("/participants/{activity_id}/", name="participants_list", methods={"GET"})
+     * @Route("/participe/{activity_id}/", name="participants_list", methods={"GET"})
      */
     public function getParticipantByActivity(Request $request)
     {
@@ -41,11 +41,20 @@ class ParticipeController extends Controller
                               ->getRepository('AppBundle:Ufr')
                               ->findById($OneParticipant[0]->getIdUfr());
 
+                  $em = $this->getDoctrine()
+                             ->getManager();
 
+                  $query = $em->createQuery(
+                          'SELECT count(p.id)
+                           FROM AppBundle:Participe p
+                           WHERE p.idActivite = :idActivity'
+                          )->setParameter('idActivity',$request->get('activity_id'));
+
+                  $countPlace = $query->getResult();
+                  $placeDispo = $countPlace[0][1];
 
                     $formatted[] = [
                        'id' => $participant->getId(),
-                       'placeRestante' => $participant->getPlaceDisponible(),
                        'nom' => $OneParticipant[0]->getNom(),
                        'prenom' => $OneParticipant[0]->getPrenom(),
                        'mail' => $OneParticipant[0]->getMail(),
@@ -58,13 +67,14 @@ class ParticipeController extends Controller
                        'animateur' => $activite[0]->getAnimateur(),
                        'salle' => $activite[0]->getSalle(),
                        'placeDisponible' => $activite[0]->getPlaceDisponible(),
+                       'placeRestante' => $activite[0]->getPlaceDisponible()-$placeDispo,
                     ];
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
 
     /**
-     * @Route("/participants/{activity_id}/", name="add_participant_list", methods={"POST"})
+     * @Route("/participe/{activity_id}/", name="add_participant_list", methods={"POST"})
      */
     public function addParticipantByActivity(Request $request)
     {
@@ -104,8 +114,12 @@ class ParticipeController extends Controller
 
       $NbPlace = $query->getResult();
 
+      if($NbPlace == 0)
+      {
+        return new JsonResponse(['message' => 'Particpant cant add because the activity is full'], Response::HTTP_NOT_ACCEPTABLE);
+      }
+
       //DECREMENTE LES PLACE DISPONIBLE DE L'ACTIVITE
-      $placeDispo = $NbPlace[0]["placeDisponible"] -1;
       $query = $em->createQuery(
           'UPDATE AppBundle:Participe p
           SET p.placeDisponible = :placeDispo
@@ -116,8 +130,7 @@ class ParticipeController extends Controller
 
       $participant = new Participe();
       $participant->setIdActivite(intval($idActivity))
-                 ->setIdParticipant(intval($idParticipant))
-                 ->setPlaceDisponible($placeDispo);
+                 ->setIdParticipant(intval($idParticipant));
 
       $em = $this->get('doctrine.orm.entity_manager');
       $em->persist($participant);
@@ -125,33 +138,6 @@ class ParticipeController extends Controller
       return new JsonResponse(['message' => 'Participant is created'], Response::HTTP_CREATED);
     }
 
-  // /**
-  //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
-  //  */
-  //   public function addNauticBase(Request $request)
-  //   {
-  //       //get data from HTTP get method
-  //       $name = $request->get('name');
-  //       $description = $request->get('description');
-  //       $address = $request->get('address');
-  //       $city = $request->get('city');
-  //       $postalCode = $request->get('postalCode');
-  //       //Check if one of all HTTP:GET value are empty
-  //       if(empty($name) || empty($description) || empty($address) || empty($city) || empty($postalCode))
-  //        {
-  //          return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
-  //        }
-  //          $nauticBase = new NauticBase();
-  //          $nauticBase->setName($name)
-  //                     ->setDescription($description)
-  //                     ->setAddress($address)
-  //                     ->setCity($city)
-  //                     ->setPostaleCode($postalCode);
-  //          $em = $this->get('doctrine.orm.entity_manager');
-  //          $em->persist($nauticBase);
-  //          $em->flush();
-  //          return new JsonResponse(['message' => 'nautical base is added'], Response::HTTP_CREATED);
-  //   }
   //   /**
   //    * @Route("/nauticbases/{id}", name="nauticBase_delete_once", methods={"DELETE"})
   //    */

@@ -31,10 +31,6 @@ class Participe
    */
   protected $idParticipant;
 
-  /**
-   * @ORM\Column(type="integer")
-   */
-  protected $placeDisponible;
 
     public function getId()
     {
@@ -48,10 +44,6 @@ class Participe
     public function getIdParticipant()
     {
         return $this->idParticipant;
-    }
-    public function getPlaceDisponible()
-    {
-        return $this->placeDisponible;
     }
     public function setId($id)
     {
@@ -68,20 +60,5 @@ class Participe
     {
         $this->idParticipant = $idparticipant;
         return $this;
-    }
-    public function setPlaceDisponible($placeDisponible)
-    {
-        $this->placeDisponible = $placeDisponible;
-        return $this;
-    }
-    public function count()
-    {
-      $query = $this->createQueryBuilder('p')
-                    ->select('count(p.id)')
-                    ->from('PARTICIPANT', 'p')
-                    ->getQuery()
-                    ->getSingleScalarResult()
-                    ->getQuery();
-      return $query;
     }
 }
