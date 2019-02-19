@@ -113,6 +113,30 @@ class AstuceController extends Controller
          return new JsonResponse($formatted);
      }
 
+     /**
+     * @Route("/astucesCategories/", name="astuces_list", methods={"GET"})
+     */
+    public function getAstuces(Request $request)
+    {
+        $astuces = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:CategorieAstuce')
+                        ->findAll();
+
+
+        if (empty($astuces))
+        {
+          return new JsonResponse(['message' => 'Categorie not found'], Response::HTTP_NOT_FOUND);
+        }
+                $formatted = [];
+                foreach ($astuces as $astuce) {
+                    $formatted[] = [
+                       'id' => $astuce->getId(),
+                       'intitule' => $astuce->getIntitule(),
+                    ];
+                }
+        return new JsonResponse($formatted,Response::HTTP_OK);
+    }
+
 
      /**
         * @Route("/astuce/{astuce_id}/", name="astuce_delete_once", methods={"DELETE"})

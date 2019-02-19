@@ -267,6 +267,50 @@ class ActiviteController extends Controller
     }
 
     /**
+     * @Route("/activity/{idAct}/{idMembre}/", name="validate_activity", methods={"PUT"})
+     */
+    public function validateActivity(Request $request)
+    {
+       $em = $this->get('doctrine.orm.entity_manager');
+       
+       $activity = $em->getRepository('AppBundle:Activite')
+                      ->findById($request->get('idAct'));
+
+       $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMembre'));
+
+         $act = $activity;
+
+         $act[0]->setEstValide(1)
+                ->setIdMembre($membre[0]);
+
+         $em->persist($act[0]);
+         $em->flush();
+         return new JsonResponse(['message' => 'activity updated'], Response::HTTP_CREATED);
+    }
+    /**
+     * @Route("/activitesCategories/", name="categories_list", methods={"GET"})
+     */
+    public function getCategories(Request $request)
+    {
+        $categories = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:CategorieActivite')
+                        ->findAll();
+
+
+        if (empty($categories))
+        {
+          return new JsonResponse(['message' => 'Categorie not found'], Response::HTTP_NOT_FOUND);
+        }
+                $formatted = [];
+                foreach ($categories as $categorie) {
+                    $formatted[] = [
+                       'id' => $categorie->getId(),
+                       'intitule' => $categorie->getIntitule(),
+                    ];
+                }
+        return new JsonResponse($formatted,Response::HTTP_OK);
+    }
      * @Route("/activity/date/{activity_startDate}/", name="activite_startDate",methods={"GET"})
      */
     public function getStartDateActivity(Request $request)
@@ -362,3 +406,4 @@ class ActiviteController extends Controller
     }
 
 }
+
