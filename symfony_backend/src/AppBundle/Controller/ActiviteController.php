@@ -265,4 +265,100 @@ class ActiviteController extends Controller
          $em->flush();
          return new JsonResponse(['message' => 'activity updated'], Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/activity/date/{activity_startDate}/", name="activite_startDate",methods={"GET"})
+     */
+    public function getStartDateActivity(Request $request)
+    {
+      $date=str_replace("-","/",$request->get('activity_startDate'));
+    
+        $formatted =[];
+        $activity = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:Activite')
+                        ->findBy(array(
+                            'estValide' => 1,
+                            'dateDebut' =>  $date
+
+                        ));
+        if (empty($activity)) {
+            return new JsonResponse(['message' => 'Activity not found'], Response::HTTP_NOT_FOUND);
+        }
+        if(count($activity)>1)
+        {
+          for($i=0;$i< count($activity);$i++)
+          {
+            $categorie = $this->get('doctrine.orm.entity_manager')
+                           ->getRepository('AppBundle:CategorieActivite')
+                           ->findById($activity[$i]->getIdCategorieActivite());
+
+            $validationMembre = $this->get('doctrine.orm.entity_manager')
+                          ->getRepository('AppBundle:MembreResponsable')
+                          ->findById($activity[$i]->getIdMembre());
+
+                          $em = $this->getDoctrine()
+                                     ->getManager();
+
+                          $query = $em->createQuery(
+                              'SELECT count(p.id)
+                               FROM AppBundle:Participe p
+                               WHERE p.idActivite = :idActivity'
+                              )->setParameter('idActivity',$activity[$i]->getId());
+
+                              $NbPlace = $query->getResult();
+                              $placeDispo = $NbPlace[0][1];
+
+            $formatted[$i]=[
+                          'id' => $activity[$i]->getId(),
+                          'titre' => $activity[$i]->getTitre(),
+                          'description' => $activity[$i]->getDescription(),
+                          'dateDebut' => $activity[$i]->getDateDebut(),
+                          'dateFin' => $activity[$i]->getDateFin(),
+                          'animateur' => $activity[$i]->getAnimateur(),
+                          'salle' => $activity[$i]->getSalle(),
+                          'placeDisponible' => $activity[$i]->getPlaceDisponible(),
+                          'placeRestante' =>$activity[$i]->getPlaceDisponible()-$placeDispo,
+                          'categorie' => $categorie[0]->getIntitule(),
+                          'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                         ];
+          }
+          return new JsonResponse($formatted);
+        }
+
+        $categorie = $this->get('doctrine.orm.entity_manager')
+                       ->getRepository('AppBundle:CategorieActivite')
+                       ->findById($activity[0]->getIdCategorieActivite());
+
+        $validationMembre = $this->get('doctrine.orm.entity_manager')
+                      ->getRepository('AppBundle:MembreResponsable')
+                      ->findById($activity[0]->getIdMembre());
+
+                      $em = $this->getDoctrine()
+                                 ->getManager();
+
+                      $query = $em->createQuery(
+                          'SELECT count(p.id)
+                           FROM AppBundle:Participe p
+                           WHERE p.idActivite = :idActivity'
+                          )->setParameter('idActivity',$activity[0]->getId());
+
+                          $NbPlace = $query->getResult();
+                          $placeDispo = $NbPlace[0][1];
+
+        $formatted = [
+                      'id' => $activity[0]->getId(),
+                      'titre' => $activity[0]->getTitre(),
+                      'description' => $activity[0]->getDescription(),
+                      'dateDebut' => $activity[0]->getDateDebut(),
+                      'dateFin' => $activity[0]->getDateFin(),
+                      'animateur' => $activity[0]->getAnimateur(),
+                      'salle' => $activity[0]->getSalle(),
+                      'placeDisponible' => $activity[0]->getPlaceDisponible(),
+                      'placeRestante' =>$activity[0]->getPlaceDisponible()-$placeDispo,
+                      'categorie' => $categorie[0]->getIntitule(),
+                      'estValidePar' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                     ];
+        return new JsonResponse($formatted);
+    }
+
 }
