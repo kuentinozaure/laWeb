@@ -265,4 +265,28 @@ class ActiviteController extends Controller
          $em->flush();
          return new JsonResponse(['message' => 'activity updated'], Response::HTTP_CREATED);
     }
+
+    /**
+     * @Route("/activity/{idAct}/{idMembre}/", name="validate_activity", methods={"PUT"})
+     */
+    public function validateActivity(Request $request)
+    {
+       $em = $this->get('doctrine.orm.entity_manager');
+       
+       $activity = $em->getRepository('AppBundle:Activite')
+                      ->findById($request->get('idAct'));
+
+       $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMembre'));
+
+         $act = $activity;
+
+         $act[0]->setEstValide(1)
+                ->setIdMembre($membre[0]);
+
+         $em->persist($act[0]);
+         $em->flush();
+         return new JsonResponse(['message' => 'activity updated'], Response::HTTP_CREATED);
+    }
 }
+
