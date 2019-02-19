@@ -55,6 +55,11 @@ class Activite
     protected $idCategorieActivite;
 
     /**
+     * @ORM\Column(type="boolean",length=255)
+     */
+    protected $estValide;
+
+    /**
      * @ManyToOne(targetEntity="MembreResponsable")
      * @JoinColumn(name="valide_par", referencedColumnName="id")
      */
@@ -94,6 +99,10 @@ class Activite
     public function getPlaceDisponible()
     {
         return $this->placeDisponible;
+    }
+    public function getEstValide()
+    {
+      return $this->estValide;
     }
     public function getIdCategorieActivite()
     {
@@ -144,6 +153,11 @@ class Activite
     {
         $this->placeDisponible = $placeDisponible;
         return $this;
+    }
+    public function setEstValide($estValide)
+    {
+      $this->estValide = $estValide;
+      return $this;
     }
     public function setIdCategorieActivite($idCategorieActivite)
     {
