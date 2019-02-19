@@ -42,7 +42,7 @@ class NewletterController extends Controller
     }
 
     /**
-     * @Route("/newletter/", name="add_newletter", methods={"GET"})
+     * @Route("/newletter/", name="get_newletter", methods={"GET"})
      */
     public function getParticipantToNewletter(Request $request)
     {
