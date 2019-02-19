@@ -46,6 +46,7 @@ class AstuceController extends Controller
                        'image' => $astuce->getImage(),
                        'type_astuce' => $categorie[0]->getIntitule(),
                        'valide_par' => $validationMembre[0]->getNom()." ".$validationMembre[0]->getPrenom(),
+                       'estValide' => $astuce->getEstValide(),
                     ];
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
@@ -136,6 +137,23 @@ class AstuceController extends Controller
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
 
+
+     /**
+        * @Route("/astuce/{astuce_id}/", name="astuce_delete_once", methods={"DELETE"})
+
+        */
+        public function deleteInvalidAstuce(Request $request)
+        {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $astuce = $em->getRepository('AppBundle:Astuce')
+                        ->find($request->get('astuce_id'));
+            if (empty($astuce)) {
+              return new JsonResponse(['message' => 'Astucenot found'], Response::HTTP_NOT_FOUND);
+            }
+            $em->remove($astuce);
+            $em->flush();
+            return new JsonResponse(['message' => 'Astuce deleted'],Response::HTTP_NOT_FOUND);
+        }
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
   //  */
