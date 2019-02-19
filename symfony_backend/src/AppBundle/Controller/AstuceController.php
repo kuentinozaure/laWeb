@@ -154,6 +154,29 @@ class AstuceController extends Controller
             $em->flush();
             return new JsonResponse(['message' => 'Astuce deleted'],Response::HTTP_NOT_FOUND);
         }
+
+        /**
+     * @Route("/astuce/{idAstuce}/{idMembre}/", name="validate_activity", methods={"PUT"})
+     */
+    public function validateAstuce(Request $request)
+    {
+       $em = $this->get('doctrine.orm.entity_manager');
+       
+       $astuce = $em->getRepository('AppBundle:Astuce')
+                      ->findById($request->get('idAstuce'));
+
+       $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMembre'));
+
+         $ast = $astuce;
+
+         $ast[0]->setEstValide(1)
+                ->setIdMembre($membre[0]);
+
+         $em->persist($ast[0]);
+         $em->flush();
+         return new JsonResponse(['message' => 'astuce updated'], Response::HTTP_CREATED);
+    }
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
   //  */
