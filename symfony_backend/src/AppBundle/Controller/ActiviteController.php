@@ -288,5 +288,28 @@ class ActiviteController extends Controller
          $em->flush();
          return new JsonResponse(['message' => 'activity updated'], Response::HTTP_CREATED);
     }
+    /**
+     * @Route("/activitesCategories/", name="categories_list", methods={"GET"})
+     */
+    public function getCategories(Request $request)
+    {
+        $categories = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:CategorieActivite')
+                        ->findAll();
+
+
+        if (empty($categories))
+        {
+          return new JsonResponse(['message' => 'Categorie not found'], Response::HTTP_NOT_FOUND);
+        }
+                $formatted = [];
+                foreach ($categories as $categorie) {
+                    $formatted[] = [
+                       'id' => $categorie->getId(),
+                       'intitule' => $categorie->getIntitule(),
+                    ];
+                }
+        return new JsonResponse($formatted,Response::HTTP_OK);
+    }
 }
 
