@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import "./Accueil.css";
+import axios from 'axios';
 class Accueil extends Component {
+
+  componentDidMount() {
+    const url = 'http://127.0.0.1:8000/activity/date/29-03-2019/';
+    axios.get(url)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }
+
+
   render() {
     return ( 
     <div className="container">
