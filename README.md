@@ -1,3 +1,557 @@
+# API DESCRIPTION
+
+
+##  Show list of valid Activity 
+  Returns json data about all valid activity 
+
+* **URL**
+
+  /activity/
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+None
+
+* **Data Params**
+
+  None
+  
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"id":0,"titre":"VIENS DECOUVRIR LES METIER DE L'IOT","description":"TOUT CE QUE TU VEUT SUR L'IOT","dateDebut":"12\01\2019","dateFin":"12\05\2019","animateur":"PAUL","salle":"GS235","placeDisponible":500,"placeRestante":500,"categorie":"CONFERENCE","estValidePar":"superAdmin"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message : "activities not found" }`
+
+* **Sample Call :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/activity/",
+	    dataType: "json",
+	    type : "GET",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+  
+  ## Show a valid activity
+
+  Returns json data about a valid activity
+
+* **URL**
+
+  /activity/:id/
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"id":0,"titre":"VIENS DECOUVRIR LES METIER DE L'IOT","description":"TOUT CE QUE TU VEUT SUR L'IOT","dateDebut":"12\01\2019","dateFin":"12\05\2019","animateur":"PAUL","salle":"GS235","placeDisponible":500,"placeRestante":500,"categorie":"CONFERENCE","estValidePar":"superAdmin"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: "activities not found" }`
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+
+	 $.ajax({
+	    url: "/activity/0/",
+	    dataType: "json",
+	    type : "GET",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+
+  ## Update a valid activity
+  Update  a valid activity
+
+* **URL**
+
+  /activity/:id/
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+  * titre
+  * description
+  * dateDebut
+  * dateFin
+  * salle
+  * animateur
+  * placeDispo
+  * idCateg
+
+* **Success Response:**
+
+  * **Code:** 201 Created <br />
+    **Content:** `{ message: 'activity updated' }`
+ 
+* **Error Response:**
+
+  * **Code:** 406 NOT ACCEPTABLE <br />
+    **Content:** `{ message: "NULL VALUES ARE NOT ALLOWED" }`
+    
+* **Sample Call in javascript :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/activity/1/?titre=js&description=js&dateDebut=11/04/1998&dateFin=11/04/2018&salle=321&animateur=anim&placeDispo=222&idCateg=1",
+	    dataType: "json",
+	    type : "PUT",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+  
+  ## Delete a valid activity
+  Delete a valid activity
+
+* **URL**
+
+  /activity/:id/
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+   None
+
+* **Success Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: 'Activity deleted' }`
+ 
+* **Error Response:**
+
+	 * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: "Activity not found" }`
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/activity/1/",
+	    dataType: "json",
+	    type : "DELETE",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+  ## Show a list of unvalid activity
+
+  Returns json data about a list of unvalid activity
+
+* **URL**
+
+  /unvalidate/
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+   
+   None
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"id":0,"titre":"VIENS DECOUVRIR LES METIER DE L'IOT","description":"TOUT CE QUE TU VEUT SUR L'IOT","dateDebut":"12\01\2019","dateFin":"12\05\2019","animateur":"PAUL","salle":"GS235","placeDisponible":500,"placeRestante":500,"categorie":"CONFERENCE","estValidePar":"NULL"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: "activity not found" }`
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+
+	 $.ajax({
+	    url: "/unvalidate/",
+	    dataType: "json",
+	    type : "GET",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+
+##  Show an unvalidate activity
+  Returns json data about an unvalidate activity
+
+* **URL**
+
+  /unvalidate/:id/
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ `id=[integer]`
+
+* **Data Params**
+
+  None
+  
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"id":0,"titre":"VIENS DECOUVRIR LES METIER DE L'IOT","description":"TOUT CE QUE TU VEUT SUR L'IOT","dateDebut":"12\01\2019","dateFin":"12\05\2019","animateur":"PAUL","salle":"GS235","placeDisponible":500,"placeRestante":500,"categorie":"CONFERENCE","estValidePar":"NULL"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message : "activity not found" }`
+
+* **Sample Call :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/unvalidate/1/",
+	    dataType: "json",
+	    type : "GET",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+
+  ## Create an unvalidate activity
+  
+  Create an unvalidate activity
+
+* **URL**
+
+  /unvalidate/
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   None
+
+* **Data Params**
+
+  * titre
+  * description
+  * dateDebut
+  * dateFin
+  * salle
+  * animateur
+  * placeDispo
+  * idCateg
+
+* **Success Response:**
+
+  * **Code:** 201 Created <br />
+    **Content:** `{ message: 'activity is added' }`
+ 
+* **Error Response:**
+
+  * **Code:** 406 NOT ACCEPTABLE <br />
+    **Content:** `{ message: "NULL VALUES ARE NOT ALLOWED" }`
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/unvalidate/?titre=js&description=js&dateDebut=11/04/1998&dateFin=11/04/2018&salle=321&animateur=anim&placeDispo=222&idCateg=1",
+	    dataType: "json",
+	    type : "POST",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+  ## Update an unvalidate activity
+  Update an unvalidate activity
+
+* **URL**
+
+  /unvalidate/:id/
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+  * titre
+  * description
+  * dateDebut
+  * dateFin
+  * salle
+  * animateur
+  * placeDispo
+  * idCateg
+
+
+* **Success Response:**
+
+  * **Code:** 201 Created <br />
+    **Content:** `{ message: 'activity updated' }`
+ 
+* **Error Response:**
+
+  * **Code:** 406 NOT ACCEPTABLE <br />
+    **Content:** `{ message: "NULL VALUES ARE NOT ALLOWED" }`
+ 
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/unvalidate/1/?titre=js&description=js&dateDebut=11/04/1998&dateFin=11/04/2018&salle=321&animateur=anim&placeDispo=222&idCateg=1",
+	    dataType: "json",
+	    type : "PUT",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+  
+  ## Delete an unvalidate activity
+  Delete an unvalidate activity
+
+* **URL**
+
+  /unvalidate/:id/
+
+* **Method:**
+
+  `DELETE`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+   None
+
+* **Success Response:**
+
+  * **Code:** 204 No Content <br />
+    **Content:** `{ message: 'activity deleted' }`
+ 
+* **Error Response:**
+
+	 * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: "activity not found" }`
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/unvalidate/1",
+	    dataType: "json",
+	    type : "DELETE",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+
+
+
+
+
+
+
+
+
+
+
+  ## Show a list of astuce
+
+  Returns json data about a list of astuce
+
+* **URL**
+
+  /astuce/
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+   
+   None
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"id":0,"titre":"titre astuce","message":"message super","description":"super description,"lienAstuce":"http://google.com","auteur":"PAUL","image":"src/img.jpg","type_astuce":"trucs","valide_par":"SUPER ADMIN"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message: "Astuce not found" }`
+
+
+* **Sample Call in javascript :**
+
+  ```javascript
+
+	 $.ajax({
+	    url: "/astuce/",
+	    dataType: "json",
+	    type : "GET",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+
+##  Show an astuce 
+  Returns json data about an astuce 
+
+* **URL**
+
+  /astuce/:id/
+
+* **Method:**
+
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ `id=[integer]`
+
+* **Data Params**
+
+  None
+  
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{"id":0,"titre":"titre astuce","message":"message super","description":"super description,"lienAstuce":"http://google.com","auteur":"PAUL","image":"src/img.jpg","type_astuce":"trucs","valide_par":"SUPER ADMIN"}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ message : "Astuce not found" }`
+
+* **Sample Call :**
+
+  ```javascript
+	 $.ajax({
+	    url: "/astuce/1/",
+	    dataType: "json",
+	    type : "GET",
+	    success : function(r) {
+	      console.log(r.data);
+	    }
+	 });
+  ```
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # PROJET LA WEB
 
 # Suite a des problemes avec l'api au seins de la fac ,notre api et la bdd est stockee sur l hebergeur web always data
