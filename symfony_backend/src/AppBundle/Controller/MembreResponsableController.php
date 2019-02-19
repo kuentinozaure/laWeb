@@ -114,6 +114,58 @@ class MembreResponsableController extends Controller
         return new JsonResponse($formatted);
     }
 
+    /**
+   * @Route("/member/", name="member_add", methods={"POST"})
+   */
+    public function addMember(Request $request)
+    {
+        //get data from HTTP get method
+
+        $nom = $request->get('nom');
+        $prenom = $request->get('prenom');
+        $mail = $request->get('mail');
+        $image = $request->get('image');
+        $telephone = $request->get('telephone');
+        $description = $request->get('description');
+        $login = $request->get('login');
+        $mdp = $request->get('mdp');
+        $visible = $request->get('visible');
+        $idUfr = $request->get('idUfr');
+        
+        //Check if one of all HTTP:GET value are empty
+        $idUfr = $request->get('idUfr');
+
+        if( empty($nom) || empty($prenom) || empty($mail) || empty($image) || empty($telephone) || empty($description) || empty($login) || empty($mdp) || empty($visible) || empty($image))
+         {
+           return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+         }
+         $ufr = $this->get('doctrine.orm.entity_manager')
+         ->getRepository('AppBundle:Ufr')
+         ->findById($idUfr);
+
+         $departement = $ufr;
+
+           $member = new MembreResponsable();
+           
+           $member ->setNom($nom)
+                      ->setPrenom($prenom)
+                      ->setMail($mail)
+                      ->setImage($image)
+                      ->setTelephone($telephone)
+                      ->setDescription($description)
+                      ->setLogin($login)
+                      ->setMdp($mdp)
+                      ->setVisible($visible)
+                      ->setEstValide(0)
+                      ->setidUfr($departement[0]);
+
+           $em = $this->get('doctrine.orm.entity_manager');
+
+           $em->persist($member);
+           $em->flush();
+           return new JsonResponse(['message' => 'member is added'], Response::HTTP_CREATED);
+    }
+
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
   //  */
