@@ -311,8 +311,9 @@ class ActiviteController extends Controller
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
-     * @Route("/activity/date/{activity_startDate}/", name="activite_startDate",methods={"GET"})
-     */
+    /** 
+    * @Route("/activity/date/{activity_startDate}/", name="activite_startDate",methods={"GET"})
+    */
     public function getStartDateActivity(Request $request)
     {
       $date=str_replace("-","/",$request->get('activity_startDate'));
