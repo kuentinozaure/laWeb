@@ -55,7 +55,18 @@ class Astuce
      * @JoinColumn(name="categorieAstuce_id", referencedColumnName="id")
      */
     protected $idAstuce;
+    
+    
+    /**
+     * @ORM\Column(type="boolean",length=255)
+     */
+    protected $estValide;
 
+
+    public function getEstValide()
+    {
+        return $this->estValide;
+    }
 
 
     public function getId()
@@ -141,5 +152,10 @@ class Astuce
     {
       $this->idAstuce = $idAstuce;
       return $this;
+    }
+    public function setEstValide($estValide)
+    {
+        $this->estValide = $estValide;
+        return $this;
     }
 }
