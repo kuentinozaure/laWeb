@@ -166,6 +166,26 @@ class MembreResponsableController extends Controller
            return new JsonResponse(['message' => 'member is added'], Response::HTTP_CREATED);
     }
 
+    /**
+     * @Route("/member/{idMember}/", name="validate_member", methods={"PUT"})
+     */
+    public function validateMember(Request $request)
+    {
+       $em = $this->get('doctrine.orm.entity_manager');
+       
+       $member = $em->getRepository('AppBundle:MembreResponsable')
+                      ->findById($request->get('idMember'));
+
+         $mem = $member;
+
+         $mem[0]->setEstValide(1);
+
+         $em->persist($mem[0]);
+         $em->flush();
+         return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
+    }
+
+
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
   //  */
