@@ -7,6 +7,8 @@ import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
 
+import { SERVER_URL } from "./consts";
+
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"

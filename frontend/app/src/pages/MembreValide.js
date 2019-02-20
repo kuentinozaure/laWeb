@@ -1,5 +1,7 @@
 import React,{ Component } from 'react';
 
+import { SERVER_URL } from "./consts";
+
 class MembreValide  extends React.Component {
     constructor(props) {
         super(props);

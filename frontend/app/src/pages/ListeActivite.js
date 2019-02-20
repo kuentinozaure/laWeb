@@ -5,6 +5,8 @@ import {Button,Modal} from 'react-bootstrap';
 import "./ListeActivite.css"
 import axios from 'axios';
 
+import { SERVER_URL } from "./consts";
+
 //importer inscription activité (module Modalform)
 
 class ListeActivite extends Component {

@@ -3,6 +3,8 @@ import FormulaireCard from './FormulaireCard.js'
 import InformationCard from './InformationCard.js'
 import './Card1.css';
 
+import { SERVER_URL } from "./consts";
+
 class Card1 extends Component {
   render() {
     return (
