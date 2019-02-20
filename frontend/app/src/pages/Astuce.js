@@ -6,6 +6,8 @@ import {Button,Modal} from 'react-bootstrap';
 import axios from 'axios';
 import BoxAstuce from './BoxAstuce.js';
 
+import { SERVER_URL } from "./consts";
+
 class Astuce extends Component {
 
     constructor(props, context) {

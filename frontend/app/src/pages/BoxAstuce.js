@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 
+import { SERVER_URL } from "./consts";
+
 class Box extends Component {
 
   constructor(props, context) {
