@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class Connexion extends React.Component {
     constructor(props) {

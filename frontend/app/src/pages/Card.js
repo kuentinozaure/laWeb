@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FormulaireCard from './FormulaireCard.js'
 import InformationCard from './InformationCard.js'
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class Card extends Component {
   render() {

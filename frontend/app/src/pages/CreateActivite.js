@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class CreateActivite extends Component {
     constructor(props) {

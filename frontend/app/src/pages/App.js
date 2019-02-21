@@ -13,7 +13,7 @@ import LaWebRouter from './../LaWeb_reducer/LaWebRouter';
 
 import LaWebApp from './../LaWeb_reducer/reducers';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 let store = createStore(
   LaWebApp,

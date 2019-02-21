@@ -3,7 +3,7 @@ import NavbarMembres from './NavbarMembres.js';
 import MembreNonValide from './MembreNonValide.js'
 import axios from 'axios';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 
 class GererMembreAdmin extends Component {
