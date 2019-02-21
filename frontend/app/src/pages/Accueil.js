@@ -7,7 +7,7 @@ import { SERVER_URL } from "../consts";
 class Accueil extends Component {
 
   componentDidMount() {
-    const url = 'http://127.0.0.1:8000/activity/date/29-03-2019/';
+    const url = 'http://localhost:8000/activity/';
     axios.get(url)
       .then(response => {
         console.log(response);
