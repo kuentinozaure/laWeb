@@ -20,9 +20,9 @@ class Reseaux extends Component {
         }
 
     handleSubmit(event) {
-    const url = 'http://laweb.alwaysdata.net/?choix=18&nom='+this.state.nom + '&prenom='+ this.state.prenom +'&mail='+ this.state.adresse
+    const url = SERVER_URL + "newletter/?nom=" +this.state.nom + '&prenom='+ this.state.prenom +'&mail='+ this.state.adresse
 
-      axios.get(url)
+      axios.post(url)
       .then(response => {
         console.log("Abonnement enregistré")
       })
@@ -61,7 +61,7 @@ class Reseaux extends Component {
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                                        <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" required onChange={e => this.setState({ name: e.target.value })} />
+                                                        <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" required onChange={e => this.setState({ nom: e.target.value })} />
                                                     </div>
                                                 </div>
 
