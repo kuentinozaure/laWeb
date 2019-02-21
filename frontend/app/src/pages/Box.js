@@ -19,6 +19,7 @@ class Box extends Component {
 
     this.state = {
       show: false,
+      idPersonne:0,
       name: '',
       prenom: '',
       adresse: '',
@@ -37,7 +38,63 @@ class Box extends Component {
   handleShow() {
     this.setState({ show: true });
   }
-//
+
+  async handleSubmit() {
+    await this.getId()
+    const url = SERVER_URL+"participe/?idActivity="+this.props.modnom+"&idParticipant="+this.state.idPersonne ;
+    axios.post(url)
+      .then(response => {
+        this.handleClose();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+
+    async getId(){
+      const urladdParticipant = SERVER_URL +"participant/?nom="+this.state.name+"&prenom="+this.state.prenom+"&mail="+this.state.adresse+"&telephone="+this.state.numero+"&ufr="+this.state.ufrSelected;
+      await axios.post(urladdParticipant).then(response => {
+          this.setState({
+            idPersonne:response.data.id,
+          })
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+
+    displayUfr(){
+      let listUfr = [];
+      let content
+      content = this.state.ufr.map((ufr, index) =>{
+        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.intitule}</option>)
+      })
+      return content = listUfr
+    }
+
+    componentDidMount() {
+      axios.get(SERVER_URL + "ufr/")
+        .then(response => {
+          console.log(response.data);
+          let i
+          let tab =[]
+
+          for (i = 0; i < response.data.length; i++) {
+            tab.push(response.data[i]);
+          }
+          this.setState({
+            ufr: tab,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+
+    }
+
 
 display(){
   if (this.props.sessionConnect.isConnected == true){
@@ -71,11 +128,11 @@ display(){
 			              </ul>
                     <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
-                    </Button> 
+                    </Button>
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
                       DETAILS
                     </Button>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
@@ -86,15 +143,13 @@ display(){
         <Modal.Body>
           <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
-
-          <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                 <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                               </div>
                             </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
@@ -109,14 +164,14 @@ display(){
                               }
                               </select>
                             </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
                                 <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
                               </div>
                             </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
@@ -124,11 +179,7 @@ display(){
                               </div>
                             </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label htmlFor="scales">S'abonner aux newsletters</label>
-
-                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" />
-                  </form>
+                  <input className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={this.handleSubmit}/>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.handleClose}>FERMER</Button>
@@ -169,8 +220,8 @@ display(){
 			              </ul>
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
-                    </Button> 
-                  </div> 
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -181,20 +232,18 @@ display(){
         <Modal.Body>
           <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
-
-          <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <div className="input-group">
                         <span className="input-group-addon">
                           <i className="fa fa-user fa" aria-hidden="true"></i>
                         </span>
-                        <input id="name" name="nom" placeholder="Nom" required="Nom" 
+                        <input id="name" name="nom" placeholder="Nom" required="Nom"
                         className="form-control"  type="name" pattern='[A-Za-z]{1,}' title="prenom sans caractères spéciaux"
                         onChange={e => this.setState({name: e.target.value})}
                         />
                     </div>
                 </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
@@ -209,18 +258,18 @@ display(){
                               }
                               </select>
                             </div>
-                  
+
                   <div className="form-group">
                     <div className="input-group">
                       <span className="input-group-addon">
                       <i className="glyphicon glyphicon-envelope color-blue"></i>
                       </span>
                       <input id="email" name="email" placeholder="Email" required="remplir votre email"
-                      className="form-control"  type="email" 
+                      className="form-control"  type="email"
                       onChange={e => this.setState({adresse: e.target.value})}/>
                     </div>
                   </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
@@ -228,11 +277,7 @@ display(){
                               </div>
                             </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label htmlFor="scales">S'abonner aux newsletters</label>
-
-                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={console.log("bjr")}/>
-                  </form>
+                  <input className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={this.handleSubmit}/>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.handleClose}>FERMER</Button>
@@ -249,7 +294,7 @@ render(){
     <div>
       {this.display()}
     </div>
-  
+
     );
   }
 
@@ -260,57 +305,18 @@ render(){
     for (i = 0; i < this.state.listeUfr.length; i++) {
       console.log(this.state.listeUfr[i][1]);
       option.push("<option>"+this.state.listeUfr[i][1]+"</option>");
-      
+
     }
   }
 */
-  handleSubmit(event) {
-    const url = "http://laweb.alwaysdata.net/?choix=9&nom="+this.state.name +"&prenom="+this.state.prenom+"&mail="+this.state.adresse +"&tel="+this.state.numero +"&abonne="+this.state.newsletter+"&ufr="+ this.state.ufrSelected+"&idAct="+this.props.modnom
-    axios.get(url)
-      .then(response => {
-        this.handleClose();
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
 
-    displayUfr(){
-      let listUfr = [];
-      let content;
-      content = this.state.ufr.map((ufr, index) =>{
-        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.intitule}</option>)
-      })
-      return content = listUfr
-    }
-    
-    componentDidMount() {
-      axios.get(SERVER_URL + "ufr/")
-        .then(response => {
-          console.log(response.data);
-          let i
-          let tab =[]
-          
-          for (i = 0; i < response.data.length; i++) {
-            tab.push(response.data[i]);
-          }
-          this.setState({
-            ufr: tab,
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-
-        
-    }
     }
 
 
     const mapStateToProps = state => {
       return { sessionConnect: state.sessionReducer}
     }
-    
+
     // const mapDispatchToProps = dispatch => {
     //   console.log("ok");
     //   return {
@@ -319,5 +325,5 @@ render(){
     //     }
     //   }
     // }
-    
+
     export default connect(mapStateToProps,null)(Box)
