@@ -6,19 +6,6 @@ import { SERVER_URL } from "../consts";
 
 class Accueil extends Component {
 
-  componentDidMount() {
-    const url = 'http://localhost:8000/activity/';
-    axios.get(url)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-  }
-
-
   render() {
     return (
     <div className="container">
