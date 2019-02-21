@@ -20,13 +20,13 @@ class GererActiviteAdmin extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=1';
-        axios.get(url)
+        axios.get(SERVER_URL + "activity/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.activite.length; i++) {
-              tab.push(response.data.activite[i]);
+            console.log(response);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               activites: tab,
