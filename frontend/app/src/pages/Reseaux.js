@@ -16,7 +16,7 @@ class Reseaux extends Component {
             prenom: '',
             adresse:''
         }
-        this.handleSubmit = this.handleSubmit.bind(this);       
+        this.handleSubmit = this.handleSubmit.bind(this);
         }
 
     handleSubmit(event) {
@@ -97,7 +97,7 @@ class Reseaux extends Component {
                     options={{username:"AssociationLaW1",height: '545',width:'100%'}}/>
                 </div>
                 </div>
-                
+
                 <div className="col-sm-2">
                 </div>
                 <div className="col-sm-5" >
