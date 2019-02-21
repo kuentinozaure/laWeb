@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Timeline } from 'react-twitter-widgets';
 import './/Section.css';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 
 class Reseaux extends Component {

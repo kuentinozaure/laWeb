@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./Accueil.css";
 import axios from 'axios';
 
-import { SERVER_URL } from "./consts.js";
+import { SERVER_URL } from "../consts";
 
 class Accueil extends Component {
 

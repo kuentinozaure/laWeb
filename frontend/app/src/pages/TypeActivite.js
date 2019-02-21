@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import './Box.js';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class TypeActivite extends Component {
   render(){

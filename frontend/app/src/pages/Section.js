@@ -6,7 +6,7 @@ import axios from 'axios';
 import CardInfo from './Card.js';
 import CardUser from './Card1.js';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 
 

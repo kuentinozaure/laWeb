@@ -3,7 +3,7 @@ import NavbarMembres from './NavbarMembres.js';
 import ActiviteNonValide from './ActiviteNonValide.js';
 import axios from 'axios';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class GererActiviteAdmin extends Component {
     constructor(props) {
