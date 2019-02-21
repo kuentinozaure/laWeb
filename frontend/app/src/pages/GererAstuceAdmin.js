@@ -1,21 +1,20 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
-import MembreNonValide from './MembreNonValide.js'
+import AstuceNonValide from './AstuceNonValide.js';
 import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
 
-
-class GererMembreAdmin extends Component {
+class GererActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            membres:[],
+            activites: []
         };
       }
 
       componentDidMount() {
-        axios.get(SERVER_URL + "invalid/")
+        axios.get(SERVER_URL + "unvalidateAstuces/")
           .then(response => {
             let i
             let tab =[]
@@ -23,7 +22,7 @@ class GererMembreAdmin extends Component {
               tab.push(response.data[i]);
             }
             this.setState({
-              membres: tab,
+              activites: tab,
             });
           })
           .catch(error => {
@@ -34,25 +33,26 @@ class GererMembreAdmin extends Component {
       }
 
       display(){
-        let listeMembre =[]
-        let content = this.state.membres.map((membre, index) => {
+        let listeActivite =[]
+        let content = this.state.activites.map((activite, index) => {
     
-          listeMembre.push(
-              < MembreNonValide 
-                nom={membre.nom}
-                prenom={membre.prenom}
-                login={membre.login}
-                telephone={membre.telephone}
-                mail={membre.mail}
-                description={membre.description}
+          listeActivite.push(
+              < AstuceNonValide 
+                id={activite.id}
+                titre={activite.titre}
+                message={activite.message}
+                description={activite.description}
+                lienAstuce={activite.lienAstuce}
+                auteur={activite.auteur}
+                type_astuce={activite.type_astuce}
                 />
             );
         });
         
-        return content = listeMembre;
-      }
+        return content = listeActivite;
+      }      
 
-    render() {
+      render() {
         return (
             <div>
             <br></br>
@@ -60,18 +60,15 @@ class GererMembreAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddMember}>
-                            Proposer un membre
-                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
-                                <th>Nom</th>
-                                <th>Prenom</th>
-                                <th>Login</th>
-                                <th>Telephone</th>
-                                <th>Mail</th>
+                                <th>Titre</th>
+                                <th>Message</th>
                                 <th>Description</th>
+                                <th>Lien astuce</th>
+                                <th>Auteur</th>
+                                <th>Type astuce</th>
                                 <th className="text-center">Action</th>
                             </tr>
                         </thead>
@@ -87,4 +84,4 @@ class GererMembreAdmin extends Component {
       }
 }
 
-export default GererMembreAdmin;
+export default GererActiviteAdmin;
