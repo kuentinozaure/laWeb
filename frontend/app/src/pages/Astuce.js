@@ -85,7 +85,7 @@ class Astuce extends Component {
                   />
               );
               }
-              else if(astuce.type_astuce == 1){
+              else if(astuce.type_astuce == "Bureautique"){
                 listeAstuceBureautique.push(
                   <BoxAstuce
                       modtitre={astuce.titre}
