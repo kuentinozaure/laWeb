@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./InformationCard.css"
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 
 

@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class NavbarMembres extends Component {
     constructor(props) {

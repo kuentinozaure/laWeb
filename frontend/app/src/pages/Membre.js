@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 class Membre extends Component {
     constructor(props) {

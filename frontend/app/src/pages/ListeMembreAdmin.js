@@ -3,7 +3,7 @@ import NavbarMembres from './NavbarMembres.js';
 import MembreValide from './MembreValide.js'
 import axios from 'axios';
 
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "../consts";
 
 
 class ListeMembreAdmin extends Component {
