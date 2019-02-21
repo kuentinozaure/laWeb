@@ -279,19 +279,20 @@ render(){
       let listUfr = [];
       let content;
       content = this.state.ufr.map((ufr, index) =>{
-        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.ufr}</option>)
+        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.intitule}</option>)
       })
       return content = listUfr
     }
+    
     componentDidMount() {
-      const url = 'http://laweb.alwaysdata.net/?choix=11';
-      axios.get(url)
+      axios.get(SERVER_URL + "ufr/")
         .then(response => {
+          console.log(response.data);
           let i
           let tab =[]
           
-          for (i = 0; i < response.data.ufr.length; i++) {
-            tab.push(response.data.ufr[i]);
+          for (i = 0; i < response.data.length; i++) {
+            tab.push(response.data[i]);
           }
           this.setState({
             ufr: tab,

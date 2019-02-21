@@ -14,13 +14,12 @@ class GererActiviteAdmin extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=15';
-        axios.get(url)
+        axios.get(SERVER_URL + "unvalidate/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.activite.length; i++) {
-              tab.push(response.data.activite[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               activites: tab,
@@ -60,9 +59,6 @@ class GererActiviteAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <a className='btn btn btn-info btn-sm' href="#" align="center">
-                            Ajouter une activité
-                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>

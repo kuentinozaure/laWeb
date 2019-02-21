@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
-import ActiviteValide from './ActiviteValide.js';
+import AstuceValide from './AstuceValide';
 import {Button,Modal} from 'react-bootstrap';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ class GererActiviteAdmin extends Component {
       }
 
       componentDidMount() {
-        axios.get(SERVER_URL + "activity/")
+        axios.get(SERVER_URL + "astuce/")
           .then(response => {
             let i
             let tab =[]
@@ -44,14 +44,14 @@ class GererActiviteAdmin extends Component {
         let content = this.state.activites.map((activite, index) => {
     
           listeActivite.push(
-              < ActiviteValide 
+              < AstuceValide 
                 id={activite.id}
                 titre={activite.titre}
+                message={activite.message}
                 description={activite.description}
-                dateDebut={activite.dateDebut}
-                dateFin={activite.dateFin}
-                salle={activite.salle}
-                nombrePlaceDispo={activite.nombrePlaceDispo}
+                lienAstuce={activite.lienAstuce}
+                auteur={activite.auteur}
+                type_astuce={activite.type_astuce}
                 />
             );
         });
@@ -88,18 +88,18 @@ class GererActiviteAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddActivity}>
-                            Proposer une activité
+                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddAstuce}>
+                            Proposer une astuce
                         </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
                                 <th>Titre</th>
+                                <th>Message</th>
                                 <th>Description</th>
-                                <th>Date de début</th>
-                                <th>Date de fin</th>
-                                <th>Salle</th>
-                                <th>Nombre de places</th>
+                                <th>Lien astuce</th>
+                                <th>Auteur</th>
+                                <th>Type astuce</th>
                                 <th className="text-center">Action</th>
                             </tr>
                         </thead>
