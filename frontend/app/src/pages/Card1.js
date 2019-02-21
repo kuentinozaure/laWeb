@@ -11,7 +11,7 @@ class Card1 extends Component {
     <div>
       <li className="list-group-item">
         <div className="col-xs-12 col-sm-3">
-          <img src={this.props.photo} alt={this.props.nom+" "+this.props.prenom}  className="img-responsive img-circle" />
+          <img src={this.props.image} alt={this.props.nom+" "+this.props.prenom}  className="img-responsive img-circle" />
         </div>
         <div className="col-xs-12 col-sm-3"></div>
         <div class="col-xs-12 col-sm-6">

@@ -40,13 +40,13 @@ class Astuce extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=19';
-        axios.get(url)
+        
+        axios.get(SERVER_URL + "astuce/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.astuce.length; i++) {
-              tab.push(response.data.astuce[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               astuces: tab,
@@ -71,8 +71,8 @@ class Astuce extends Component {
         let listeAstuceApprends =[]
         if(this.astuceSearch === ""){
             let content = this.state.astuces.map((astuce, index) => {
-                
-              if(astuce.type == "Faculté"){
+              
+              if(astuce.type_astuce == "Faculte"){
                 listeAstuceFaculté.push(
                   <BoxAstuce 
                       modtitre={astuce.titre}
@@ -85,7 +85,7 @@ class Astuce extends Component {
                   />
               );
               }
-              else if(astuce.type == "Bureautique"){
+              else if(astuce.type_astuce == "Bureautique"){
                 listeAstuceBureautique.push(
                   <BoxAstuce 
                       modtitre={astuce.titre}
@@ -97,6 +97,7 @@ class Astuce extends Component {
                       moddescription={astuce.description}
                   />
                 );
+
               }else{
                 listeAstuceApprends.push(
                   <BoxAstuce 
@@ -141,7 +142,7 @@ class Astuce extends Component {
                     auteur = astuce.auteur;
 
                     if(titre.includes(this.state.astuceSearch) || description.includes(this.state.astuceSearch) || auteur.includes(this.state.astuceSearch)){
-                      if(astuce.type == "Faculté"){
+                      if(astuce.type_astuce == "Faculte"){
                         listeAstuceFaculté.push(
                           <BoxAstuce 
                               modtitre={astuce.titre}
@@ -154,7 +155,7 @@ class Astuce extends Component {
                           />
                       );
                       }
-                      else if(astuce.type == "Bureautique"){
+                      else if(astuce.type_astuce == "Bureautique"){
                         listeAstuceBureautique.push(
                           <BoxAstuce 
                               modtitre={astuce.titre}
