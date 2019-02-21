@@ -15,13 +15,12 @@ class GererMembreAdmin extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=12';
-        axios.get(url)
+        axios.get(SERVER_URL + "invalid/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.membre.length; i++) {
-              tab.push(response.data.membre[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               membres: tab,

@@ -283,6 +283,7 @@ render(){
       })
       return content = listUfr
     }
+    
     componentDidMount() {
       axios.get(SERVER_URL + "ufr/")
         .then(response => {
