@@ -33,14 +33,15 @@ class ListeActivite extends Component {
   }
 
   componentDidMount() {
-    const url = 'http://laweb.alwaysdata.net/?choix=1';
+    const url = SERVER_URL+"activity/";
     axios.get(url)
       .then(response => {
-        let i
         let tab =[]
-        for (i = 0; i < response.data.activite.length; i++) {
-          tab.push(response.data.activite[i]);
+        let i;
+        for (i = 0; i < response.data.length; i++) {
+          tab.push(response.data[i]);
         }
+
         this.setState({
           activities: tab,
         });
@@ -57,15 +58,14 @@ class ListeActivite extends Component {
     let listActivityA =[]
     if(this.activitySearch === ""){
       let content = this.state.activities.map((activity, index) => {
-        
-        if(activity.type == "EVENEMENT"){
+        if(activity.categorie == "EVENEMENT"){
           listActivityEvent.push(
-            <Box 
+            <Box
                 imgnom= {activity.titre}
                 modnom= {activity.id}
                 modtitre={activity.titre}
                 moddate= {activity.dateDebut}
-                modnbplace={activity.placeDispo}
+                modnbplace={activity.placeDisponible}
                 modnbplaceRestante={activity.placeRestante}
                 moddescription={activity.description}
                 modanimateur={activity.animateur}
@@ -73,35 +73,36 @@ class ListeActivite extends Component {
           );
         }
         else{
+        alert(activity.placeDisponible)
           listActivityA.push(
-            <Box 
+            <Box
                 imgnom= {activity.titre}
                 modnom= {activity.id}
                 modtitre={activity.titre}
                 moddate= {activity.dateDebut}
-                modnbplace={activity.placeDispo}
+                modnbplace={activity.placeDisponible}
                 modnbplaceRestante={activity.placeRestante}
                 moddescription={activity.description}
                 modanimateur={activity.animateur}
             />
           );
         }
-        
+
       });
-      
+
       return (
           <div>
           <div class="container">
             <h1>Evènements</h1>
-              {content = listActivityEvent}   
+              {content = listActivityEvent}
           </div>
           <div class="container">
               <h1>Ateliers</h1>
-                {content = listActivityA}   
+                {content = listActivityA}
           </div>
           </div>
       );
-      
+
 
     }else{
       let titre="";
@@ -111,17 +112,17 @@ class ListeActivite extends Component {
       let content = this.state.activities.map((activity, index) => {
         titre = activity.titre;
         description = activity.description
-        typeEvenement = activity.type
+        typeEvenement = activity.categorie
 
         if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch) || typeEvenement.includes(this.state.activitySearch)){
-          if(activity.type == "EVENEMENT"){
+          if(activity.categorie == "EVENEMENT"){
             listActivityEvent.push(
-              <Box 
+              <Box
                   imgnom= {activity.titre}
                   modnom= {activity.id}
                   modtitre={activity.titre}
                   moddate= {activity.dateDebut}
-                  modnbplace={activity.placeDispo}
+                  modnbplace={activity.placeDisponible}
                   modnbplaceRestante={activity.placeRestante}
                   moddescription={activity.description}
                   modanimateur={activity.animateur}
@@ -130,12 +131,12 @@ class ListeActivite extends Component {
           }
           else{
             listActivityA.push(
-              <Box 
+              <Box
                   imgnom= {activity.titre}
                   modnom= {activity.id}
                   modtitre={activity.titre}
                   moddate= {activity.dateDebut}
-                  modnbplace={activity.placeDispo}
+                  modnbplace={activity.placeDisponible}
                   modnbplaceRestante={activity.placeRestante}
                   moddescription={activity.description}
                   modanimateur={activity.animateur}
@@ -144,16 +145,16 @@ class ListeActivite extends Component {
           }
         }
       });
-      
+
       return (
         <div>
         <div class="container">
           <h1>Évènements</h1>
-            {content = listActivityEvent}   
+            {content = listActivityEvent}
         </div>
         <div class="container">
             <h1>Ateliers</h1>
-              {content = listActivityA}   
+              {content = listActivityA}
         </div>
         </div>
     );
