@@ -189,7 +189,7 @@ display(){
                           <i className="fa fa-user fa" aria-hidden="true"></i>
                         </span>
                         <input id="name" name="nom" placeholder="Nom" required="Nom" 
-                        className="form-control"  type="name" pattern='[A-Za-z]' title="prenom sans caractères spéciaux"
+                        className="form-control"  type="name" pattern='[A-Za-z]{1,}' title="prenom sans caractères spéciaux"
                         onChange={e => this.setState({name: e.target.value})}
                         />
                     </div>
@@ -198,7 +198,7 @@ display(){
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" placeholder="Prénom" pattern='[A-Za-z]{1,}' required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
 
@@ -224,7 +224,7 @@ display(){
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" placeholder="Téléphone" pattern="[0-9]{10}" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 
