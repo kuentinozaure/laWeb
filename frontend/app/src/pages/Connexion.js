@@ -8,6 +8,7 @@ class Connexion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+          id:0,
           name: '',
           mdp: '',
           mdpServ: '',
@@ -22,6 +23,7 @@ class Connexion extends React.Component {
        handleSubmit() {
         if(this.state.mdpDebug == this.state.mdp && this.state.logDebug == this.state.name){
           this.props.setSession(this.state.name);
+
           console.log("a "+this.props.setSession);
           this.props.history.push(process.env.PUBLIC_URL + "/member");
           
@@ -87,8 +89,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    setSession: (name) => {
-      dispatch(setSession(name))
+    setSession: (name,id) => {
+      dispatch(setSession(name,id))
     }
   }
 };
