@@ -64,6 +64,12 @@ class MembreResponsable
      */
     protected $idUfr;
 
+    /**
+     * @ManyToOne(targetEntity="AuthentificationToken",cascade={"persist"})
+     * @JoinColumn(name="token_id", referencedColumnName="id")
+     */
+    protected $token;
+
 
 
     public function getId()
@@ -115,6 +121,17 @@ class MembreResponsable
     public function getIdUfr()
     {
       return $this->idUfr;
+    }
+
+    public function getToken(): ?AuthentificationToken
+    {
+      return $this->token;
+    }
+
+    public function setToken(?AuthentificationToken $token)
+    {
+      $this->token = $token;
+      return $this;
     }
 
     public function setId($id)
