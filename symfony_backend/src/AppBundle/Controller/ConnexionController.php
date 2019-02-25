@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\MembreResponsable;
+use AppBundle\Entity\AuthentificationToken;
 
 class ConnexionController extends Controller
 {
@@ -54,8 +55,9 @@ class ConnexionController extends Controller
                             'estValide'=>1,
                         ));
 
-        $token = $members[0]->getToken();
-        var_dump($token);
+        $token = $this->get('doctrine.orm.entity_manager')
+                      ->getRepository('AppBundle:AuthentificationToken')
+                      ->findById($members[0]->getToken());
 
         $formatted = [
                       'id' => $members[0]->getId(),
@@ -69,7 +71,18 @@ class ConnexionController extends Controller
                       'estVisible' => $members[0]->getVisible(),
                       'estValide' => $members[0]->getEstValide(),
                       'isConnect' => true,
-                      'token' => $token,
+                      'token' => $token[0]->getToken(),
+                     ];
+        return new JsonResponse($formatted,Response::HTTP_OK);
+    }
+
+    /**
+     *@Route("/deconnexion/", name="deconnexion", methods={"GET"})
+    */
+    public function seDeconnecter(Request $request)
+    {
+        $formatted = [
+                      'isConnect' => false,
                      ];
         return new JsonResponse($formatted,Response::HTTP_OK);
     }

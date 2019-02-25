@@ -71,7 +71,6 @@ class MembreResponsable
     protected $token;
 
 
-
     public function getId()
     {
         return $this->id;
@@ -123,12 +122,12 @@ class MembreResponsable
       return $this->idUfr;
     }
 
-    public function getToken(): ?AuthentificationToken
+    public function getToken() : ?AuthentificationToken
     {
       return $this->token;
     }
 
-    public function setToken(?AuthentificationToken $token)
+    public function setToken(?AuthentificationToken $token):self
     {
       $this->token = $token;
       return $this;
