@@ -35,16 +35,13 @@ class Message
      * @ORM\Column(type="string",length=255)
      */
     protected $message;
-    /**
-     * @ORM\Column(type="string",length=255)
-     */
-    protected $auteur;
+   
 
     /**
      * @ManyToOne(targetEntity="CategorieMessage")
      * @JoinColumn(name="categorieMess_id", referencedColumnName="id")
      */
-    protected $idAstuce;
+    protected $idCategorieMessage;
 
     public function getId()
     {
@@ -68,13 +65,10 @@ class Message
     {
         return $this->message;
     }
-    public function getAuteur()
+   
+    public function getCategorieMessage()
     {
-        return $this->auteur;
-    }
-    public function getIdAstuce()
-    {
-        return $this->idAstuce;
+        return $this->idCategorieMessage;
     }
 
     public function setId($id)
@@ -103,14 +97,10 @@ class Message
         $this->message = $message;
         return $this;
     }
-    public function setAuteur($auteur)
+   
+    public function setidCategorieMessage($idCategorieMessage)
     {
-        $this->auteur = $auteur;
-        return $this;
-    }
-    public function setIdAstuce($idMembre)
-    {
-      $this->idMembre = $idMembre;
+      $this->idCategorieMessage = $idCategorieMessage;
       return $this;
     }
 }
