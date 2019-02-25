@@ -114,7 +114,7 @@ class MembreResponsableController extends Controller
         return new JsonResponse($formatted);
     }
 
-    
+
     /**
      * @Route("/members/{id}/", name="members_once_del",methods={"DELETE"})
      */
@@ -148,7 +148,9 @@ class MembreResponsableController extends Controller
       $mdp = $request->get('mdp');
       $visible = $request->get('visible');
       $idUfr = $request->get('idUfr');
-      
+
+
+
       //Check if one of all HTTP:GET value are empty
       $idUfr = $request->get('idUfr');
 
@@ -160,10 +162,11 @@ class MembreResponsableController extends Controller
        ->getRepository('AppBundle:Ufr')
        ->findById($idUfr);
 
+       $crypt = hash("sha256",$mdp,false);
        $departement = $ufr;
 
          $member = new MembreResponsable();
-         
+
          $member ->setNom($nom)
                     ->setPrenom($prenom)
                     ->setMail($mail)
@@ -171,7 +174,7 @@ class MembreResponsableController extends Controller
                     ->setTelephone($telephone)
                     ->setDescription($description)
                     ->setLogin($login)
-                    ->setMdp($mdp)
+                    ->setMdp($crypt)
                     ->setVisible($visible)
                     ->setEstValide(0)
                     ->setidUfr($departement[0]);
@@ -189,7 +192,7 @@ class MembreResponsableController extends Controller
   public function validateMember(Request $request)
   {
      $em = $this->get('doctrine.orm.entity_manager');
-     
+
      $member = $em->getRepository('AppBundle:MembreResponsable')
                     ->findById($request->get('idMember'));
 
