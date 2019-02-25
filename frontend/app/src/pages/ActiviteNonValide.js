@@ -2,12 +2,33 @@ import React,{ Component } from 'react';
 
 import { SERVER_URL } from "../consts";
 
+import axios from 'axios';
+
 class ActiviteNonValide  extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleDelete = this.handleDelete.bind(this);
+
         this.state = {
+            id:0,
         };
       }
+
+    handleDelete() {
+
+        axios.delete(SERVER_URL + "activity/"+this.props.id+"/")
+        // console.log(this.props.id)
+        // .then(response => {
+        //     console.log("Activité supprimé")
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // });
+    
+    }
+
+    
 
     render() {
         return (
@@ -24,7 +45,7 @@ class ActiviteNonValide  extends React.Component {
                 <a className='btn btn btn-info btn-sm' href="#">
                         Valider
                 </a>
-                <a className='btn btn btn-danger btn-sm' href="#">
+                <a className='btn btn btn-danger btn-sm' href="#listeActiviteAdmin" onClick={this.handleDelete()}>
                         Refuser
                 </a>  
                 </td>
