@@ -19,7 +19,8 @@ class AstuceController extends Controller
     {
         $astuces = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Astuce')
-                        ->findAll();
+                        ->findBy(array('estValide' => 1,
+						));
 
         if (empty($astuces))
         {

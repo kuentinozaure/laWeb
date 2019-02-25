@@ -202,4 +202,30 @@ class MembreResponsableController extends Controller
        return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
   }
 
+  /**
+   * @Route("/member/{loginMember}/", name="member_id", methods={"GET"})
+   */
+  public function getIdMember(Request $request)
+  {
+    $em = $this->getDoctrine()
+               ->getManager();
+
+    $query = $em->createQuery(
+      'SELECT count(p.login)
+       FROM AppBundle:MembreResponsable p
+       WHERE p.login = :loginMember'
+      )->setParameter('loginMember',$request->get('loginMember')); 
+    
+      $count = $query->getResult();
+
+      if(intval($count[0][1]) > 1){
+        return new JsonResponse(['message' => 'member no unique'], Response::HTTP_CREATED);
+      }
+
+      $member = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findBy(array('login' => $request->get('loginMember')));
+
+      $mem = $member;
+      return new JsonResponse($mem[0]->getId(), Response::HTTP_CREATED);
+  }
 }
