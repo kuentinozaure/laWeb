@@ -95,31 +95,31 @@ class AstuceValide  extends React.Component {
                 <h3 className="text-center">Faites le ici</h3>
                       <div className="form-group">
                                     <div className="input-group">
-                                      <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                      <span className="input-group-addon"><i className="fa fa-tags fa" aria-hidden="true"></i></span>
                                       <input type="text" id="titre" name="titre" value={this.state.titre} className="form-control" onChange={e => this.setState({titre: e.target.value})}></input>
                                     </div>
                                     <br></br>
                                     <div className="form-group">
                                                   <div className="input-group">
-                                                    <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                    <span className="input-group-addon"><i className="fa fa-tags fa" aria-hidden="true"></i></span>
                                                     <input id="message" name="message"  value ={this.state.message} className="form-control"  type="text" onChange={e => this.setState({message: e.target.value})}/>
                                                   </div>
                                     </div>
                                     <div className="form-group">
                                                   <div className="input-group">
-                                                    <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                    <span className="input-group-addon"><i className="fa fa-pencil fa" aria-hidden="true"></i></span>
                                                     <textarea id="story" className="form-control" name="story" rows="2" cols="33" value={this.state.description} type="text"  onChange={e => this.setState({description: e.target.value})}></textarea>
                                                   </div>
                                     </div>
                                     <div className="form-group">
                                                   <div className="input-group">
-                                                    <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                    <span className="input-group-addon"><i className="fa fa-link fa" aria-hidden="true"></i></span>
                                                     <input id="lien" name="lien"  value ={this.state.lienAstuce}  className="form-control"  type="text" onChange={e => this.setState({lienAstuce: e.target.value})}/>
                                                   </div>
                                     </div>
                                     <div className="form-group">
                                                   <div className="input-group">
-                                                    <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                    <span className="input-group-addon"><i className="fa fa-camera-retro fa" aria-hidden="true"></i></span>
                                                     <input id="image" name="image"  value ={this.state.image}  className="form-control"  type="text" onChange={e => this.setState({image: e.target.value})}/>
                                                     <img src={this.state.image} width="50" height="50"/>
                                                   </div>
@@ -134,7 +134,7 @@ class AstuceValide  extends React.Component {
                                     </div>
                                     <div className="form-group">
                                                   <div className="input-group">
-                                                    <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                    <span className="input-group-addon"><i className="fa fa-align-justify fa" aria-hidden="true"></i></span>
                                                     <select className="form-control" require="true"  id="categ" onChange={e => this.setState({categorie: e.target.value.substring(0, 1)})}>
                                                     {
                                                       this.displayCategorie()
