@@ -14,7 +14,6 @@ class ActiviteValide  extends React.Component {
         return (
             <React.Fragment> 
             <tr>
-                {console.log(this.state.id)}
                 <td>{this.props.titre}</td>
                 <td>{this.props.description}</td>    
                 <td>{this.props.dateDebut}</td>
