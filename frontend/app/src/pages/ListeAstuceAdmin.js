@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
 
-class GererActiviteAdmin extends Component {
+class ListeAstuceAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -36,15 +36,15 @@ class GererActiviteAdmin extends Component {
             console.log(error);
           });
 
-          
+
       }
 
       display(){
         let listeActivite =[]
         let content = this.state.activites.map((activite, index) => {
-    
+
           listeActivite.push(
-              < AstuceValide 
+              <AstuceValide
                 id={activite.id}
                 titre={activite.titre}
                 message={activite.message}
@@ -52,13 +52,14 @@ class GererActiviteAdmin extends Component {
                 lienAstuce={activite.lienAstuce}
                 auteur={activite.auteur}
                 type_astuce={activite.type_astuce}
+                image={activite.image}
                 />
             );
         });
-        
+
         return content = listeActivite;
       }
-      
+
       handleShow(){
         this.setState({
             show : true
@@ -99,6 +100,7 @@ class GererActiviteAdmin extends Component {
                                 <th>Description</th>
                                 <th>Lien astuce</th>
                                 <th>Auteur</th>
+                                <th>Image</th>
                                 <th>Type astuce</th>
                                 <th className="text-center">Action</th>
                             </tr>
@@ -127,4 +129,4 @@ class GererActiviteAdmin extends Component {
       }
 }
 
-export default GererActiviteAdmin;
+export default ListeAstuceAdmin;
