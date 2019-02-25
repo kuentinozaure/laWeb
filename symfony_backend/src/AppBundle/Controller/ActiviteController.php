@@ -22,7 +22,7 @@ class ActiviteController extends Controller
                         ->getRepository('AppBundle:Activite')
                         ->findBy(array(
                             'estValide' => 1,
-
+                            
                         ));
 
         if (empty($activites))
@@ -272,7 +272,7 @@ class ActiviteController extends Controller
     public function validateActivity(Request $request)
     {
        $em = $this->get('doctrine.orm.entity_manager');
-       
+
        $activity = $em->getRepository('AppBundle:Activite')
                       ->findById($request->get('idAct'));
 
@@ -311,13 +311,13 @@ class ActiviteController extends Controller
                 }
         return new JsonResponse($formatted,Response::HTTP_OK);
     }
-    /** 
+    /**
     * @Route("/activity/date/{activity_startDate}/", name="activite_startDate",methods={"GET"})
     */
     public function getStartDateActivity(Request $request)
     {
       $date=str_replace("-","/",$request->get('activity_startDate'));
-    
+
         $formatted =[];
         $activity = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Activite')
@@ -407,4 +407,3 @@ class ActiviteController extends Controller
     }
 
 }
-

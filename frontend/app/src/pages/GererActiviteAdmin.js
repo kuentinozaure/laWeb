@@ -19,6 +19,7 @@ class GererActiviteAdmin extends Component {
             let i
             let tab =[]
             for (i = 0; i < response.data.length; i++) {
+              
               tab.push(response.data[i]);
             }
             this.setState({
@@ -38,6 +39,7 @@ class GererActiviteAdmin extends Component {
     
           listeActivite.push(
               < ActiviteNonValide 
+                id={activite.id}
                 titre={activite.titre}
                 description={activite.description}
                 dateDebut={activite.dateDebut}

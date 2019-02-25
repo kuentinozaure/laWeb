@@ -12,11 +12,11 @@ class Astuce extends Component {
 
     constructor(props, context) {
         super(props, context);
-    
+
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    
+
         this.state = {
           show: false,
           titre: '',
@@ -28,25 +28,25 @@ class Astuce extends Component {
           type: "Faculté"
         };
 
-       
+
       }
 
       handleClose() {
         this.setState({ show: false });
       }
-    
+
       handleShow() {
         this.setState({ show: true });
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=19';
-        axios.get(url)
+
+        axios.get(SERVER_URL + "astuce/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.astuce.length; i++) {
-              tab.push(response.data.astuce[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               astuces: tab,
@@ -55,7 +55,7 @@ class Astuce extends Component {
           .catch(error => {
             console.log(error);
           });
-    
+
       }
 
       handleSearch(e){
@@ -71,10 +71,10 @@ class Astuce extends Component {
         let listeAstuceApprends =[]
         if(this.astuceSearch === ""){
             let content = this.state.astuces.map((astuce, index) => {
-                
-              if(astuce.type == "Faculté"){
+
+              if(astuce.type_astuce == "Faculte"){
                 listeAstuceFaculté.push(
-                  <BoxAstuce 
+                  <BoxAstuce
                       modtitre={astuce.titre}
                       modlien={astuce.lienAstuce}
                       modid={astuce.id}
@@ -85,9 +85,9 @@ class Astuce extends Component {
                   />
               );
               }
-              else if(astuce.type == "Bureautique"){
+              else if(astuce.type_astuce == "Bureautique"){
                 listeAstuceBureautique.push(
-                  <BoxAstuce 
+                  <BoxAstuce
                       modtitre={astuce.titre}
                       modlien={astuce.lienAstuce}
                       modid={astuce.id}
@@ -97,9 +97,10 @@ class Astuce extends Component {
                       moddescription={astuce.description}
                   />
                 );
+
               }else{
                 listeAstuceApprends.push(
-                  <BoxAstuce 
+                  <BoxAstuce
                       modtitre={astuce.titre}
                       modlien={astuce.lienAstuce}
                       modid={astuce.id}
@@ -115,15 +116,15 @@ class Astuce extends Component {
                 <div>
                 <div class="container">
                   <h1>Faculté</h1>
-                    {content = listeAstuceFaculté}   
+                    {content = listeAstuceFaculté}
                 </div>
                 <div class="container">
                     <h1>Bureautique</h1>
-                      {content = listeAstuceBureautique}   
+                      {content = listeAstuceBureautique}
                 </div>
                 <div class="container">
                     <h1>Apprends avec nous</h1>
-                      {content = listeAstuceApprends}   
+                      {content = listeAstuceApprends}
                 </div>
                 </div>
             );
@@ -131,9 +132,9 @@ class Astuce extends Component {
             let titre="";
             let description = "";
             let auteur = "";
-            
-            
-                
+
+
+
                 let content = this.state.astuces.map((astuce, index) => {
 
                     titre = astuce.titre;
@@ -141,9 +142,9 @@ class Astuce extends Component {
                     auteur = astuce.auteur;
 
                     if(titre.includes(this.state.astuceSearch) || description.includes(this.state.astuceSearch) || auteur.includes(this.state.astuceSearch)){
-                      if(astuce.type == "Faculté"){
+                      if(astuce.type_astuce == "Faculte"){
                         listeAstuceFaculté.push(
-                          <BoxAstuce 
+                          <BoxAstuce
                               modtitre={astuce.titre}
                               modlien={astuce.lienAstuce}
                               modid={astuce.id}
@@ -154,9 +155,9 @@ class Astuce extends Component {
                           />
                       );
                       }
-                      else if(astuce.type == "Bureautique"){
+                      else if(astuce.type_astuce == "Bureautique"){
                         listeAstuceBureautique.push(
-                          <BoxAstuce 
+                          <BoxAstuce
                               modtitre={astuce.titre}
                               modlien={astuce.lienAstuce}
                               modid={astuce.id}
@@ -168,7 +169,7 @@ class Astuce extends Component {
                         );
                       }else{
                         listeAstuceApprends.push(
-                          <BoxAstuce 
+                          <BoxAstuce
                               modtitre={astuce.titre}
                               modlien={astuce.lienAstuce}
                               modid={astuce.id}
@@ -185,19 +186,19 @@ class Astuce extends Component {
                         <div>
                         <div class="container">
                           <h1>Faculté</h1>
-                            {content = listeAstuceFaculté}   
+                            {content = listeAstuceFaculté}
                         </div>
                         <div class="container">
                             <h1>Bureautique</h1>
-                              {content = listeAstuceBureautique}   
+                              {content = listeAstuceBureautique}
                         </div>
                         <div class="container">
                             <h1>Apprends avec nous</h1>
-                              {content = listeAstuceApprends}   
+                              {content = listeAstuceApprends}
                         </div>
                         </div>
                     );
-        
+
 }}
 
 handleSubmit(event) {
@@ -245,7 +246,7 @@ handleSubmit(event) {
               <Modal.Body>
                 <h2 className="text-center">Vous voulez proposer une astuce ?</h2>
                 <h4 className="text-center">Vous avez une idée d'astuce qui pourrait aider d'autres utilisateurs et qui touche à l'informatique ? Faites-nous en part !</h4>
-      
+
                 <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                       <div className="form-group">
                                     <div className="input-group">
@@ -253,21 +254,21 @@ handleSubmit(event) {
                                       <input id="titre" name="titre" placeholder="Titre" required="Remplir le titre" className="form-control"  type="text" onChange={e => this.setState({titre: e.target.value})}/>
                                     </div>
                                   </div>
-                        
+
                         <div className="form-group">
                                     <div className="input-group">
                                       <span className="input-group-addon"><i className="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
                                       <textarea  id="description" name="description" placeholder="Description" required="Remplir la description" className="form-control"  type="text" onChange={e => this.setState({description: e.target.value})}/>
                                     </div>
                                   </div>
-      
+
                       <div className="form-group">
                                     <div className="input-group">
                                       <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                       <input id="auteur" name="auteur" placeholder="Auteur de l'astuce" required="Remplir le nom de l'auteur" className="form-control"  type="text" onChange={e => this.setState({nom: e.target.value})}/>
                                     </div>
                                   </div>
-      
+
                       <div className="form-group">
                                     <div className="input-group">
                                       <span className="input-group-addon"><i className="glyphicon glyphicon-link" aria-hidden="true"></i></span>
@@ -282,7 +283,7 @@ handleSubmit(event) {
                               <option id="3">Apprends avec nous</option>
                               </select>
                             </div>
-      
+
                         <input type="submit" className="center-block btn btn-danger" value="Proposer une activité" />
                         </form>
               </Modal.Body>
@@ -293,10 +294,10 @@ handleSubmit(event) {
             </div>
             </div>
 
-            
+
         )
     }
-    
+
 }
 
 
