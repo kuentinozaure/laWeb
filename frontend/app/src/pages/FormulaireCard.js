@@ -43,11 +43,18 @@ constructor(props) {
         console.log(error);
       });
 
-      Swal.fire(
-        'Message envoyé',
-        '',
-        'success'
-      )
+      Swal.queue([{
+        title: 'Message envoyé',
+        confirmButtonText: 'OK',
+        
+        showLoaderOnConfirm: true,
+    
+        preConfirm: () => {
+          window.location.reload()  
+        }
+        
+      }])
+     
     }
 
 
