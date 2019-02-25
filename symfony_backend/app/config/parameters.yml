@@ -10,5 +10,5 @@ parameters:
     mailer_host: smtp.gmail.com
     mailer_user: associationlaweb@gmail.com
     mailer_password: PTUT.iaweb@2018
-    
+
     secret: 261d214c71262e38a8a8d7f23bc65b68159d5221

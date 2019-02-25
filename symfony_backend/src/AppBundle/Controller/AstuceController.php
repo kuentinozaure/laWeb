@@ -19,7 +19,9 @@ class AstuceController extends Controller
     {
         $astuces = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Astuce')
-                        ->findAll();
+                        ->findBy(array(
+                            'estValide' => 1,
+                        ));
 
         if (empty($astuces))
         {
@@ -161,7 +163,7 @@ class AstuceController extends Controller
     public function validateAstuce(Request $request)
     {
        $em = $this->get('doctrine.orm.entity_manager');
-       
+
        $astuce = $em->getRepository('AppBundle:Astuce')
                       ->findById($request->get('idAstuce'));
 
@@ -218,7 +220,7 @@ class AstuceController extends Controller
     }
 
         /**
-     * @Route("/activity/{id}/", name="activity_put_once", methods={"PUT"})
+     * @Route("/astuces/{id}/", name="astuces_put_once", methods={"PUT"})
      */
     public function putUnvalidAstuce(Request $request)
     {
@@ -226,7 +228,7 @@ class AstuceController extends Controller
       $titre = $request->get('titre');
       $message = $request->get('message');
       $description = $request->get('description');
-      $lienAstuce = $request->get('lienAstuce');        
+      $lienAstuce = $request->get('lienAstuce');
       $auteur = $request->get('auteur');
       $image = $request ->get('image');
       $idAstuce = $request ->get('idAstuce');
@@ -237,7 +239,7 @@ class AstuceController extends Controller
          return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
        }
        $em = $this->get('doctrine.orm.entity_manager');
-       
+
        $astuce = $em->getRepository('AppBundle:Astuce')
                       ->findById($request->get('id'));
 
@@ -253,8 +255,7 @@ class AstuceController extends Controller
                 ->setLienAstuce($lienAstuce)
                 ->setAuteur($auteur)
                 ->setImage($image)
-                ->setIdAstuce($categorie[0])
-                ->setEstValide(false);
+                ->setIdAstuce($categorie[0]);
 
          $em->persist($ast[0]);
          $em->flush();
