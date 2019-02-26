@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\MembreResponsable;
 use AppBundle\Entity\Ufr;
+use AppBundle\Entity\AuthentificationToken;
 
 class MembreResponsableController extends Controller
 {
@@ -198,11 +199,16 @@ class MembreResponsableController extends Controller
 
        $mem = $member;
 
+       $authToken = new AuthentificationToken();
+       $authToken->setToken(base64_encode(random_bytes(50)));
+       $authToken->setDateDeCreation(new \DateTime('now'));
+
        $mem[0]->setEstValide(1);
+       $mem[0]->setToken($authToken);
 
        $em->persist($mem[0]);
        $em->flush();
-       return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
+       return new JsonResponse(['message' => 'member validated'], Response::HTTP_CREATED);
   }
 
   /**
