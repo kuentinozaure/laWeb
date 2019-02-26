@@ -13,7 +13,7 @@ class NavbarMembres extends Component {
     render() {
         return (
         <div>
-          
+
           <br></br>
           <br></br>
         <div className="col-xs-12 col-sm-1"></div>
@@ -62,20 +62,20 @@ class NavbarMembres extends Component {
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Mon compte
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a className="dropdown-item" href="#infoCompte">Informations de mon compte</a>
+                </div>
+              </li>
+              <li className="nav-item dropdown" className="disabled">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Ressources
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a className="dropdown-item" href="#">Enregister des biens</a>
                   <a className="dropdown-item" href="#">Enregister recettes</a>
                   <a className="dropdown-item" href="#">Suppression</a>
-                </div>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Mon compte
-                </a>
-                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#infoCompte">Informations de mon compte</a>
                 </div>
               </li>
             </ul>
