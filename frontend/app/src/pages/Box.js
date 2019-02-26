@@ -3,7 +3,7 @@ import './Box.css';
 import {Button,Modal} from 'react-bootstrap';
 import Inscription from './Inscription.js'
 import axios from 'axios';
-
+import BoxParticipant from './BoxParticipant.js'
 import { connect } from 'react-redux';
 
 import { SERVER_URL } from "../consts";
@@ -16,9 +16,13 @@ class Box extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleShowParticipant = this.handleShowParticipant.bind(this);
+    this.closeParticipant = this.closeParticipant.bind(this);
 
     this.state = {
+      handleShowParticipant:false,
       show: false,
+      idActivite: this.props.modnom,
       idPersonne:0,
       name: '',
       prenom: '',
@@ -27,6 +31,7 @@ class Box extends Component {
       numero: '',
       newsletter: false,
       ufrSelected:1,
+      participants:[],
       //listeUfr : []
     };
   }
@@ -64,6 +69,26 @@ class Box extends Component {
         });
     }
 
+    handleShowParticipant(){
+      const urladdParticipant = SERVER_URL +"participe/"+this.state.idActivite+"/"
+      axios.get(urladdParticipant).then(response => {
+
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
+            }
+
+            this.setState({
+              handleShowParticipant:true,
+              participants:tab,
+            })
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
 
     displayUfr(){
       let listUfr = [];
@@ -91,8 +116,65 @@ class Box extends Component {
         .catch(error => {
           console.log(error);
         });
+    }
 
+    closeParticipant(){
+      this.setState({
+        handleShowParticipant:false,
+      })
+    }
+    displayParticipants(){
+      let listeParticipant =[]
+      let content = this.state.participants.map((participant, index) => {
 
+        listeParticipant.push(
+            <BoxParticipant
+              nom={participant.nom}
+              prenom={participant.prenom}
+              mail={participant.mail}
+              telephone={participant.telephone}
+              ufr={participant.intitule}
+              />
+          );
+      });
+
+      return content = listeParticipant;
+    }
+
+    displayParticipant(){
+      if(this.state.handleShowParticipant == true){
+        return(
+          <div>
+          <div className="row">
+          <div className="col-md-12 col-sm-6 col-xs-6">
+            <div className="panel panel-info">
+                <div className="panel-heading">
+                    <h3 className="panel-title">Participants &nbsp;&nbsp;<span ><i class="fa fa-times" onClick={this.closeParticipant}></i></span></h3>
+                </div>
+                <div className="panel-body">
+                <table className="table table-striped custab">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Mail</th>
+                        <th>Telephone</th>
+                        <th>UFR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.displayParticipants()}
+                </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+      )
+      }else{
+        return(<div></div>);
+      }
     }
 
 
@@ -129,7 +211,7 @@ display(){
                     <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
                     </Button>
-                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                    <Button id="BtAct" className="center-right" onClick={this.handleShowParticipant}>
                       DETAILS
                     </Button>
                   </div>
@@ -138,6 +220,10 @@ display(){
             </div>
           </div>
         </div>
+        {
+          this.displayParticipant()
+        }
+
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
