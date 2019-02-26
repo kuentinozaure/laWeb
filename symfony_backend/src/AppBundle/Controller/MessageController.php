@@ -93,8 +93,60 @@ class MessageController extends Controller
         }
 
 
+        /**
+     * @Route("/message/{id}/", name="message_once",methods={"GET"})
+     */
+     public function getOneMessage(Request $request)
+     {
+         $formatted =[];
+         $message = $this->get('doctrine.orm.entity_manager')
+                         ->getRepository('AppBundle:Message')
+                         ->findById($request->get('id'));
+
+         if (empty($message)) {
+             return new JsonResponse(['message' => 'Message not found'], Response::HTTP_NOT_FOUND);
+         }
+         if(count($message)>1)
+         {
+           for($i=0;$i< count($message);$i++)
+           {
+             $categorie = $this->get('doctrine.orm.entity_manager')
+                            ->getRepository('AppBundle:CategorieMessage')
+                            ->findById($message[$i]->getCategorieMessage());
+
+
+             $formatted[$i]=[
+                           'id' => $message[$i]->getId(),
+                           'nom' => $message[$i]->getNom(),
+                           'prenom' => $message[$i]->getPrenom(),
+                           'message' => $message[$i]->getMessage(),
+                           'mail' => $message[$i]->getMail(),
+                      
+                           'type_astuce' => $categorie[0]->getIntitule(),
+                          ];
+           }
+           return new JsonResponse($formatted);
+         }
+
+         $categorie = $this->get('doctrine.orm.entity_manager')
+         ->getRepository('AppBundle:CategorieMessage')
+         ->findById($message[0]->getCategorieMessage());
+
+
+        $formatted=[
+              'id' => $message[0]->getId(),
+               'nom' => $message[0]->getNom(),
+               'prenom' => $message[0]->getPrenom(),
+              'message' => $message[0]->getMessage(),
+                'mail' => $message[0]->getMail(),
+   
+                'type_astuce' => $categorie[0]->getIntitule(),
+       ];
+     }
+
+
      /**
-     * @Route("/message1/", name="message_add", methods={"POST"})
+     * @Route("/message/", name="message_add", methods={"POST"})
      */
     public function addMessage(Request $request)
     {
