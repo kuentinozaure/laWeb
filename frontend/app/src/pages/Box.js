@@ -70,24 +70,31 @@ class Box extends Component {
     }
 
     handleShowParticipant(){
-      const urladdParticipant = SERVER_URL +"participe/"+this.state.idActivite+"/"
-      axios.get(urladdParticipant).then(response => {
 
-            let i
-            let tab =[]
-            for (i = 0; i < response.data.length; i++) {
-              tab.push(response.data[i]);
-            }
-
-            this.setState({
-              handleShowParticipant:true,
-              participants:tab,
-            })
-
+      if(this.state.handleShowParticipant == true){
+        this.setState({
+          handleShowParticipant:false,
         })
-        .catch(error => {
-          console.log(error);
-        });
+      }else{
+        const urladdParticipant = SERVER_URL +"participe/"+this.state.idActivite+"/"
+        axios.get(urladdParticipant).then(response => {
+
+              let i
+              let tab =[]
+              for (i = 0; i < response.data.length; i++) {
+                tab.push(response.data[i]);
+              }
+
+              this.setState({
+                handleShowParticipant:true,
+                participants:tab,
+              })
+
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     }
 
     displayUfr(){
