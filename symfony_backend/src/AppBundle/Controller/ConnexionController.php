@@ -35,7 +35,8 @@ class ConnexionController extends Controller
                  FROM AppBundle:MembreResponsable m
                  WHERE m.login = :login
                  AND m.mdp = :mdp
-                 AND m.estValide = :valide'
+                 AND m.estValide = :valide
+                 AND m.token is NOT NULL'
                 )->setParameter('login',$login)
                 ->setParameter('valide',1)
                 ->setParameter('mdp',$crypt);

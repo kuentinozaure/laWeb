@@ -136,7 +136,7 @@ class ParticipeController extends Controller
     public function deleteParticipant(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-      
+
         $participant = $em->getRepository('AppBundle:Participe')
                           ->findBy(array(
                             'idParticipant'=>$request->get('user_id'),
