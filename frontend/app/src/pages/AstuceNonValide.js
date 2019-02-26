@@ -16,7 +16,7 @@ class AstuceNonValide  extends React.Component {
 
     handleAcceptAstuce() {
         console.log(this.props.sessionConnect.id)
-        axios.put(SERVER_URL + "astuce/"+this.props.id+"/"+this.props.sessionConnect.id+"/")
+        axios.put(SERVER_URL + "astuce/"+this.props.sessionConnect.id+"/")
           .then(response => {
           })
           .catch(error => {
