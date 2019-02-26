@@ -25,9 +25,7 @@ class AstuceNonValide  extends React.Component {
         }
 
     handleDelete() {
-
-      axios.delete(SERVER_URL + "astuce/"+this.props.id+"/");
-  
+      axios.delete(SERVER_URL + "astuce/"+this.props.id+"/"); 
   }
 
     render() {
@@ -42,10 +40,10 @@ class AstuceNonValide  extends React.Component {
                 <td>{this.props.auteur}</td>
                 <td>{this.props.type_astuce}</td>
                 <td className="text-right">
-                <a className='btn btn btn-info btn-sm' onClick={this.handleAcceptAstuce}>
+                <a className='btn btn btn-info btn-sm' href="#gererAstuceAdmin" onClick={this.handleAcceptAstuce}>
                         Valider
                 </a>
-                <a className='btn btn btn-danger btn-sm' href="#listeAstuceAdmin" onClick={this.handleDelete}>
+                <a className='btn btn btn-danger btn-sm' href="#gererAstuceAdmin" onClick={this.handleDelete}>
                         Refuser
                 </a>  
                 </td>
