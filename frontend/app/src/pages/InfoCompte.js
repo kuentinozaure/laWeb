@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Mdp from './Mdp.js';
 import NavbarMembres from './NavbarMembres.js';
-// import Modal from 'react-responsive-modal';
+import setSession from './../actions/setSession'
 import "./FormulaireCard.css";
 import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -22,13 +22,17 @@ class InfoCompte extends Component {
   constructor(props, context) {
     super(props, context);
 
+    this.handleUpdateMdp = this.handleUpdateMdp;
+    this.handleCloseMdp = this.handleCloseMdp;
     this.handleShow = this.handleShow;
     this.handleClose = this.handleClose;
     this.handleSubmit = this.handleSubmit;
     this.handleUpdate = this.handleUpdate;
+    this.handleShowMdp = this.handleShowMdp;
 
     this.state = {
       show: false,
+      showModalMdp : false,
 
       nom : this.props.sessionConnect.name,
       prenom :this.props.sessionConnect.prenom,
@@ -37,6 +41,8 @@ class InfoCompte extends Component {
       telephone :this.props.sessionConnect.telephone,
       description : this.props.sessionConnect.description,
       login : this.props.sessionConnect.login,
+      mdp : "",
+      retypeMdp : "",
 
 
     };
@@ -67,6 +73,8 @@ class InfoCompte extends Component {
               'votre compte a ete supprimer',
               'success'
             )
+            this.props.removeSession("");
+            this.props.history.push(process.env.PUBLIC_URL + "/connexion");
           }
         })
       }
@@ -77,12 +85,57 @@ class InfoCompte extends Component {
         const url = SERVER_URL+"members/"+this.props.sessionConnect.id+"/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login ;
         axios.put(url)
           .then(response => {
+
+            this.props.setSession(
+              this.state.nom,
+              this.props.sessionConnect.id,
+              this.state.prenom,
+              this.state.mail,
+              this.state.image,
+              this.state.telephone,
+              this.state.description,
+              this.state.token,
+              this.state.login,
+            );
+
             this.handleClose();
           })
           .catch(error => {
             console.log(error);
           });
+      }
+      handleCloseMdp= ()  =>{
+        this.setState({
+          showModalMdp:false,
+        })
+      }
 
+      handleShowMdp = () =>{
+        this.setState({
+          showModalMdp:true,
+        })
+      }
+
+      handleUpdateMdp = () =>{
+        if(this.state.mdp == this.state.retypeMdp || this.state.mdp == "" || this.state.retypeMdp == ""){
+          //do axios
+          const url = SERVER_URL+"membersM/"+this.props.sessionConnect.id+"/?mdp="+this.state.mdp;
+          axios.put(url)
+            .then(response => {
+              this.handleCloseMdp();
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }else{
+          Swal.fire({
+            title: 'ERREUR',
+            text: "Veuillez saisir les memes informations",
+            type: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+          })
+        }
       }
 
     render() {
@@ -119,7 +172,7 @@ class InfoCompte extends Component {
                     <th className="case">{this.state.login}</th>
                     <th className="case">
                       <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
-                      <button type="button" onClick={this.handleShow1} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
+                      <button type="button" onClick={this.handleShowMdp} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
                       <button type="button" onClick={this.handleDelete}  class="btn btn-warning btn-lg"> Supprimer </button>
                     </th>
                   </tr>
@@ -143,53 +196,78 @@ class InfoCompte extends Component {
             <div className="form-group">
               <div className="input-group">
                 <span className="input-group-addon"><i className="fa fa-tags fa" aria-hidden="true"></i></span>
-                <input type="text" id="name" name="name" value={this.state.nom} className="form-control" onChange={e => this.setState({nom: e.target.value})}></input>
+                <input type="text" id="name" name="name"  required value={this.state.nom} className="form-control" onChange={e => this.setState({nom: e.target.value})}></input>
               </div>
               <br></br>
               <div className="form-group">
                 <div className="input-group">
                   <span className="input-group-addon"><i className="fa fa-tags fa" aria-hidden="true"></i></span>
-                  <input id="prenom" name="prenom"  value ={this.state.prenom} className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                  <input id="prenom" name="prenom" required value ={this.state.prenom} className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                   </div>
               </div>
               <div className="form-group">
                 <div className="input-group">
                   <span className="input-group-addon"><i className="fa fa-pencil fa" aria-hidden="true"></i></span>
-                  <input id="email" name="email"  value ={this.state.mail} className="form-control"  type="text" onChange={e => this.setState({mail: e.target.value})}/>
+                  <input id="email" name="email"  required value ={this.state.mail} className="form-control"  type="email" onChange={e => this.setState({mail: e.target.value})}/>
                 </div>
               </div>
               <div className="form-group">
                 <div className="input-group">
                   <span className="input-group-addon"><i className="fa fa-camera-retro fa" aria-hidden="true"></i></span>
-                  <input id="image" name="image"  value ={this.state.image}  className="form-control"  type="text" onChange={e => this.setState({image: e.target.value})}/>
+                  <input id="image" name="image"  value ={this.state.image}  required className="form-control"  type="text" onChange={e => this.setState({image: e.target.value})}/>
                   <img src={this.state.image} width="50" height="50"/>
                 </div>
               </div>
               <div className="form-group">
                 <div className="input-group">
                   <span className="input-group-addon"><i className="fa fa-phone fa" aria-hidden="true"></i></span>
-                  <input id="tel" name="tel"  value ={this.state.telephone}  className="form-control"  type="text" onChange={e => this.setState({telephone: e.target.value})}/>
+                  <input id="tel" name="tel"  value ={this.state.telephone} required  className="form-control"  type="text" onChange={e => this.setState({telephone: e.target.value})}/>
                 </div>
               </div>
               <div className="form-group">
                 <div className="input-group">
                   <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                    <textarea id="story" className="form-control" name="story" rows="2" cols="33" value={this.state.description} type="text"  onChange={e => this.setState({description: e.target.value})}></textarea>
+                    <textarea id="story" className="form-control" name="story" required rows="2" cols="33" value={this.state.description} type="text"  onChange={e => this.setState({description: e.target.value})}></textarea>
                 </div>
               </div>
               <div className="form-group">
                 <div className="input-group">
                   <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                  <input id="login" name="login"  value ={this.state.login} className="form-control"  type="text" onChange={e => this.setState({login: e.target.value})}/>
+                  <input id="login" name="login"  value ={this.state.login} required  className="form-control"  type="text" onChange={e => this.setState({login: e.target.value})}/>
                 </div>
               </div>
             </div>
-            <input className="center-block btn btn-danger" value="Modifier cette astuce" onClick={this.handleUpdate}/>
+            <input className="center-block btn btn-danger" value="Modifier informations" onClick={this.handleUpdate}/>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClose}>FERMER</Button>
           </Modal.Footer>
         </Modal>
+
+        <Modal show={this.state.showModalMdp} onHide={this.handleCloseMdp}>
+        <Modal.Body>
+          <h2 className="text-center">Voulez-vous modifier votre mot de passe ?</h2>
+          <h3 className="text-center">Faites le ici</h3>
+          <div className="form-group">
+            <div className="form-group">
+              <div className="input-group">
+                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                <input id="mdp" name="mdp"  required placeholder="votre nouveau de passe" required className="form-control"  type="password" onChange={e => this.setState({mdp: e.target.value})}/>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="input-group">
+                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                <input id="mdpcheck" name="mdpcheck"  required placeholder="retaper votre nouveau mot de passe" className="form-control"  type="password" onChange={e => this.setState({retypeMdp: e.target.value})}/>
+              </div>
+            </div>
+          </div>
+          <input className="center-block btn btn-danger" value="Mettre a jour" onClick={this.handleUpdateMdp}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.handleCloseMdp}>FERMER</Button>
+        </Modal.Footer>
+      </Modal>
         </div>
         </div>
       );
@@ -197,9 +275,13 @@ class InfoCompte extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        sessionConnect: state.sessionReducer
-    }
+  return { sessionConnect: state.sessionReducer}
 };
-
-export default connect(mapStateToProps,null)(InfoCompte)
+const mapDispatchToProps = dispatch => {
+  return {
+    setSession: (name,id,prenom,mail,image,telephone,description,login,token) => {
+      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token))
+    }
+  }
+};
+export default connect(mapStateToProps,mapDispatchToProps)(InfoCompte)

@@ -58,7 +58,6 @@ class Connexion extends React.Component {
               this.state.resultatConnexion.token,
               this.state.resultatConnexion.login,
             );
-            console.log(this.props.sessionConnect)
             this.props.history.push(process.env.PUBLIC_URL + "/member");
           }
         }

@@ -250,6 +250,35 @@ class MembreResponsableController extends Controller
   }
 
   /**
+   * @Route("/membersM/{idMember}/", name="update_password", methods={"PUT"})
+   */
+  public function updatePassword(Request $request)
+  {
+    //get data from HTTP get method
+    $mdp = $request->get('mdp');
+
+    //Check if one of all HTTP:GET value are empty
+    if(empty($mdp))
+     {
+       return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+     }
+     $em = $this->get('doctrine.orm.entity_manager');
+
+     $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMember'));
+
+    $crypt = hash("sha256",$mdp,false);
+
+    $mem = $membre;
+
+       $mem[0] ->setMdp($crypt);
+
+       $em->persist($mem[0]);
+       $em->flush();
+       return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
+  }
+
+  /**
    * @Route("/member/{loginMember}/", name="member_id", methods={"GET"})
    */
   public function getIdMember(Request $request)
