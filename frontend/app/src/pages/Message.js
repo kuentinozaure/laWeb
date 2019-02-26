@@ -17,10 +17,9 @@ class Message  extends React.Component {
             <tr>
                 <td>{this.props.nom}</td>
                 <td>{this.props.prenom}</td>    
-                <td>{this.props.login}</td>
-                <td>{this.props.telephone}</td>
                 <td>{this.props.mail}</td>
-                <td>{this.props.description}</td>
+                <td>{this.props.message}</td>
+                <td>{this.props.categorieMessage}</td>
                 <td className="text-right">
                 <a className='btn btn btn-info btn-sm' href="#">
                         Détails

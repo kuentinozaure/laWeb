@@ -39,16 +39,15 @@ class GererMessageAdmin extends Component {
           listeMessage.push(
               < Message 
                 id={message.id}
-                titre={message.titre}
+                nom={message.nom}
+                prenom={message.prenom}
+                mail={message.mail}
                 message={message.message}
-                description={message.description}
-                lienAstuce={message.lienAstuce}
-                auteur={message.auteur}
-                type_astuce={message.type_astuce}
+                categorieMessage={message.CategorieMessage}
                 />
             );
         });
-        
+        console.log(listeMessage);
         return content = listeMessage;
       }      
 
@@ -63,12 +62,11 @@ class GererMessageAdmin extends Component {
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
-                                <th>Titre</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Mail</th>
                                 <th>Message</th>
-                                <th>Description</th>
-                                <th>Lien astuce</th>
-                                <th>Auteur</th>
-                                <th>Type astuce</th>
+                                <th>Categorie message</th>
                                 <th className="text-center">Action</th>
                             </tr>
                         </thead>
