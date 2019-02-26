@@ -205,7 +205,6 @@ class MembreResponsableController extends Controller
        return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
   }
 
-<<<<<<< HEAD
   /**
    * @Route("/member/{loginMember}/", name="member_id", methods={"GET"})
    */
@@ -233,6 +232,3 @@ class MembreResponsableController extends Controller
       return new JsonResponse($mem[0]->getId(), Response::HTTP_CREATED);
   }
 }
-=======
-}
->>>>>>> 96143d0c97f879a5aa961c4afbaf59569a6576c8
