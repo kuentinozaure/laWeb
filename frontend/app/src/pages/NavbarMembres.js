@@ -1,5 +1,7 @@
 import React,{ Component } from 'react';
 
+import { SERVER_URL } from "../consts";
+
 class NavbarMembres extends Component {
     constructor(props) {
         super(props);
@@ -34,11 +36,28 @@ class NavbarMembres extends Component {
               </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Astuces
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a className="dropdown-item" href="#listeAstuceAdmin">Liste des astuces</a>
+                  <a className="dropdown-item" href="#gererAstuceAdmin">Gérer les astuces</a>
+                </div>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Membres
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a className="dropdown-item" href="#listeMembreAdmin">Liste des membres</a>
                   <a className="dropdown-item" href="#gererMembreAdmin">Gérer les membres</a>
+                </div>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Messages
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a className="dropdown-item" href="#gererMessageAdmin">Gérer les messages</a>
                 </div>
               </li>
               <li className="nav-item dropdown">

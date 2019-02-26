@@ -6,6 +6,8 @@ import axios from 'axios';
 import CardInfo from './Card.js';
 import CardUser from './Card1.js';
 
+import { SERVER_URL } from "../consts";
+
 
 
 class Section extends Component {
@@ -70,20 +72,22 @@ class Section extends Component {
               mail={member.mail}
               telephone= {member.telephone}
               description={member.description}
-              photo={member.photo}
+              image={member.image}
           />
         );
     });
     return content = membersList;
   }
 componentDidMount() {
-  const url = 'http://laweb.alwaysdata.net/?choix=2';
-  axios.get(url)
+  
+  axios.get(SERVER_URL + "visible/")
+  
     .then(response => {
+      
       let i
       let tab =[]
-      for (i = 0; i < response.data.membres.length; i++) {
-        tab.push(response.data.membres[i]);
+      for (i = 0; i < response.data.length; i++) {
+        tab.push(response.data[i]);
       }
       this.setState({
         members: tab,

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\MembreResponsable;
 use AppBundle\Entity\Ufr;
+use AppBundle\Entity\AuthentificationToken;
 
 class MembreResponsableController extends Controller
 {
@@ -114,7 +115,7 @@ class MembreResponsableController extends Controller
         return new JsonResponse($formatted);
     }
 
-    
+
     /**
      * @Route("/members/{id}/", name="members_once_del",methods={"DELETE"})
      */
@@ -148,7 +149,9 @@ class MembreResponsableController extends Controller
       $mdp = $request->get('mdp');
       $visible = $request->get('visible');
       $idUfr = $request->get('idUfr');
-      
+
+
+
       //Check if one of all HTTP:GET value are empty
       $idUfr = $request->get('idUfr');
 
@@ -160,10 +163,11 @@ class MembreResponsableController extends Controller
        ->getRepository('AppBundle:Ufr')
        ->findById($idUfr);
 
+       $crypt = hash("sha256",$mdp,false);
        $departement = $ufr;
 
          $member = new MembreResponsable();
-         
+
          $member ->setNom($nom)
                     ->setPrenom($prenom)
                     ->setMail($mail)
@@ -171,7 +175,7 @@ class MembreResponsableController extends Controller
                     ->setTelephone($telephone)
                     ->setDescription($description)
                     ->setLogin($login)
-                    ->setMdp($mdp)
+                    ->setMdp($crypt)
                     ->setVisible($visible)
                     ->setEstValide(0)
                     ->setidUfr($departement[0]);
@@ -189,17 +193,48 @@ class MembreResponsableController extends Controller
   public function validateMember(Request $request)
   {
      $em = $this->get('doctrine.orm.entity_manager');
-     
+
      $member = $em->getRepository('AppBundle:MembreResponsable')
                     ->findById($request->get('idMember'));
 
        $mem = $member;
 
+       $authToken = new AuthentificationToken();
+       $authToken->setToken(base64_encode(random_bytes(50)));
+       $authToken->setDateDeCreation(new \DateTime('now'));
+
        $mem[0]->setEstValide(1);
+       $mem[0]->setToken($authToken);
 
        $em->persist($mem[0]);
        $em->flush();
-       return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
+       return new JsonResponse(['message' => 'member validated'], Response::HTTP_CREATED);
   }
 
+  /**
+   * @Route("/member/{loginMember}/", name="member_id", methods={"GET"})
+   */
+  public function getIdMember(Request $request)
+  {
+    $em = $this->getDoctrine()
+               ->getManager();
+
+    $query = $em->createQuery(
+      'SELECT count(p.login)
+       FROM AppBundle:MembreResponsable p
+       WHERE p.login = :loginMember'
+      )->setParameter('loginMember',$request->get('loginMember')); 
+    
+      $count = $query->getResult();
+
+      if(intval($count[0][1]) > 1){
+        return new JsonResponse(['message' => 'member no unique'], Response::HTTP_CREATED);
+      }
+
+      $member = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findBy(array('login' => $request->get('loginMember')));
+
+      $mem = $member;
+      return new JsonResponse($mem[0]->getId(), Response::HTTP_CREATED);
+  }
 }

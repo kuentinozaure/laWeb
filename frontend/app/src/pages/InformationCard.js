@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import "./InformationCard.css"
 
+import { SERVER_URL } from "../consts";
+
 
 
 class InformationCard extends Component {

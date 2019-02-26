@@ -3,6 +3,8 @@ import NavbarMembres from './NavbarMembres.js';
 import MembreNonValide from './MembreNonValide.js'
 import axios from 'axios';
 
+import { SERVER_URL } from "../consts";
+
 
 class GererMembreAdmin extends Component {
     constructor(props) {
@@ -13,13 +15,12 @@ class GererMembreAdmin extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=12';
-        axios.get(url)
+        axios.get(SERVER_URL + "invalid/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.membre.length; i++) {
-              tab.push(response.data.membre[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               membres: tab,
@@ -59,6 +60,9 @@ class GererMembreAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
+                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddMember}>
+                            Proposer un membre
+                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>

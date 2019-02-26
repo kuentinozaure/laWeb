@@ -1,18 +1,32 @@
 import React,{ Component } from 'react';
 
+import { SERVER_URL } from "../consts";
+
+import axios from 'axios';
+
 class ActiviteValide  extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             id: this.props.id,
         };
+
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleModify = this.handleModify.bind(this);
       }
+
+    handleDelete() {
+        axios.delete(SERVER_URL + "activity/"+this.props.id+"/"); 
+    }
+
+    handleModify(){
+
+    }
 
     render() {
         return (
             <React.Fragment> 
             <tr>
-                {console.log(this.state.id)}
                 <td>{this.props.titre}</td>
                 <td>{this.props.description}</td>    
                 <td>{this.props.dateDebut}</td>
@@ -20,10 +34,10 @@ class ActiviteValide  extends React.Component {
                 <td>{this.props.salle}</td>
                 <td>{this.props.nombrePlaceDispo}</td>
                 <td className="text-right">
-                <a className='btn btn btn-info btn-sm' href="#">
+                <a className='btn btn btn-info btn-sm' href="#gererAstuceAdmin"onClick={this.handleModify}>
                         Modifier
                 </a>
-                <a className='btn btn btn-danger btn-sm' href="#">
+                <a className='btn btn btn-danger btn-sm' href="#gererAstuceAdmin" onClick={this.handleDelete}>
                         Supprimer
                 </a>  
                 </td>

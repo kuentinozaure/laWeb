@@ -3,6 +3,8 @@ import NavbarMembres from './NavbarMembres.js';
 
 import { connect } from 'react-redux';
 
+import { SERVER_URL } from "../consts";
+
 class membersView extends Component {
     constructor(props) {
         super(props);

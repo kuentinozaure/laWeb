@@ -3,8 +3,10 @@ import './Box.css';
 import {Button,Modal} from 'react-bootstrap';
 import Inscription from './Inscription.js'
 import axios from 'axios';
-
+import BoxParticipant from './BoxParticipant.js'
 import { connect } from 'react-redux';
+
+import { SERVER_URL } from "../consts";
 
 class Box extends Component {
 
@@ -14,9 +16,14 @@ class Box extends Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleShowParticipant = this.handleShowParticipant.bind(this);
+    this.closeParticipant = this.closeParticipant.bind(this);
 
     this.state = {
+      handleShowParticipant:false,
       show: false,
+      idActivite: this.props.modnom,
+      idPersonne:0,
       name: '',
       prenom: '',
       adresse: '',
@@ -24,6 +31,7 @@ class Box extends Component {
       numero: '',
       newsletter: false,
       ufrSelected:1,
+      participants:[],
       //listeUfr : []
     };
   }
@@ -35,7 +43,140 @@ class Box extends Component {
   handleShow() {
     this.setState({ show: true });
   }
-//
+
+  async handleSubmit() {
+    await this.getId()
+    const url = SERVER_URL+"participe/?idActivity="+this.props.modnom+"&idParticipant="+this.state.idPersonne ;
+    axios.post(url)
+      .then(response => {
+        this.handleClose();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+
+    async getId(){
+      const urladdParticipant = SERVER_URL +"participant/?nom="+this.state.name+"&prenom="+this.state.prenom+"&mail="+this.state.adresse+"&telephone="+this.state.numero+"&ufr="+this.state.ufrSelected;
+      await axios.post(urladdParticipant).then(response => {
+          this.setState({
+            idPersonne:response.data.id,
+          })
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    handleShowParticipant(){
+      const urladdParticipant = SERVER_URL +"participe/"+this.state.idActivite+"/"
+      axios.get(urladdParticipant).then(response => {
+
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
+            }
+
+            this.setState({
+              handleShowParticipant:true,
+              participants:tab,
+            })
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    displayUfr(){
+      let listUfr = [];
+      let content
+      content = this.state.ufr.map((ufr, index) =>{
+        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.intitule}</option>)
+      })
+      return content = listUfr
+    }
+
+    componentDidMount() {
+      axios.get(SERVER_URL + "ufr/")
+        .then(response => {
+          console.log(response.data);
+          let i
+          let tab =[]
+
+          for (i = 0; i < response.data.length; i++) {
+            tab.push(response.data[i]);
+          }
+          this.setState({
+            ufr: tab,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    closeParticipant(){
+      this.setState({
+        handleShowParticipant:false,
+      })
+    }
+    displayParticipants(){
+      let listeParticipant =[]
+      let content = this.state.participants.map((participant, index) => {
+
+        listeParticipant.push(
+            <BoxParticipant
+              nom={participant.nom}
+              prenom={participant.prenom}
+              mail={participant.mail}
+              telephone={participant.telephone}
+              ufr={participant.intitule}
+              />
+          );
+      });
+
+      return content = listeParticipant;
+    }
+
+    displayParticipant(){
+      if(this.state.handleShowParticipant == true){
+        return(
+          <div>
+          <div className="row">
+          <div className="col-md-12 col-sm-6 col-xs-6">
+            <div className="panel panel-info">
+                <div className="panel-heading">
+                    <h3 className="panel-title">Participants &nbsp;&nbsp;<span ><i class="fa fa-times" onClick={this.closeParticipant}></i></span></h3>
+                </div>
+                <div className="panel-body">
+                <table className="table table-striped custab">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Mail</th>
+                        <th>Telephone</th>
+                        <th>UFR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.displayParticipants()}
+                </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+      )
+      }else{
+        return(<div></div>);
+      }
+    }
+
 
 display(){
   if (this.props.sessionConnect.isConnected == true){
@@ -69,30 +210,32 @@ display(){
 			              </ul>
                     <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
-                    </Button> 
-                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
+                    </Button>
+                    <Button id="BtAct" className="center-right" onClick={this.handleShowParticipant}>
                       DETAILS
                     </Button>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {
+          this.displayParticipant()
+        }
+
       <div className="Box">
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Body>
           <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
-
-          <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                 <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                               </div>
                             </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
@@ -107,14 +250,14 @@ display(){
                               }
                               </select>
                             </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
                                 <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
                               </div>
                             </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
@@ -122,11 +265,7 @@ display(){
                               </div>
                             </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label htmlFor="scales">S'abonner aux newsletters</label>
-
-                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" />
-                  </form>
+                  <input className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={this.handleSubmit}/>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.handleClose}>FERMER</Button>
@@ -167,8 +306,8 @@ display(){
 			              </ul>
                     <Button id="BtAct" className="center-right" onClick={this.handleShow}>
                       INSCRIVEZ-VOUS
-                    </Button> 
-                  </div> 
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -179,24 +318,22 @@ display(){
         <Modal.Body>
           <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
           <h3 className="text-center">Inscrivez vous ici</h3>
-
-          <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <div className="input-group">
                         <span className="input-group-addon">
                           <i className="fa fa-user fa" aria-hidden="true"></i>
                         </span>
-                        <input id="name" name="nom" placeholder="Nom" required="Nom" 
-                        className="form-control"  type="name" pattern='[A-Za-z]' title="prenom sans caractères spéciaux"
+                        <input id="name" name="nom" placeholder="Nom" required="Nom"
+                        className="form-control"  type="name" pattern='[A-Za-z]{1,}' title="prenom sans caractères spéciaux"
                         onChange={e => this.setState({name: e.target.value})}
                         />
                     </div>
                 </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" placeholder="Prénom" pattern='[A-Za-z]{1,}' required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
 
@@ -207,30 +344,26 @@ display(){
                               }
                               </select>
                             </div>
-                  
+
                   <div className="form-group">
                     <div className="input-group">
                       <span className="input-group-addon">
                       <i className="glyphicon glyphicon-envelope color-blue"></i>
                       </span>
                       <input id="email" name="email" placeholder="Email" required="remplir votre email"
-                      className="form-control"  type="email" 
+                      className="form-control"  type="email"
                       onChange={e => this.setState({adresse: e.target.value})}/>
                     </div>
                   </div>
-                  
+
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" placeholder="Téléphone" pattern="[0-9]{10}" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label htmlFor="scales">S'abonner aux newsletters</label>
-
-                  <input type="submit" className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={console.log("bjr")}/>
-                  </form>
+                  <input className="center-block btn btn-danger" value="S'inscrire à l'activité" onClick={this.handleSubmit}/>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.handleClose}>FERMER</Button>
@@ -247,7 +380,7 @@ render(){
     <div>
       {this.display()}
     </div>
-  
+
     );
   }
 
@@ -258,56 +391,18 @@ render(){
     for (i = 0; i < this.state.listeUfr.length; i++) {
       console.log(this.state.listeUfr[i][1]);
       option.push("<option>"+this.state.listeUfr[i][1]+"</option>");
-      
+
     }
   }
 */
-  handleSubmit(event) {
-    const url = "http://laweb.alwaysdata.net/?choix=9&nom="+this.state.name +"&prenom="+this.state.prenom+"&mail="+this.state.adresse +"&tel="+this.state.numero +"&abonne="+this.state.newsletter+"&ufr="+ this.state.ufrSelected+"&idAct="+this.props.modnom
-    axios.get(url)
-      .then(response => {
-        this.handleClose();
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
 
-    displayUfr(){
-      let listUfr = [];
-      let content;
-      content = this.state.ufr.map((ufr, index) =>{
-        listUfr.push(<option id={ufr.id}>{ufr.id} - {ufr.ufr}</option>)
-      })
-      return content = listUfr
-    }
-    componentDidMount() {
-      const url = 'http://laweb.alwaysdata.net/?choix=11';
-      axios.get(url)
-        .then(response => {
-          let i
-          let tab =[]
-          
-          for (i = 0; i < response.data.ufr.length; i++) {
-            tab.push(response.data.ufr[i]);
-          }
-          this.setState({
-            ufr: tab,
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-
-        
-    }
     }
 
 
     const mapStateToProps = state => {
       return { sessionConnect: state.sessionReducer}
     }
-    
+
     // const mapDispatchToProps = dispatch => {
     //   console.log("ok");
     //   return {
@@ -316,5 +411,5 @@ render(){
     //     }
     //   }
     // }
-    
+
     export default connect(mapStateToProps,null)(Box)

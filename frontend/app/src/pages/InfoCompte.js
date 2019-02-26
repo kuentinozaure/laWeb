@@ -5,7 +5,10 @@ import NavbarMembres from './NavbarMembres.js';
 import "./FormulaireCard.css";
 import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
+import { SERVER_URL } from "../consts";
 
 const styles = {
   fontFamily: "sans-serif",
@@ -43,10 +46,10 @@ class InfoCompte extends Component {
       handleShow1 = () => {
         this.setState({ show1: true });
       }
-      handleShow2 = () => {
+      handleDelete = () => {
         Swal.fire({
           title: 'Etes vous sur de supprimer votre compte  ?',
-          text: "Vous ne pourrez pas revenir en arriere",
+          text: "Vous ne pourrez pas revenir en arrière",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -54,6 +57,7 @@ class InfoCompte extends Component {
           confirmButtonText: 'Oui , je suis sur'
         }).then((result) => {
           if (result.value) {
+            axios.delete(SERVER_URL + "members/"+this.props.id+"/");
             Swal.fire(
               'Supprimer!',
               'votre compte a ete supprimer',
@@ -112,7 +116,7 @@ class InfoCompte extends Component {
                     <th className="text-center">
                       <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
                       <button type="button" onClick={this.handleShow1} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
-                      <button type="button" onClick={this.handleShow2}  class="btn btn-warning btn-lg"> Supprimer </button>
+                      <button type="button" onClick={this.handleDelete}  class="btn btn-warning btn-lg"> Supprimer </button>
                     </th>
                   </tr>
               </tbody>

@@ -159,4 +159,6 @@ class ParticipeController extends Controller
         $em->flush();
         return new JsonResponse(['message' => 'participant deleted from activity'], Response::HTTP_NOT_FOUND);
     }
+
+
 }

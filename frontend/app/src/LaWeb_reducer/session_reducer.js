@@ -1,4 +1,5 @@
 const initialState = {
+    id:0,
     name: "",
     isConnected: false
 }
@@ -9,12 +10,14 @@ const initialState = {
           case "SET_SESSION":
               return {
                   ...state,
+                  id: action.id,
                   name: action.name,
                   isConnected: true,
               };
           case "REMOVE_SESSION":
               return {
                 ...state,
+                id:0,
                 name: "",
                 isConnected: false,
               };

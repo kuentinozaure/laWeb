@@ -3,6 +3,8 @@ import NavbarMembres from './NavbarMembres.js';
 import MembreValide from './MembreValide.js'
 import axios from 'axios';
 
+import { SERVER_URL } from "../consts";
+
 
 class ListeMembreAdmin extends Component {
     constructor(props) {
@@ -13,13 +15,12 @@ class ListeMembreAdmin extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=2';
-        axios.get(url)
+        axios.get(SERVER_URL + "members/")
           .then(response => { 
             let i
             let tab =[]
-            for (i = 0; i < response.data.membres.length; i++) {
-              tab.push(response.data.membres[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               membres: tab,

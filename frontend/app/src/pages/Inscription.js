@@ -1,28 +1,39 @@
 import React, {Component} from "react";
 import "./Inscription.css";
 import Formgroup from "./Formgroup.js";
+
+import { SERVER_URL } from "../consts";
+
+import axios from 'axios';
+
 class Inscription extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
+        id: 0,
         name: '',
         prenom: '', 
         ufr: '',
         adresse: '',
         numero: '',
-        newsletter: false};
-  
-      this.handleSubmit = this.handleSubmit.bind(this);
+        };
+    }
+
+    getId(){
+      axios.post(SERVER_URL + 'participant/?&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&telephone='+this.state.numero +'&ufr='+ this.state.ufr)
+        .then(response => {
+          //alert(response.data.id);
+          this.setState({
+            id: response.data.id
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   
     handleSubmit(event) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct2');
-      
-      console.log('http://laweb.alwaysdata.net/?choix=9&nom='+this.state.name +'&prenom='+this.state.prenom+'&mail='+this.state.adresse +'&tel='+this.state.numero +'&abonne='+this.state.newsletter+'&ufr='+ this.state.ufr+'&idAct=2')
-      
-      
-      event.preventDefault();
+      this.getId();
       }
   
     render() {
@@ -34,7 +45,7 @@ class Inscription extends React.Component {
                     <div className="panel-body">
                       <div className="text-center">
                         <h3><i className="fa fa-user fa-4x"></i></h3>
-                        <h2 className="text-center">Vous voulez vous inscrire à cette activité ?</h2>
+                        <h2 className="text-center">Vous voulez vous inscrire à cette activité lolololo ?</h2>
                         <p>Inscrivez vous ici</p>
                         <div className="panel-body">
           
@@ -88,8 +99,7 @@ class Inscription extends React.Component {
                               </div>
                             </div>
 
-                            <input type="checkbox" id="scales" name="scales" onChange={e => {if (e.target.value == "on") {this.setState({newsletter: true})}}}/>
-                  <label for="scales">S'abonner aux newsletter</label>
+                            
                   
                   
                   <br></br><input type="submit" value="S'inscrire à l'activité" />

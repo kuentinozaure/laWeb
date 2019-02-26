@@ -19,7 +19,9 @@ class AstuceController extends Controller
     {
         $astuces = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:Astuce')
-                        ->findAll();
+                        ->findBy(array(
+                            'estValide' => 1,
+                        ));
 
         if (empty($astuces))
         {
@@ -154,6 +156,111 @@ class AstuceController extends Controller
             $em->flush();
             return new JsonResponse(['message' => 'Astuce deleted'],Response::HTTP_NOT_FOUND);
         }
+
+        /**
+     * @Route("/astuce/{idAstuce}/{idMembre}/", name="validate_activity", methods={"PUT"})
+     */
+    public function validateAstuce(Request $request)
+    {
+       $em = $this->get('doctrine.orm.entity_manager');
+
+       $astuce = $em->getRepository('AppBundle:Astuce')
+                      ->findById($request->get('idAstuce'));
+
+       $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMembre'));
+
+         $ast = $astuce;
+
+         $ast[0]->setEstValide(1)
+                ->setIdMembre($membre[0]);
+
+         $em->persist($ast[0]);
+         $em->flush();
+         return new JsonResponse(['message' => 'astuce updated'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/astuce/", name="astuce_add", methods={"POST"})
+     */
+    public function addInvalidAstuce(Request $request)
+    {
+        //get data from HTTP get method
+        $titre = $request->get('titre');
+        $message = $request->get('message');
+        $description = $request->get('description');
+        $lienAstuce = $request->get('lienAstuce');
+        $auteur = $request->get('auteur');
+        $image = $request ->get('image');
+        $idAstuce = $request ->get('idAstuce');
+
+        //Check if one of all HTTP:GET value are empty
+        if(empty($titre) || empty($message) || empty($description) || empty($lienAstuce) || empty($auteur) || empty($idAstuce) || empty($image))
+         {
+           return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+         }
+         $categorie = $this->get('doctrine.orm.entity_manager')
+                        ->getRepository('AppBundle:CategorieAstuce')
+                        ->findById($idAstuce);
+
+           $astuce = new Astuce();
+           $astuce->setTitre($titre)
+                    ->setMessage($message)
+                      ->setDescription($description)
+                      ->setLienAstuce($lienAstuce)
+                      ->setAuteur($auteur)
+                      ->setImage($image)
+                      ->setIdAstuce($categorie[0])
+                      ->setEstValide(false);
+
+           $em = $this->get('doctrine.orm.entity_manager');
+           $em->persist($astuce);
+           $em->flush();
+           return new JsonResponse(['message' => 'astuce is added'], Response::HTTP_CREATED);
+    }
+
+        /**
+     * @Route("/astuces/{id}/", name="astuces_put_once", methods={"PUT"})
+     */
+    public function putUnvalidAstuce(Request $request)
+    {
+      //get data from HTTP get method
+      $titre = $request->get('titre');
+      $message = $request->get('message');
+      $description = $request->get('description');
+      $lienAstuce = $request->get('lienAstuce');
+      $auteur = $request->get('auteur');
+      $image = $request ->get('image');
+      $idAstuce = $request ->get('idAstuce');
+
+      //Check if one of all HTTP:GET value are empty
+      if(empty($titre) || empty($message) || empty($description) || empty($lienAstuce) || empty($auteur) || empty($idAstuce) || empty($image))
+       {
+         return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+       }
+       $em = $this->get('doctrine.orm.entity_manager');
+
+       $astuce = $em->getRepository('AppBundle:Astuce')
+                      ->findById($request->get('id'));
+
+       $categorie = $this->get('doctrine.orm.entity_manager')
+                      ->getRepository('AppBundle:CategorieAstuce')
+                      ->findById($idAstuce);
+
+         $ast = $astuce;
+
+         $ast[0]->setTitre($titre)
+                ->setMessage($message)
+                ->setDescription($description)
+                ->setLienAstuce($lienAstuce)
+                ->setAuteur($auteur)
+                ->setImage($image)
+                ->setIdAstuce($categorie[0]);
+
+         $em->persist($ast[0]);
+         $em->flush();
+         return new JsonResponse(['message' => 'astuce updated'], Response::HTTP_CREATED);
+    }
   // /**
   //  * @Route("/nauticbases", name="nauticBase_add", methods={"POST"})
   //  */
