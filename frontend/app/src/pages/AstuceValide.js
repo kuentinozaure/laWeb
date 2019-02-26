@@ -22,7 +22,9 @@ class AstuceValide  extends React.Component {
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
       }
+
       handleUpdate(){
         const url = SERVER_URL+"astuces/"+this.state.id+"/?titre="+this.state.titre+"&message="+this.state.message+"&description="+this.state.description+"&lienAstuce="+this.state.lienAstuce+"&auteur="+this.state.auteur+"&image="+this.state.image+"&idAstuce="+this.state.categorie ;
         axios.put(url)
@@ -32,6 +34,10 @@ class AstuceValide  extends React.Component {
           .catch(error => {
             console.log(error);
           });
+      }
+
+      handleDelete() {
+        axios.delete(SERVER_URL + "astuce/"+this.props.id+"/");
       }
 
       handleClose() {
@@ -82,7 +88,7 @@ class AstuceValide  extends React.Component {
                 <a className='btn btn btn-info btn-sm' onClick={this.handleShow}>
                         Modifier
                 </a>
-                <a className='btn btn btn-danger btn-sm' href="#">
+                <a className='btn btn btn-danger btn-sm' href="#listeAstuceAdmin" onClick={this.handleDelete}>
                         Supprimer
                 </a>
                 </td>
