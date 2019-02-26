@@ -45,7 +45,7 @@ class Inscription extends React.Component {
                     <div className="panel-body">
                       <div className="text-center">
                         <h3><i className="fa fa-user fa-4x"></i></h3>
-                        <h2 className="text-center">Vous voulez vous inscrire à cette activité ?</h2>
+                        <h2 className="text-center">Vous voulez vous inscrire à cette activité lolololo ?</h2>
                         <p>Inscrivez vous ici</p>
                         <div className="panel-body">
           

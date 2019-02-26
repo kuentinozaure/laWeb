@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Button,Modal} from 'react-bootstrap';
+import Swal from 'sweetalert2'
 
 import "./FormulaireCard.css"
 
@@ -20,23 +22,74 @@ constructor(props) {
     Prenom: '',
     mail:'',
     message:'',
+    CategorieMessage:[],
+    CategorieMessageSelected:1,
 
     
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+    
+    this.sendMail = this.sendMail.bind(this);
     
     }
 
-    handleSubmit() {
-    const url = 'http://laweb.alwaysdata.net/?choix=10&nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message;
-    axios.get(url)
-      .then(response => {
-        document.getElementsByClassName("message-envoye")[0].style.display = "block";
+    sendMail() {
+    const url = SERVER_URL +'message1/?nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message+'&CategorieMessage='+this.state.CategorieMessageSelected;
+    axios.post(url)
+    
+    .then(response => {
         console.log('mail envoye')
       })
-      .catch(error => {
+    .catch(error => {
         console.log(error);
       });
+
+      Swal.queue([{
+        title: 'Message envoyé',
+        confirmButtonText: 'OK',
+        
+        showLoaderOnConfirm: true,
+    
+        preConfirm: () => {
+          window.location.reload()  
+        }
+        
+      }])
+     
+    }
+
+
+
+    componentDidMount() {
+      axios.get(SERVER_URL + "categoriemessage/")
+        .then(response => {
+          
+          let i
+          let tab =[]
+
+          for (i = 0; i < response.data.length; i++) {
+            tab.push(response.data[i]);
+          }
+          this.setState({
+            CategorieMessage: tab,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+
+    }
+
+
+
+    
+    displayCategorieMessage(){
+      let listCategorieMessage = [];
+      let content
+      content = this.state.CategorieMessage .map((CategorieMessage , index) =>{
+        listCategorieMessage .push(<option id={CategorieMessage .id}>{CategorieMessage .id} - {CategorieMessage.intitule}</option>)
+      })
+      return content = listCategorieMessage
     }
 
 
@@ -63,6 +116,17 @@ constructor(props) {
         <input id="prenom" name="prenom" placeholder="Prénom" className="form-control"  required="remplir votre prenom" type="text"  onChange={e => this.setState({Prenom: e.target.value})}/>
       </div>
     </div>
+                
+                
+                
+                
+    <div className="form-group">
+      <select className="form-control" require="true"  id="CategorieMessage" onChange={e => this.setState({CategorieMessageSelected: e.target.value.substring(0, 1)})}>
+                              {
+                                this.displayCategorieMessage()
+                              }
+      </select>
+    </div>
     
   
     
@@ -81,7 +145,7 @@ constructor(props) {
     </div>
     <em>Ces informations ne seront utilisées que pour vous répondre et ne seront pas conservées.</em>
     <div className="form-group">
-      <input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="Envoyer" type="submit"/>
+    <Button onClick={this.sendMail} >Envoyer</Button>
       <p className="message-envoye">message envoyé</p>
     </div>
     
