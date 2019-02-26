@@ -16,6 +16,7 @@ import InfoCompte from './../pages/InfoCompte.js';
 import Reseaux from './../pages/Reseaux.js';
 import ListeAstuceAdmin from './../pages/ListeAstuceAdmin';
 import GererAstuceAdmin from './../pages/GererAstuceAdmin';
+import GererMessageAdmin from './../pages/GererMessageAdmin';
 
 import {
   HashRouter as Router,
@@ -61,6 +62,7 @@ class LaWebRouter extends Component {
           <Route path='/gererMembreAdmin'component={GererMembreAdmin}/>
           <Route path='/listeAstuceAdmin'component={ListeAstuceAdmin}/>
           <Route path='/gererAstuceAdmin'component={GererAstuceAdmin}/>
+          <Route path='/gererMessageAdmin'component={GererMessageAdmin}/>
           <Route path='/member'component={Member}/>
           <Route path ='/infoCompte' component = {InfoCompte}/>
           <Route component={Error} />
