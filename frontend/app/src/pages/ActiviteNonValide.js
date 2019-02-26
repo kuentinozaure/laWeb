@@ -19,15 +19,11 @@ class ActiviteNonValide  extends React.Component {
       }
 
     handleDelete() {
-
         axios.delete(SERVER_URL + "activity/"+this.props.id+"/");
-    
     }
 
     handleValidate() {
-
         axios.put(SERVER_URL + "activity/"+this.props.id+"/"+this.props.sessionConnect.id+"/");
-    
     }
 
     
