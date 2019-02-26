@@ -10,6 +10,8 @@ import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
 
+import "./InfoCompte.css"
+
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
@@ -95,25 +97,25 @@ class InfoCompte extends Component {
           <div className="row col-md-12 col-md-offset-2 custyle">
             <table className="table table-striped custab">
               <thead>
-                <tr>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>email</th>
-                  <th>Telephone</th>
-                  <th>Description</th>
-                  <th>Identifiant</th>
-                  <th className="text-center">Action</th>
+                <tr className="info">
+                  <th className="case">Nom</th>
+                  <th className="case">Prenom</th>
+                  <th className="case">email</th>
+                  <th className="case">Telephone</th>
+                  <th className="case">Description</th>
+                  <th className="case">Identifiant</th>
+                  <th className="case">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                    <th>laweb</th>
-                    <th>admin </th>
-                    <th>laweb@admin</th>
-                    <th>02020202</th>
-                    <th>je suis bien</th>
-                    <th>laweb@admin</th>
-                    <th className="text-center">
+                <tr className="warning">
+                    <th className="case"h>laweb</th>
+                    <th  className="case">admin </th>
+                    <th className="case">laweb@admin</th>
+                    <th className="case">02020202</th>
+                    <th className="case">je suis bien</th>
+                    <th className="case">laweb@admin</th>
+                    <th className="case">
                       <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
                       <button type="button" onClick={this.handleShow1} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
                       <button type="button" onClick={this.handleDelete}  class="btn btn-warning btn-lg"> Supprimer </button>

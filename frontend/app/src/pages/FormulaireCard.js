@@ -33,7 +33,7 @@ constructor(props) {
     }
 
     sendMail() {
-    const url = SERVER_URL +'message1/?nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message+'&CategorieMessage='+this.state.CategorieMessageSelected;
+    const url = SERVER_URL +'message/?nom='+this.state.Nom+'&prenom='+this.state.Prenom+'&mail='+this.state.mail+'&message='+this.state.message+'&CategorieMessage='+this.state.CategorieMessageSelected;
     axios.post(url)
     
     .then(response => {
