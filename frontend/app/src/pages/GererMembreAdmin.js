@@ -117,14 +117,9 @@ class GererMembreAdmin extends Component {
         const url = SERVER_URL + "member/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login+"&mdp="+this.state.mdp+"&visible="+this.state.visible+"&idUfr="+this.state.ufr+""
         axios.post(url)
           .then(response => {
-            let i
-            let tab =[]
-            for (i = 0; i < response.data.length; i++) {
-              tab.push(response.data[i]);
-            }
-            this.setState({
-              membres: tab,
-            });
+            let json = '{"id": "'+response.data.id+'", "nom": "'+this.state.nom+'","prenom" : "'+this.state.prenom+'","login" : "'+this.state.login+'","telephone" : "'+this.state.telephone+'","mail": "'+this.state.mail+'","description": "'+this.state.description+'"}'
+            let jsonPa = JSON.parse(json)
+            this.state.membres.push(jsonPa)
             Swal.fire(
               'Succes!',
               'Vous avez creer un nouveau membre\nil est soumis a validation',
@@ -175,12 +170,11 @@ class GererMembreAdmin extends Component {
                           <input type="text" id="name" name="name"  required placeholder="nom" className="form-control" onChange={e => this.setState({nom: e.target.value})}></input>
                         </div>
                       </div>
-                        <br></br>
                         <div className="form-group">
                           <div className="input-group">
                             <span className="input-group-addon"><i className="fa fa-tags fa" aria-hidden="true"></i></span>
                             <input id="prenom" name="prenom" required placeholder ="prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
-                            </div>
+                          </div>
                         </div>
                         <div className="form-group">
                           <div className="input-group">

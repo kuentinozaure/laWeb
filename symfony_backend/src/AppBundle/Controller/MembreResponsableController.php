@@ -184,7 +184,7 @@ class MembreResponsableController extends Controller
 
          $em->persist($member);
          $em->flush();
-         return new JsonResponse(['message' => 'member is added'], Response::HTTP_CREATED);
+         return new JsonResponse(['message' => 'member is added','id'=>$member->getId()], Response::HTTP_CREATED);
   }
 
   /**
@@ -223,9 +223,10 @@ class MembreResponsableController extends Controller
     $telephone = $request->get('telephone');
     $desc = $request ->get('description');
     $login = $request ->get('login');
+    $visible = $request ->get('visible');
 
     //Check if one of all HTTP:GET value are empty
-    if(empty($nom) || empty($prenom) || empty($mail) || empty($image) || empty($telephone) || empty($desc) || empty($login))
+    if(empty($visible)  || empty($nom) || empty($prenom) || empty($mail) || empty($image) || empty($telephone) || empty($desc) || empty($login))
      {
        return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
      }
@@ -242,6 +243,7 @@ class MembreResponsableController extends Controller
               ->setImage($image)
               ->setTelephone($telephone)
               ->setDescription($desc)
+              ->setVisible($visible)
               ->setLogin($login);
 
        $em->persist($mem[0]);

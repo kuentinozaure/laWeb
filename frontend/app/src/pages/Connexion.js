@@ -36,6 +36,7 @@ class Connexion extends React.Component {
                telephone:response.data.telephone,
                description : response.data.description,
                token :response.data.token,
+               visible : response.data.estVisible,
                resultatConnexion : tab,
              })
            })
@@ -48,17 +49,18 @@ class Connexion extends React.Component {
 
         remplissageReducer(){
           if(this.state.resultatConnexion.isConnect == true){//si il est connecte
-            this.props.setSession(
-              this.state.resultatConnexion.nom,
-              this.state.resultatConnexion.id,
-              this.state.resultatConnexion.prenom,
-              this.state.resultatConnexion.mail,
-              this.state.resultatConnexion.image,
-              this.state.resultatConnexion.telephone,
-              this.state.resultatConnexion.description,
-              this.state.resultatConnexion.token,
-              this.state.resultatConnexion.login,
-            );
+              this.props.setSession(
+                this.state.resultatConnexion.nom,
+                this.state.resultatConnexion.id,
+                this.state.resultatConnexion.prenom,
+                this.state.resultatConnexion.mail,
+                this.state.resultatConnexion.image,
+                this.state.resultatConnexion.telephone,
+                this.state.resultatConnexion.description,
+                this.state.resultatConnexion.token,
+                this.state.resultatConnexion.login,
+                this.state.resultatConnexion.estVisible
+              );
             this.props.history.push(process.env.PUBLIC_URL + "/member");
           }else{
             Swal.fire(
@@ -126,8 +128,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    setSession: (name,id,prenom,mail,image,telephone,description,login,token) => {
-      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token))
+    setSession: (name,id,prenom,mail,image,telephone,description,login,token,visible) => {
+      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token,visible))
     }
   }
 };
