@@ -45,7 +45,7 @@ class GererActiviteAdmin extends Component {
                 dateDebut={activite.dateDebut}
                 dateFin={activite.dateFin}
                 salle={activite.salle}
-                nombrePlaceDispo={activite.nombrePlaceDispo}
+                nombrePlaceDispo={activite.placeDisponible}
                 />
             );
         });
