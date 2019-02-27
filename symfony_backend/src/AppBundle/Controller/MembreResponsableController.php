@@ -184,7 +184,7 @@ class MembreResponsableController extends Controller
 
          $em->persist($member);
          $em->flush();
-         return new JsonResponse(['message' => 'member is added'], Response::HTTP_CREATED);
+         return new JsonResponse(['message' => 'member is added','id'=>$member->getId()], Response::HTTP_CREATED);
   }
 
   /**
@@ -210,6 +210,91 @@ class MembreResponsableController extends Controller
        $em->flush();
        return new JsonResponse(['message' => 'member validated'], Response::HTTP_CREATED);
   }
+  /**
+   * @Route("/members/{idMember}/", name="update_member", methods={"PUT"})
+   */
+  public function updateMember(Request $request)
+  {
+    //get data from HTTP get method
+    $nom = $request->get('nom');
+    $prenom = $request->get('prenom');
+    $mail = $request->get('mail');
+    $image = $request->get('image');
+    $telephone = $request->get('telephone');
+    $desc = $request ->get('description');
+    $login = $request ->get('login');
+    $visible = $request ->get('visible');
+
+
+
+
+    //Check if one of all HTTP:GET value are empty
+    if(empty($visible)  || empty($nom) || empty($prenom) || empty($mail) || empty($image) || empty($telephone) || empty($desc) || empty($login))
+     {
+       return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+     }
+     $em = $this->get('doctrine.orm.entity_manager');
+
+     $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMember'));
+
+
+    $mem = $membre;
+
+    if($visible == "true"){
+      $mem[0] ->setNom($nom)
+             ->setPrenom($prenom)
+             ->setMail($mail)
+             ->setImage($image)
+             ->setTelephone($telephone)
+             ->setDescription($desc)
+             ->setVisible(1)
+             ->setLogin($login);
+     }else{
+       $mem[0] ->setNom($nom)
+              ->setPrenom($prenom)
+              ->setMail($mail)
+              ->setImage($image)
+              ->setTelephone($telephone)
+              ->setDescription($desc)
+              ->setVisible(0)
+              ->setLogin($login);
+     }
+
+
+       $em->persist($mem[0]);
+       $em->flush();
+       return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
+  }
+
+  /**
+   * @Route("/membersM/{idMember}/", name="update_password", methods={"PUT"})
+   */
+  public function updatePassword(Request $request)
+  {
+    //get data from HTTP get method
+    $mdp = $request->get('mdp');
+
+    //Check if one of all HTTP:GET value are empty
+    if(empty($mdp))
+     {
+       return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
+     }
+     $em = $this->get('doctrine.orm.entity_manager');
+
+     $membre = $em->getRepository('AppBundle:MembreResponsable')
+                    ->findById($request->get('idMember'));
+
+    $crypt = hash("sha256",$mdp,false);
+
+    $mem = $membre;
+
+       $mem[0] ->setMdp($crypt);
+
+       $em->persist($mem[0]);
+       $em->flush();
+       return new JsonResponse(['message' => 'member updated'], Response::HTTP_CREATED);
+  }
 
   /**
    * @Route("/member/{loginMember}/", name="member_id", methods={"GET"})
@@ -223,8 +308,8 @@ class MembreResponsableController extends Controller
       'SELECT count(p.login)
        FROM AppBundle:MembreResponsable p
        WHERE p.login = :loginMember'
-      )->setParameter('loginMember',$request->get('loginMember')); 
-    
+      )->setParameter('loginMember',$request->get('loginMember'));
+
       $count = $query->getResult();
 
       if(intval($count[0][1]) > 1){

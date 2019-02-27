@@ -8,11 +8,11 @@ const initialState = {
     description:	"",
     login:	"",
     token: "",
+    visible : false,
     isConnected: false,
 }
 
   function sessionReducer(state = initialState, action) {
-      console.log(action)
       switch (action.type) {
           case "SET_SESSION":
               return {
@@ -27,6 +27,7 @@ const initialState = {
                   login:	action.login,
                   token: action.token,
                   isConnected: true,
+                  visible: action.visible
               };
           case "REMOVE_SESSION":
               return {
