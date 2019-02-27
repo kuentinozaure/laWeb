@@ -15,7 +15,7 @@ class MessageController extends Controller
   /**
    * @Route("/message/",name="message_liste", methods={"GET"})
    */
- 
+
   public function getMessage(Request $request)
   {
       $message = $this->get('doctrine.orm.entity_manager')
@@ -37,6 +37,7 @@ class MessageController extends Controller
                      'prenom' => $message->getPrenom(),
                      'mail' => $message->getMail(),
                      'message' => $message->getMessage(),
+                     'estLu' => $message->getEstLu(),
                      'CategorieMessage' => $CategorieMessage[0]->getIntitule(),
                   ];
               }
@@ -45,7 +46,7 @@ class MessageController extends Controller
      /**
      * @Route("/categoriemessage/", name="categorie_message_list", methods={"GET"})
      */
-    public function getUfr(Request $request)
+    public function getCategorieMessage(Request $request)
     {
         $categoriemessage = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:CategorieMessage')
@@ -67,15 +68,6 @@ class MessageController extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
    /**
     * @Route("/message/{id}/", name="message_delete_once", methods={"DELETE"})
     */
@@ -92,8 +84,27 @@ class MessageController extends Controller
             return new JsonResponse(['message' => 'Message deleted'],Response::HTTP_NOT_FOUND);
         }
 
-
         /**
+         * @Route("/reading/{idmessage}/", name="validate_member", methods={"PUT"})
+         */
+        public function validateMember(Request $request)
+        {
+           $em = $this->get('doctrine.orm.entity_manager');
+
+           $messsage = $em->getRepository('AppBundle:Message')
+                          ->findById($request->get('idmessage'));
+
+             $mem = $messsage;
+
+             $mem[0]->setEstLu(1);
+
+             $em->persist($mem[0]);
+             $em->flush();
+             return new JsonResponse(['message' => 'Message is reading'], Response::HTTP_CREATED);
+        }
+
+
+      /**
      * @Route("/message/{id}/", name="message_once",methods={"GET"})
      */
      public function getOneMessage(Request $request)
@@ -121,7 +132,7 @@ class MessageController extends Controller
                            'prenom' => $message[$i]->getPrenom(),
                            'message' => $message[$i]->getMessage(),
                            'mail' => $message[$i]->getMail(),
-                      
+
                            'type_astuce' => $categorie[0]->getIntitule(),
                           ];
            }
@@ -139,7 +150,7 @@ class MessageController extends Controller
                'prenom' => $message[0]->getPrenom(),
               'message' => $message[0]->getMessage(),
                 'mail' => $message[0]->getMail(),
-   
+
                 'type_astuce' => $categorie[0]->getIntitule(),
        ];
      }
@@ -156,7 +167,7 @@ class MessageController extends Controller
         $mail = $request->get('mail');
         $message= $request->get('message');
         $CategorieMessage = $request->get('CategorieMessage');
-        
+
 
         //Check if one of all HTTP:GET value are empty
         if(empty($nom) || empty($prenom) || empty($mail) || empty($message) || empty($CategorieMessage))
@@ -173,6 +184,7 @@ class MessageController extends Controller
                     ->setPrenom($prenom)
                       ->setMail($mail)
                       ->setMessage($message)
+                      ->setEstLu(false)
                       ->setidCategorieMessage($CategorieMessage[0]);
 
            $em = $this->get('doctrine.orm.entity_manager');

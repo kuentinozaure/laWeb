@@ -35,13 +35,23 @@ class Message
      * @ORM\Column(type="string",length=255)
      */
     protected $message;
-   
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $estLu;
+
 
     /**
      * @ManyToOne(targetEntity="CategorieMessage")
      * @JoinColumn(name="categorieMess_id", referencedColumnName="id")
      */
     protected $idCategorieMessage;
+
+    public function getEstLu()
+    {
+        return $this->estLu;
+    }
 
     public function getId()
     {
@@ -65,10 +75,16 @@ class Message
     {
         return $this->message;
     }
-   
+
     public function getCategorieMessage()
     {
         return $this->idCategorieMessage;
+    }
+
+    public function setEstLu($estLu)
+    {
+        $this->estLu = $estLu;
+        return $this;
     }
 
     public function setId($id)
@@ -97,7 +113,7 @@ class Message
         $this->message = $message;
         return $this;
     }
-   
+
     public function setidCategorieMessage($idCategorieMessage)
     {
       $this->idCategorieMessage = $idCategorieMessage;

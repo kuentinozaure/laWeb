@@ -49,6 +49,8 @@ class ListeActiviteAdmin extends Component {
                 dateFin={activite.dateFin}
                 salle={activite.salle}
                 nombrePlaceDispo={activite.placeDisponible}
+                animateur={activite.animateur}
+                idCateg={activite.idCateg}
                 />
             );
         });
