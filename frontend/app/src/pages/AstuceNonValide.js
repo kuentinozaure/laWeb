@@ -16,7 +16,6 @@ class AstuceNonValide  extends React.Component {
       }
 
     handleAcceptAstuce() {
-      alert(SERVER_URL + "astuce/"+this.props.id+"/"+this.props.sessionConnect.id+"/")
         axios.put(SERVER_URL + "astuce/"+this.props.id+"/"+this.props.sessionConnect.id+"/")
           .then(response => {
             Swal.fire(
