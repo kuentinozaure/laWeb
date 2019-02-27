@@ -44,12 +44,12 @@ class Message  extends React.Component {
                 <div>
                 <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg"> Details</button>
                 <button type="button" onClick={this.handleDelete} class="btn btn-danger btn-lg"> Supprimer</button>
-                <div class="pretty p-default p-curve p-toggle">
+                <div className="pretty p-default p-curve p-toggle">
                     <input type="checkbox" />
-                        <div class="state p-success p-on">
+                        <div className="state p-success p-on">
                             <label><h7>message lue </h7></label>
                         </div>
-                        <div class="state p-danger p-off">
+                        <div className="state p-danger p-off">
                             <label><h7>message non  lue </h7> </label>
                         </div>
                  </div>
