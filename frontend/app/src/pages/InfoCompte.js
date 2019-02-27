@@ -74,10 +74,8 @@ class InfoCompte extends Component {
               'votre compte a ete supprimer',
               'success'
             )
-            alert(process.env.PUBLIC_URL)
-            this.props.history.push(process.env.PUBLIC_URL + "#/connexion");
+            this.props.history.push(process.env.PUBLIC_URL+"/connexion");
             this.props.removeSession("");
-
           }
         })
       }

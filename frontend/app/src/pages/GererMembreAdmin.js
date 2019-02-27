@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
 import MembreNonValide from './MembreNonValide.js'
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 
@@ -124,6 +125,11 @@ class GererMembreAdmin extends Component {
             this.setState({
               membres: tab,
             });
+            Swal.fire(
+              'Succes!',
+              'Vous avez creer un nouveau membre\nil est soumis a validation',
+              'success'
+            )
             this.handleClose()
           })
           .catch(error => {
