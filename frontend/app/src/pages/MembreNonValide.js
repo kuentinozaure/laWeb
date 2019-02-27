@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import axios from 'axios';
 import { SERVER_URL } from "../consts";
+import Swal from 'sweetalert2';
 
 class MembreNonValide  extends React.Component {
     constructor(props) {
@@ -16,6 +17,12 @@ class MembreNonValide  extends React.Component {
         const url = SERVER_URL + "member/"+this.props.id+"/"
         axios.put(url)
           .then(response => {
+
+            Swal.fire(
+              'Succes!',
+              'Vous avez validez le membre',
+              'success'
+            )
             this.handleClose()
           })
           .catch(error => {
@@ -27,11 +34,16 @@ class MembreNonValide  extends React.Component {
         const url = SERVER_URL + "members/"+this.props.id+"/"
         axios.delete(url)
           .then(response => {
-            this.handleClose()
           })
           .catch(error => {
             console.log(error);
           });
+
+          Swal.fire(
+            'Succes!',
+            'Vous avez refuser ce membre',
+            'success'
+          )
       }
 
 
