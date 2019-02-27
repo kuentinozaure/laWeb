@@ -29,6 +29,7 @@ class Box extends Component {
           <div className="container">
             <div className="well">
                 <div className="media">
+                <img src={this.props.modimage} width="100" height="100"/>
                     <div className="media-body">
                             <h2 className="media-heading">{this.props.modtitre}</h2>
                         <h3><p>{this.props.moddescription}</p></h3>
@@ -41,16 +42,16 @@ class Box extends Component {
                         </ul>
                         <Button id="BtAstuce" className="center-right" href={this.props.modlien} >
                           En savoir plus
-                        </Button> 
+                        </Button>
                     </div>
-                    
+
                 </div>
             </div>
          </div>
     </div>
     </div>
     </div>
-  
+
     );
   }
 
@@ -61,18 +62,18 @@ class Box extends Component {
     for (i = 0; i < this.state.listeUfr.length; i++) {
       console.log(this.state.listeUfr[i][1]);
       option.push("<option>"+this.state.listeUfr[i][1]+"</option>");
-      
+
     }
   }
 */
-  
+
     }
 
 
     const mapStateToProps = state => {
       return { sessionConnect: state.sessionReducer}
     }
-    
+
     // const mapDispatchToProps = dispatch => {
     //   console.log("ok");
     //   return {
@@ -81,5 +82,5 @@ class Box extends Component {
     //     }
     //   }
     // }
-    
+
     export default connect(mapStateToProps,null)(Box)

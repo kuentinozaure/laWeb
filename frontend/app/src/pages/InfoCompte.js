@@ -99,7 +99,6 @@ class InfoCompte extends Component {
               this.state.login,
               this.state.visible,
             );
-            console.log(this.props.sessionConnect)
             this.handleClose();
           })
           .catch(error => {
@@ -119,7 +118,14 @@ class InfoCompte extends Component {
       }
 
       handleUpdateMdp = () =>{
-        if(this.state.mdp == this.state.retypeMdp){
+        if(this.state.mdp == "" || this.state.retypeMdp == ""){
+          Swal.fire(
+            'ERREUR',
+            'Veuillez saisir les memes informations',
+            'warning'
+          )
+        }
+        else if(this.state.mdp == this.state.retypeMdp){
 
           const url = SERVER_URL+"membersM/"+this.props.sessionConnect.id+"/?mdp="+this.state.mdp;
           axios.put(url)
