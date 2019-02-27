@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Mdp from './Mdp.js';
 import NavbarMembres from './NavbarMembres.js';
 import setSession from './../actions/setSession'
+import removeSession from './../actions/removeSession'
 import "./FormulaireCard.css";
 import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -73,8 +74,10 @@ class InfoCompte extends Component {
               'votre compte a ete supprimer',
               'success'
             )
+            alert(process.env.PUBLIC_URL)
+            this.props.history.push(process.env.PUBLIC_URL + "#/connexion");
             this.props.removeSession("");
-            this.props.history.push(process.env.PUBLIC_URL + "/connexion");
+
           }
         })
       }

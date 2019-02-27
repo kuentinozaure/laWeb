@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
 import axios from 'axios';
 import { SERVER_URL } from "../consts";
+import Swal from 'sweetalert2';
 
 class Connexion extends React.Component {
     constructor(props) {
@@ -59,6 +60,12 @@ class Connexion extends React.Component {
               this.state.resultatConnexion.login,
             );
             this.props.history.push(process.env.PUBLIC_URL + "/member");
+          }else{
+            Swal.fire(
+              'Erreur!',
+              'Vous n etes pas connecté',
+              'warning'
+            )
           }
         }
 
