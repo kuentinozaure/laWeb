@@ -30,6 +30,7 @@ class InfoCompte extends Component {
     this.handleSubmit = this.handleSubmit;
     this.handleUpdate = this.handleUpdate;
     this.handleShowMdp = this.handleShowMdp;
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       show: false,
@@ -85,7 +86,6 @@ class InfoCompte extends Component {
 
       handleUpdate= ()  =>{
         const url = SERVER_URL+"members/"+this.props.sessionConnect.id+"/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login+"&visible="+this.state.visible ;
-        alert(url)
         axios.put(url)
           .then(response => {
 
@@ -101,7 +101,7 @@ class InfoCompte extends Component {
               this.state.login,
               this.state.visible,
             );
-
+            console.log(this.props.sessionConnect)
             this.handleClose();
           })
           .catch(error => {
@@ -155,6 +155,12 @@ class InfoCompte extends Component {
         }
       }
 
+      handleChange() {
+      this.setState({
+        visible: !this.state.visible
+      })
+    }
+
       // displayVisibleModale(){
       //   if(this.state.visible == true){
       //     return()
@@ -166,7 +172,7 @@ class InfoCompte extends Component {
     render() {
       const { open } = this.state;
       return (
-
+        <div>
         <div style={styles} >
         <div id="infocomptenavbar">
         <NavbarMembres/>
@@ -265,7 +271,7 @@ class InfoCompte extends Component {
               </div>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox"  id="defaultCheck2" onChange={e => {if (e.target.value == "on"){this.setState({visible: true})} }} ></input>
+              <input class="form-check-input" type="checkbox"  id="defaultCheck2" checked={this.state.visible}  onChange={this.handleChange} ></input>
               <label class="form-check-label" for="defaultCheck2">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Visible
               </label>
@@ -301,6 +307,7 @@ class InfoCompte extends Component {
           <Button onClick={this.handleCloseMdp}>FERMER</Button>
         </Modal.Footer>
       </Modal>
+        </div>
         </div>
         </div>
       );

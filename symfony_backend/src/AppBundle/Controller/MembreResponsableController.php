@@ -225,6 +225,9 @@ class MembreResponsableController extends Controller
     $login = $request ->get('login');
     $visible = $request ->get('visible');
 
+
+
+
     //Check if one of all HTTP:GET value are empty
     if(empty($visible)  || empty($nom) || empty($prenom) || empty($mail) || empty($image) || empty($telephone) || empty($desc) || empty($login))
      {
@@ -235,16 +238,29 @@ class MembreResponsableController extends Controller
      $membre = $em->getRepository('AppBundle:MembreResponsable')
                     ->findById($request->get('idMember'));
 
+
     $mem = $membre;
 
+    if($visible == "true"){
+      $mem[0] ->setNom($nom)
+             ->setPrenom($prenom)
+             ->setMail($mail)
+             ->setImage($image)
+             ->setTelephone($telephone)
+             ->setDescription($desc)
+             ->setVisible(1)
+             ->setLogin($login);
+     }else{
        $mem[0] ->setNom($nom)
               ->setPrenom($prenom)
               ->setMail($mail)
               ->setImage($image)
               ->setTelephone($telephone)
               ->setDescription($desc)
-              ->setVisible($visible)
+              ->setVisible(0)
               ->setLogin($login);
+     }
+
 
        $em->persist($mem[0]);
        $em->flush();
