@@ -20,6 +20,7 @@ class ListeActivite extends Component {
     this.state = {
       show: false,
       activities : [],
+      categorie :[],
       activitySearch : "",
     };
   }
@@ -56,7 +57,10 @@ class ListeActivite extends Component {
   display(){
     let listActivityEvent =[]
     let listActivityA =[]
-    if(this.activitySearch === ""){
+    if(this.activitySearch === ""){ //SI la barre de recherche est vide
+
+
+
       let content = this.state.activities.map((activity, index) => {
         if(activity.categorie == "EVENEMENT"){
           listActivityEvent.push(
