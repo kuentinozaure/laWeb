@@ -43,6 +43,7 @@ class InfoCompte extends Component {
       description : this.props.sessionConnect.description,
       login : this.props.sessionConnect.login,
       mdp : "",
+      visible: this.props.sessionConnect.visible,
       retypeMdp : "",
 
 
@@ -83,7 +84,8 @@ class InfoCompte extends Component {
 
 
       handleUpdate= ()  =>{
-        const url = SERVER_URL+"members/"+this.props.sessionConnect.id+"/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login ;
+        const url = SERVER_URL+"members/"+this.props.sessionConnect.id+"/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login+"&visible="+this.state.visible ;
+        alert(url)
         axios.put(url)
           .then(response => {
 
@@ -97,6 +99,7 @@ class InfoCompte extends Component {
               this.state.description,
               this.state.token,
               this.state.login,
+              this.state.visible,
             );
 
             this.handleClose();
@@ -118,11 +121,16 @@ class InfoCompte extends Component {
       }
 
       handleUpdateMdp = () =>{
-        if(this.state.mdp == this.state.retypeMdp || this.state.mdp == "" || this.state.retypeMdp == ""){
-          //do axios
+        if(this.state.mdp == this.state.retypeMdp){
+
           const url = SERVER_URL+"membersM/"+this.props.sessionConnect.id+"/?mdp="+this.state.mdp;
           axios.put(url)
             .then(response => {
+              Swal.fire(
+                'Modification',
+                'Vous avez changé votre mot de passe',
+                'success'
+              )
               this.handleCloseMdp();
             })
             .catch(error => {
@@ -138,6 +146,22 @@ class InfoCompte extends Component {
           })
         }
       }
+
+      displayVisible(){
+        if(this.state.visible == true){
+          return(<input type="checkbox" id="visible" name="visible" checked disabled/>)
+        }else{
+          return(<input type="checkbox" id="visible" name="visible" disabled/>)
+        }
+      }
+
+      // displayVisibleModale(){
+      //   if(this.state.visible == true){
+      //     return()
+      //   }else{
+      //     return(<input class="form-check-input" type="checkbox" id="defaultCheck2" onChange={e => {if (e.target.value == "on") {this.setState({visible: true})} else {this.setState({visible: false})}}} ></input>)
+      //   }
+      // }
 
     render() {
       const { open } = this.state;
@@ -159,6 +183,7 @@ class InfoCompte extends Component {
                   <th className="case">Telephone</th>
                   <th className="case">Description</th>
                   <th className="case">Identifiant</th>
+                  <th className="case">Est visible</th>
                   <th className="case">Action</th>
                 </tr>
               </thead>
@@ -171,6 +196,7 @@ class InfoCompte extends Component {
                     <th className="case">{this.state.telephone}</th>
                     <th className="case">{this.state.description}</th>
                     <th className="case">{this.state.login}</th>
+                    <th className="case">{this.displayVisible()}</th>
                     <th className="case">
                       <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
                       <button type="button" onClick={this.handleShowMdp} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
@@ -238,6 +264,12 @@ class InfoCompte extends Component {
                 </div>
               </div>
             </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"  id="defaultCheck2" onChange={e => {if (e.target.value == "on"){this.setState({visible: true})} }} ></input>
+              <label class="form-check-label" for="defaultCheck2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Visible
+              </label>
+            </div>
             <input className="center-block btn btn-danger" value="Modifier informations" onClick={this.handleUpdate}/>
           </Modal.Body>
           <Modal.Footer>
@@ -280,8 +312,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    setSession: (name,id,prenom,mail,image,telephone,description,login,token) => {
-      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token))
+    setSession: (name,id,prenom,mail,image,telephone,description,login,token,visible) => {
+      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token,visible))
     }
   }
 };
