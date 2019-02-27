@@ -154,6 +154,10 @@ class ListeActivite extends Component {
             Tu peux découvrir nos activités sur cette page et t'y inscrire.<div id="sautdeligne"></div>
           </div>
           <br></br>
+          <a className="btn btn-primary btn-lg pull-right " role="button" onClick={this.handleShow}>Proposer une astuce</a>
+          <br></br>
+          <br></br>
+          <br></br>
           <div className="row">
         <div className="col-12">
           <div id="custom-search-input">

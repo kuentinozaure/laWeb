@@ -29,16 +29,17 @@ class GererMessageAdmin extends Component {
             console.log(error);
           });
 
-          
+
       }
 
       display(){
         let listeMessage =[]
         let content = this.state.messages.map((message, index) => {
-    
+
           listeMessage.push(
-              < Message 
+              < Message
                 id={message.id}
+                estLu={message.estLu}
                 nom={message.nom}
                 prenom={message.prenom}
                 mail={message.mail}
@@ -49,7 +50,7 @@ class GererMessageAdmin extends Component {
         });
         console.log(listeMessage);
         return content = listeMessage;
-      }      
+      }
 
       render() {
         return (
