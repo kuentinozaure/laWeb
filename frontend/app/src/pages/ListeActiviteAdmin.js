@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
 
-class GererActiviteAdmin extends Component {
+class ListeActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -99,4 +99,4 @@ class GererActiviteAdmin extends Component {
       }
 }
 
-export default GererActiviteAdmin;
+export default ListeActiviteAdmin;

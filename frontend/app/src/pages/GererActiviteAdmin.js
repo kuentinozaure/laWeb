@@ -22,7 +22,8 @@ class GererActiviteAdmin extends Component {
             dateFin:"",
             salle:"",
             placeDisponible:0,
-            idCateg:1,
+            animateur:"",
+            idCategorgieActivite:1,
 
             categories:[],
         };
@@ -64,6 +65,7 @@ class GererActiviteAdmin extends Component {
                 dateDebut={activite.dateDebut}
                 dateFin={activite.dateFin}
                 salle={activite.salle}
+                animateur={activite.animateur}
                 placeDisponible={activite.placeDisponible}
                 />
             );
@@ -74,8 +76,7 @@ class GererActiviteAdmin extends Component {
 
       displayCateg(){
         let listCateg = [];
-        let content
-        content = this.state.categories.map((categorie, index) =>{
+        let content = this.state.categories.map((categorie, index) =>{
           listCateg.push(<option id={categorie.id}>{categorie.id} - {categorie.intitule}</option>)
         })
         return content = listCateg
@@ -107,7 +108,9 @@ class GererActiviteAdmin extends Component {
       }
       
       handleAddActivity() {
-        const url = SERVER_URL + "activity/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&animateur="+this.state.animateur+"&placeDisponible="+this.state.placeDisponible+"&idCateg="+this.state.idCateg+""
+        const url = SERVER_URL + "activity/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&animateur="+this.state.animateur+"&placeDispo="+this.state.placeDisponible+"&idCateg="+this.state.idCategorgieActivite+""
+        console.log(alert(url));
+        
         axios.post(url)
           .then(response => {
             let i
@@ -148,6 +151,7 @@ class GererActiviteAdmin extends Component {
                                 <th>Date de fin</th>
                                 <th>Salle</th>
                                 <th>Nombre de places</th>
+                                <th>Animateur</th>
                                 <th className="text-center">Action</th>
                             </tr>
                         </thead>
@@ -197,6 +201,12 @@ class GererActiviteAdmin extends Component {
                           <div className="input-group">
                             <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                               <input id="placeDisponible" placeholder ="Nombre de places" className="form-control" type="text"  onChange={e => this.setState({placeDisponible: e.target.value})}/>
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <div className="input-group">
+                            <span className="input-group-addon"><i className="glyphicon glyphicon-chevron-right" aria-hidden="true"></i></span>
+                            <input id="animateur" name="animateur"  placeholder ="Nom de l'animateur" required  className="form-control"  type="text" onChange={e => this.setState({animateur: e.target.value})}/>
                           </div>
                         </div>
                         <div className="form-group">

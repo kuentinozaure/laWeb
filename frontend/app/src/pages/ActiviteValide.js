@@ -32,7 +32,8 @@ class ActiviteValide  extends React.Component {
                 <td>{this.props.dateDebut}</td>
                 <td>{this.props.dateFin}</td>
                 <td>{this.props.salle}</td>
-                <td>{this.props.nombrePlaceDispo}</td>
+                <td>{this.props.animateur}</td>
+                <td>{this.props.placeDisponible}</td>
                 <td className="text-right">
                 <a className='btn btn btn-info btn-sm' href="#gererAstuceAdmin"onClick={this.handleModify}>
                         Modifier
