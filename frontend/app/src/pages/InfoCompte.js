@@ -6,12 +6,10 @@ import removeSession from './../actions/removeSession'
 import "./FormulaireCard.css";
 import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
-import axios from 'axios';
+import Swal from 'sweetalert2'
+import axios from 'axios'
 
 import { SERVER_URL } from "../consts";
-
-import "./InfoCompte.css"
 
 const styles = {
   fontFamily: "sans-serif",
@@ -62,7 +60,7 @@ class InfoCompte extends Component {
       handleDelete = () => {
         Swal.fire({
           title: 'Etes vous sur de supprimer votre compte  ?',
-          text: "Vous ne pourrez pas revenir en arrière",
+          text: "Vous ne pourrez pas revenir en arriere",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
