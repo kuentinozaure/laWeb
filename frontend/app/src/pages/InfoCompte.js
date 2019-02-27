@@ -124,7 +124,7 @@ class InfoCompte extends Component {
           Swal.fire(
             'ERREUR',
             'Veuillez saisir les memes informations',
-            'warining'
+            'warning'
           )
         }
         else if(this.state.mdp == this.state.retypeMdp){

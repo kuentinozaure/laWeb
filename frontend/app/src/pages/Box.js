@@ -194,7 +194,7 @@ display(){
             <div className="container">
               <div className="well">
                 <div className="media">
-                  {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" alt="Image"/>*/}
+                {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" width="100" height="100" alt="Image"/>*/}
                   <div className="media-body">
                     <h2 className="media-heading">{this.props.modtitre}</h2>
                     <h3><p>{this.props.moddescription}</p></h3>
