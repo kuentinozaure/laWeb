@@ -39,7 +39,7 @@ class GererActiviteAdmin extends Component {
             let i
             let tab =[]
             for (i = 0; i < response.data.length; i++) {
-              
+
               tab.push(response.data[i]);
             }
             this.setState({
@@ -50,15 +50,15 @@ class GererActiviteAdmin extends Component {
             console.log(error);
           });
 
-          
+
       }
 
       display(){
         let listeActivite =[]
         let content = this.state.activites.map((activite, index) => {
-    
+
           listeActivite.push(
-              < ActiviteNonValide 
+              < ActiviteNonValide
                 id={activite.id}
                 titre={activite.titre}
                 description={activite.description}
@@ -70,7 +70,7 @@ class GererActiviteAdmin extends Component {
                 />
             );
         });
-        
+
         return content = listeActivite;
       }
 
@@ -106,11 +106,10 @@ class GererActiviteAdmin extends Component {
           show : false,
         })
       }
-      
+
       handleAddActivity() {
-        const url = SERVER_URL + "activity/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&animateur="+this.state.animateur+"&placeDispo="+this.state.placeDisponible+"&idCateg="+this.state.idCategorgieActivite+""
-        console.log(alert(url));
-        
+        const url = SERVER_URL + "activity/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&animateur="+this.state.animateur+"&placeDispo="+this.state.placeDisponible+"&idCateg="+this.state.idCategorgieActivite+"";
+
         axios.post(url)
           .then(response => {
             let i
@@ -129,7 +128,6 @@ class GererActiviteAdmin extends Component {
             this.handleClose()
           })
           .catch(error => {
-            console.log(error);
           });
       }
 

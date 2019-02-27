@@ -288,7 +288,7 @@ class ActiviteController extends Controller
     }
 
     /**
-     * @Route("/activity/{idAct}/{idMembre}/", name="validate_activity", methods={"PUT"})
+     * @Route("/activity/{idAct}/{idMembre}/", name="validates_activity", methods={"PUT"})
      */
     public function validateActivity(Request $request)
     {
