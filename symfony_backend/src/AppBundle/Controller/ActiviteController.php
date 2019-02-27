@@ -13,6 +13,29 @@ use AppBundle\Entity\Participe;
 
 class ActiviteController extends Controller
 {
+  /**
+   * @Route("/categorieActivity/", name="activity_categ", methods={"GET"})
+   */
+  public function getCategorieActivite(Request $request)
+  {
+      $categ = $this->get('doctrine.orm.entity_manager')
+                      ->getRepository('AppBundle:CategorieActivite')
+                      ->findAll();
+
+      if (empty($categ))
+      {
+        return new JsonResponse(['message' => 'categorie not found'], Response::HTTP_NOT_FOUND);
+      }
+              $formatted = [];
+              foreach ($categ as $categorie) {
+
+                    $formatted[] = [
+                       'id' => $categorie->getId(),
+                       'intitule' => $categorie->getIntitule(),
+                    ];
+              }
+      return new JsonResponse($formatted,Response::HTTP_OK);
+  }
     /**
      * @Route("/activity/", name="activity_list", methods={"GET"})
      */
@@ -22,7 +45,7 @@ class ActiviteController extends Controller
                         ->getRepository('AppBundle:Activite')
                         ->findBy(array(
                             'estValide' => 1,
-                            
+
                         ));
 
         if (empty($activites))
