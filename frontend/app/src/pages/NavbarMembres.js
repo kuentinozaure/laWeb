@@ -82,7 +82,7 @@ class NavbarMembres extends Component {
 
       displayNotififationActivite(){
         let nbActivite =0;
-        let content = this.state.astuceNonValide.map((act, index) => {
+        let content = this.state.activityNonValide.map((act, index) => {
           if(act.estValide == false){
             nbActivite +=1;
           }

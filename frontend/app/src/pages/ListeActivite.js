@@ -17,6 +17,7 @@ class ListeActivite extends Component {
 
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleAddActivity = this.handleAddActivity.bind(this);
 
     this.state = {
       show: false,
@@ -55,8 +56,6 @@ class ListeActivite extends Component {
 
   handleAddActivity() {
     const url = SERVER_URL + "activity/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&animateur="+this.state.animateur+"&placeDispo="+this.state.placeDisponible+"&idCateg="+this.state.idCategorgieActivite+""
-    console.log(alert(url));
-    
     axios.post(url)
       .then(response => {
         Swal.fire(
@@ -85,7 +84,6 @@ class ListeActivite extends Component {
         });
       })
       .catch(error => {
-        console.log(error);
       });
 
       axios.get(SERVER_URL + "categorieActivity/")
@@ -96,10 +94,8 @@ class ListeActivite extends Component {
           tab.push(response.data[i]);
         }
         this.setState({categories:tab,});
-                console.log(this.state.activities)
       })
       .catch(error => {
-        console.log(error);
       });
   }
 
@@ -255,7 +251,7 @@ class ListeActivite extends Component {
                           </div>
                         </div>
                         <div className="form-group">
-                          <select className="form-control" require="true"  id="idCateg" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
+                          <select className="form-control" require="true"  id="idCateg" onChange={e => this.setState({idCategorgieActivite: e.target.value.substring(0, 1)})}>
                           {
                             this.displayCateg()
                           }
