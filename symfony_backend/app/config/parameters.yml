@@ -4,12 +4,8 @@ parameters:
     database_port: 3306
     database_name: LAWEB
     database_user: root
-<<<<<<< HEAD
-    database_password: null
-=======
     database_password: password
 
->>>>>>> b2f8ce7502f8cd4b258e2b6e8c8b1a45c7461516
     mailer_transport: gmail
     mailer_host: smtp.gmail.com
     mailer_user: associationlaweb@gmail.com
