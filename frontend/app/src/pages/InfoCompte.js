@@ -6,12 +6,10 @@ import removeSession from './../actions/removeSession'
 import "./FormulaireCard.css";
 import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
-import axios from 'axios';
+import Swal from 'sweetalert2'
+import axios from 'axios'
 
 import { SERVER_URL } from "../consts";
-
-import "./InfoCompte.css"
 
 const styles = {
   fontFamily: "sans-serif",
@@ -30,6 +28,7 @@ class InfoCompte extends Component {
     this.handleSubmit = this.handleSubmit;
     this.handleUpdate = this.handleUpdate;
     this.handleShowMdp = this.handleShowMdp;
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       show: false,
@@ -43,6 +42,7 @@ class InfoCompte extends Component {
       description : this.props.sessionConnect.description,
       login : this.props.sessionConnect.login,
       mdp : "",
+      visible: this.props.sessionConnect.visible,
       retypeMdp : "",
 
 
@@ -60,7 +60,7 @@ class InfoCompte extends Component {
       handleDelete = () => {
         Swal.fire({
           title: 'Etes vous sur de supprimer votre compte  ?',
-          text: "Vous ne pourrez pas revenir en arrière",
+          text: "Vous ne pourrez pas revenir en arriere",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -83,7 +83,7 @@ class InfoCompte extends Component {
 
 
       handleUpdate= ()  =>{
-        const url = SERVER_URL+"members/"+this.props.sessionConnect.id+"/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login ;
+        const url = SERVER_URL+"members/"+this.props.sessionConnect.id+"/?nom="+this.state.nom+"&prenom="+this.state.prenom+"&mail="+this.state.mail+"&image="+this.state.image+"&telephone="+this.state.telephone+"&description="+this.state.description+"&login="+this.state.login+"&visible="+this.state.visible ;
         axios.put(url)
           .then(response => {
 
@@ -97,8 +97,8 @@ class InfoCompte extends Component {
               this.state.description,
               this.state.token,
               this.state.login,
+              this.state.visible,
             );
-
             this.handleClose();
           })
           .catch(error => {
@@ -118,11 +118,23 @@ class InfoCompte extends Component {
       }
 
       handleUpdateMdp = () =>{
-        if(this.state.mdp == this.state.retypeMdp || this.state.mdp == "" || this.state.retypeMdp == ""){
-          //do axios
+        if(this.state.mdp == "" || this.state.retypeMdp == ""){
+          Swal.fire(
+            'ERREUR',
+            'Veuillez saisir les memes informations',
+            'warning'
+          )
+        }
+        else if(this.state.mdp == this.state.retypeMdp){
+
           const url = SERVER_URL+"membersM/"+this.props.sessionConnect.id+"/?mdp="+this.state.mdp;
           axios.put(url)
             .then(response => {
+              Swal.fire(
+                'Modification',
+                'Vous avez changé votre mot de passe',
+                'success'
+              )
               this.handleCloseMdp();
             })
             .catch(error => {
@@ -139,10 +151,32 @@ class InfoCompte extends Component {
         }
       }
 
+      displayVisible(){
+        if(this.state.visible == true){
+          return(<input type="checkbox" id="visible" name="visible" checked disabled/>)
+        }else{
+          return(<input type="checkbox" id="visible" name="visible" disabled/>)
+        }
+      }
+
+      handleChange() {
+      this.setState({
+        visible: !this.state.visible
+      })
+    }
+
+      // displayVisibleModale(){
+      //   if(this.state.visible == true){
+      //     return()
+      //   }else{
+      //     return(<input class="form-check-input" type="checkbox" id="defaultCheck2" onChange={e => {if (e.target.value == "on") {this.setState({visible: true})} else {this.setState({visible: false})}}} ></input>)
+      //   }
+      // }
+
     render() {
       const { open } = this.state;
       return (
-
+        <div>
         <div style={styles} >
         <div id="infocomptenavbar">
         <NavbarMembres/>
@@ -159,6 +193,7 @@ class InfoCompte extends Component {
                   <th className="case">Telephone</th>
                   <th className="case">Description</th>
                   <th className="case">Identifiant</th>
+                  <th className="case">Est visible</th>
                   <th className="case">Action</th>
                 </tr>
               </thead>
@@ -171,6 +206,7 @@ class InfoCompte extends Component {
                     <th className="case">{this.state.telephone}</th>
                     <th className="case">{this.state.description}</th>
                     <th className="case">{this.state.login}</th>
+                    <th className="case">{this.displayVisible()}</th>
                     <th className="case">
                       <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
                       <button type="button" onClick={this.handleShowMdp} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
@@ -238,6 +274,12 @@ class InfoCompte extends Component {
                 </div>
               </div>
             </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"  id="defaultCheck2" checked={this.state.visible}  onChange={this.handleChange} ></input>
+              <label class="form-check-label" for="defaultCheck2">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Visible
+              </label>
+            </div>
             <input className="center-block btn btn-danger" value="Modifier informations" onClick={this.handleUpdate}/>
           </Modal.Body>
           <Modal.Footer>
@@ -271,6 +313,7 @@ class InfoCompte extends Component {
       </Modal>
         </div>
         </div>
+        </div>
       );
     }
 }
@@ -280,8 +323,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    setSession: (name,id,prenom,mail,image,telephone,description,login,token) => {
-      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token))
+    setSession: (name,id,prenom,mail,image,telephone,description,login,token,visible) => {
+      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token,visible))
     }
   }
 };
