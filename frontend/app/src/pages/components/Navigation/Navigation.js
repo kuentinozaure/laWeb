@@ -55,7 +55,7 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                <a href="#infoCompte" exact={true} activeClassName='is-active'  className="menu_text">
+                <a href="#member" exact={true} activeClassName='is-active'  className="menu_text">
                   Gestion
                 </a>
                 </li>

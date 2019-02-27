@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import setSession from './../actions/setSession'
 import axios from 'axios';
 import { SERVER_URL } from "../consts";
+import Swal from 'sweetalert2';
 
 class Connexion extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class Connexion extends React.Component {
           id:0,
           login: '',
           mdp: '',
+
           logDebug : 'laweb@admin',
           mdpDebug : 'azerty',
           resultatConnexion : [],
@@ -19,23 +21,52 @@ class Connexion extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-       handleSubmit() {
+       async handleSubmit() {
+         let tab =[];
          const url = SERVER_URL+"connexion/"+this.state.login+"/"+this.state.mdp+"/" ;
-         axios.get(url)
+         await axios.get(url)
            .then(response => {
+             tab =response.data
              this.setState({
-               resultatConnexion : response.data,
+               id:response.data.id,
+               name :response.data.nom,
+               prenom:response.data.prenom,
+               mail:response.data.mail,
+               image:response.data.image,
+               telephone:response.data.telephone,
+               description : response.data.description,
+               token :response.data.token,
+               resultatConnexion : tab,
              })
            })
            .catch(error => {
              console.log(error);
            });
 
-           if(this.state.resultatConnexion.isConnect == true){//si il est connecte
-             this.props.setSession(this.state.resultatConnexion.nom,this.state.resultatConnexion.id,this.state.resultatConnexion.prenom,this.state.resultatConnexion.mail,this.state.resultatConnexion.image,this.state.resultatConnexion.telephone,this.state.resultatConnexion.description,this.state.resultatConnexion.login,this.state.resultatConnexion.token);
-             console.log("a "+this.props.setSession);
-             this.props.history.push(process.env.PUBLIC_URL + "/member");
-           }
+          this.remplissageReducer();
+        }
+
+        remplissageReducer(){
+          if(this.state.resultatConnexion.isConnect == true){//si il est connecte
+            this.props.setSession(
+              this.state.resultatConnexion.nom,
+              this.state.resultatConnexion.id,
+              this.state.resultatConnexion.prenom,
+              this.state.resultatConnexion.mail,
+              this.state.resultatConnexion.image,
+              this.state.resultatConnexion.telephone,
+              this.state.resultatConnexion.description,
+              this.state.resultatConnexion.token,
+              this.state.resultatConnexion.login,
+            );
+            this.props.history.push(process.env.PUBLIC_URL + "/member");
+          }else{
+            Swal.fire(
+              'Erreur!',
+              'Vous n etes pas connecté',
+              'warning'
+            )
+          }
         }
 
       display(){
