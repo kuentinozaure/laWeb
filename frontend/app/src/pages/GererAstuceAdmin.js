@@ -9,7 +9,7 @@ class GererAstuceAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activites: []
+            Astuces: []
         };
       }
 
@@ -22,7 +22,7 @@ class GererAstuceAdmin extends Component {
               tab.push(response.data[i]);
             }
             this.setState({
-              activites: tab,
+              Astuces: tab,
             });
           })
           .catch(error => {
@@ -33,23 +33,23 @@ class GererAstuceAdmin extends Component {
       }
 
       display(){
-        let listeActivite =[]
-        let content = this.state.activites.map((activite, index) => {
+        let listeAstuce =[]
+        let content = this.state.Astuces.map((Astuce, index) => {
 
-          listeActivite.push(
+          listeAstuce.push(
               < AstuceNonValide
-                id={activite.id}
-                titre={activite.titre}
-                message={activite.message}
-                description={activite.description}
-                lienAstuce={activite.lienAstuce}
-                auteur={activite.auteur}
-                type_astuce={activite.type_astuce}
+                id={Astuce.id}
+                titre={Astuce.titre}
+                message={Astuce.message}
+                description={Astuce.description}
+                lienAstuce={Astuce.lienAstuce}
+                auteur={Astuce.auteur}
+                type_astuce={Astuce.type_astuce}
                 />
             );
         });
 
-        return content = listeActivite;
+        return content = listeAstuce;
       }
 
       render() {

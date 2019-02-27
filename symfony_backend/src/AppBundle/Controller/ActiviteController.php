@@ -214,7 +214,7 @@ class ActiviteController extends Controller
            $activity = $em->getRepository('AppBundle:Activite')
                        ->find($request->get('id'));
            if (empty($activity)) {
-             return new JsonResponse(['message' => 'Activitynot found'], Response::HTTP_NOT_FOUND);
+             return new JsonResponse(['message' => 'Activity not found'], Response::HTTP_NOT_FOUND);
            }
            $em->remove($activity);
            $em->flush();

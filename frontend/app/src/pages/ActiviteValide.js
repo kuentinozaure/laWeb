@@ -34,10 +34,10 @@ class ActiviteValide  extends React.Component {
                 <td>{this.props.salle}</td>
                 <td>{this.props.nombrePlaceDispo}</td>
                 <td className="text-right">
-                <a className='btn btn btn-info btn-sm' href="#gererAstuceAdmin"onClick={this.handleModify}>
+                <a className='btn btn btn-info btn-sm' href="#gererActiviteAdmin"onClick={this.handleModify}>
                         Modifier
                 </a>
-                <a className='btn btn btn-danger btn-sm' href="#gererAstuceAdmin" onClick={this.handleDelete}>
+                <a className='btn btn btn-danger btn-sm' href="#gererActiviteAdmin" onClick={this.handleDelete}>
                         Supprimer
                 </a>  
                 </td>
