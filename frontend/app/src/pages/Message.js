@@ -42,7 +42,7 @@ class Message  extends React.Component {
            <div className="pretty p-default p-curve p-toggle">
              <input type="checkbox" disabled />
              <div className="state p-success p-off">
-                 <label><h7>lue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h7> </label>
+                 <label><h7>lu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h7> </label>
              </div>
           </div>
          )
@@ -52,7 +52,7 @@ class Message  extends React.Component {
            <div className="pretty p-default p-curve p-toggle">
              <input type="checkbox" disabled />
              <div className="state p-danger p-off">
-                 <label><h7>&nbsp;non lue </h7> </label>
+                 <label><h7>&nbsp;non lu </h7> </label>
              </div>
           </div>
         )

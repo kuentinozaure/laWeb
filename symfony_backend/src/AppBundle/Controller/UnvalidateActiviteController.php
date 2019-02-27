@@ -58,6 +58,7 @@ class UnvalidateActiviteController extends Controller
                          'placeDisponible' => $activity->getPlaceDisponible(),
                          'placeRestante' =>$activity->getPlaceDisponible()-$placeDispo,
                          'categorie' => $categorie[0]->getIntitule(),
+                         'estValide' => $activity->getEstValide(),
                          'valide_par' => "NULL",
                       ];
                 }
