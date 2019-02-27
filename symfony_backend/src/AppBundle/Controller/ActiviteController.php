@@ -257,9 +257,7 @@ class ActiviteController extends Controller
                     ->setDateDebut($dateDebut)
                     ->setDateFin($dateFin)
                     ->setSalle($salle)
-                    ->setPlaceDisponible($placeDisponible)
-                    ->setIdCategorieActivite($categorie[0])
-                    ->setAnimateur($animateur);
+                    ->setPlaceDisponible($placeDisponible);
 
          $em->persist($act[0]);
          $em->flush();
