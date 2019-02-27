@@ -5,12 +5,9 @@ import NavbarMembres from './NavbarMembres.js';
 import "./FormulaireCard.css";
 import {Button,Modal} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2';
-import axios from 'axios';
+import Swal from 'sweetalert2'
 
 import { SERVER_URL } from "../consts";
-
-import "./InfoCompte.css"
 
 const styles = {
   fontFamily: "sans-serif",
@@ -31,7 +28,7 @@ class InfoCompte extends Component {
       show1: false,
       show2:false,
       
-      //listeUfr : []
+      
     };
   }
 
@@ -48,10 +45,10 @@ class InfoCompte extends Component {
       handleShow1 = () => {
         this.setState({ show1: true });
       }
-      handleDelete = () => {
+      handleShow2 = () => {
         Swal.fire({
           title: 'Etes vous sur de supprimer votre compte  ?',
-          text: "Vous ne pourrez pas revenir en arrière",
+          text: "Vous ne pourrez pas revenir en arriere",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -59,7 +56,6 @@ class InfoCompte extends Component {
           confirmButtonText: 'Oui , je suis sur'
         }).then((result) => {
           if (result.value) {
-            axios.delete(SERVER_URL + "members/"+this.props.id+"/");
             Swal.fire(
               'Supprimer!',
               'votre compte a ete supprimer',
@@ -97,28 +93,28 @@ class InfoCompte extends Component {
           <div className="row col-md-12 col-md-offset-2 custyle">
             <table className="table table-striped custab">
               <thead>
-                <tr className="info">
-                  <th className="case">Nom</th>
-                  <th className="case">Prenom</th>
-                  <th className="case">email</th>
-                  <th className="case">Telephone</th>
-                  <th className="case">Description</th>
-                  <th className="case">Identifiant</th>
-                  <th className="case">Action</th>
+                <tr>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>email</th>
+                  <th>Telephone</th>
+                  <th>Description</th>
+                  <th>Identifiant</th>
+                  <th className="text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="warning">
-                    <th className="case"h>laweb</th>
-                    <th  className="case">admin </th>
-                    <th className="case">laweb@admin</th>
-                    <th className="case">02020202</th>
-                    <th className="case">je suis bien</th>
-                    <th className="case">laweb@admin</th>
-                    <th className="case">
+                <tr>
+                    <th>laweb</th>
+                    <th>admin </th>
+                    <th>laweb@admin</th>
+                    <th>02020202</th>
+                    <th>je suis bien</th>
+                    <th>laweb@admin</th>
+                    <th className="text-center">
                       <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
                       <button type="button" onClick={this.handleShow1} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
-                      <button type="button" onClick={this.handleDelete}  class="btn btn-warning btn-lg"> Supprimer </button>
+                      <button type="button" onClick={this.handleShow2}  class="btn btn-warning btn-lg"> Supprimer </button>
                     </th>
                   </tr>
               </tbody>
