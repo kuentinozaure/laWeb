@@ -88,7 +88,7 @@ class AstuceValide  extends React.Component {
                 <a className='btn btn btn-info btn-sm' onClick={this.handleShow}>
                         Modifier
                 </a>
-                <a className='btn btn btn-danger btn-sm' href="#listeAstuceAdmin" onClick={this.handleDelete}>
+                <a className='btn btn btn-danger btn-sm' onClick={this.handleDelete}>
                         Supprimer
                 </a>
                 </td>

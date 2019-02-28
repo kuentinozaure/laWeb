@@ -8,6 +8,7 @@ const initialState = {
     description:	"",
     login:	"",
     token: "",
+    visible : false,
     isConnected: false,
 }
 
@@ -26,6 +27,7 @@ const initialState = {
                   login:	action.login,
                   token: action.token,
                   isConnected: true,
+                  visible: action.visible
               };
           case "REMOVE_SESSION":
               return {

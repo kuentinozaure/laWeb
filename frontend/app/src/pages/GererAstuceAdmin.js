@@ -39,12 +39,13 @@ class GererAstuceAdmin extends Component {
           listeAstuce.push(
               < AstuceNonValide
                 id={Astuce.id}
+                image={Astuce.image}
                 titre={Astuce.titre}
                 message={Astuce.message}
                 description={Astuce.description}
                 lienAstuce={Astuce.lienAstuce}
                 auteur={Astuce.auteur}
-                type_astuce={Astuce.type_astuce}
+                type_astuce={Astuce.categorieAstuce}
                 />
             );
         });
@@ -69,6 +70,7 @@ class GererAstuceAdmin extends Component {
                                 <th>Lien astuce</th>
                                 <th>Auteur</th>
                                 <th>Type astuce</th>
+                                <th>Image</th>
                                 <th className="text-center">Action</th>
                             </tr>
                         </thead>

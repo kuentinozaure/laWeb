@@ -19,13 +19,20 @@ class Astuce extends Component {
 
         this.state = {
           show: false,
+
           titre: '',
           description: '',
-          nom: '',
+          message : '',
+          auteur:'',
           lien: '',
+          image : '',
+          chooseCateg : 1,
+
           astuces : [],
           astuceSearch : "",
-          type: "Faculté"
+          type: "Faculté",
+          categories :[],
+
         };
 
 
@@ -36,7 +43,28 @@ class Astuce extends Component {
       }
 
       handleShow() {
-        this.setState({ show: true });
+          axios.get(SERVER_URL + "astucesCategories/")
+           .then(response => {
+             let i
+             let tab =[]
+
+             for (i = 0; i < response.data.length; i++) {
+               tab.push(response.data[i]);
+             }
+             this.setState({ show: true,categories:tab,});
+           })
+           .catch(error => {
+             console.log(error);
+           });
+      }
+
+      displayCateg(){
+        let listUfr = [];
+        let content
+        content = this.state.categories.map((categ, index) =>{
+          listUfr.push(<option id={categ.id}>{categ.id} - {categ.intitule}</option>)
+        })
+        return content = listUfr
       }
 
       componentDidMount() {
@@ -201,11 +229,11 @@ class Astuce extends Component {
 
 }}
 
+
 handleSubmit(event) {
-    const url ="http://laweb.alwaysdata.net/?choix=20&nom="+this.state.titre+"&description="+this.state.description+"&auteur="+this.state.nom+"&lien="+this.state.lien+"&type="+this.state.type
-    console.log(url);
-    alert(url);
-    axios.get(url)
+    //const url ="http://laweb.alwaysdata.net/?choix=20&nom="+this.state.titre+"&description="+this.state.description+"&auteur="+this.state.nom+"&lien="+this.state.lien+"&type="+this.state.type
+    const url = SERVER_URL + "astuce/?titre="+this.state.titre+"&message="+this.state.message+"&description="+this.state.description+"&lienAstuce="+this.state.lien+"&auteur="+this.state.auteur+"&image="+this.state.image+"&idAstuce="+this.state.chooseCateg
+    axios.post(url)
       .then(response => {
         this.handleClose();
       })
@@ -213,6 +241,7 @@ handleSubmit(event) {
         console.log(error);
       });
     }
+    
     render() {
         return (
             <div>
@@ -247,13 +276,18 @@ handleSubmit(event) {
                 <h2 className="text-center">Vous voulez proposer une astuce ?</h2>
                 <h4 className="text-center">Vous avez une idée d'astuce qui pourrait aider d'autres utilisateurs et qui touche à l'informatique ? Faites-nous en part !</h4>
 
-                <form id="register-form" role="form" autoComplete="off" className="form"  onSubmit={this.handleSubmit}>
                       <div className="form-group">
                                     <div className="input-group">
                                       <span className="input-group-addon"><i className="glyphicon glyphicon-chevron-right" aria-hidden="true"></i></span>
                                       <input id="titre" name="titre" placeholder="Titre" required="Remplir le titre" className="form-control"  type="text" onChange={e => this.setState({titre: e.target.value})}/>
                                     </div>
                                   </div>
+                                  <div className="form-group">
+                                                <div className="input-group">
+                                                  <span className="input-group-addon"><i className="glyphicon glyphicon-chevron-right" aria-hidden="true"></i></span>
+                                                  <input id="msg" name="msg" placeholder="Message" required="Remplir le titre" className="form-control"  type="text" onChange={e => this.setState({message: e.target.value})}/>
+                                                </div>
+                                              </div>
 
                         <div className="form-group">
                                     <div className="input-group">
@@ -262,10 +296,18 @@ handleSubmit(event) {
                                     </div>
                                   </div>
 
+                                  <div className="form-group">
+                                    <div className="input-group">
+                                      <span className="input-group-addon"><i className="fa fa-camera-retro fa" aria-hidden="true"></i></span>
+                                      <input id="image" name="image"  placeholder="Image" required className="form-control"  type="text" onChange={e => this.setState({image: e.target.value})}/>
+                                      <img src={this.state.image} width="50" height="50"/>
+                                    </div>
+                                  </div>
+
                       <div className="form-group">
                                     <div className="input-group">
                                       <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                      <input id="auteur" name="auteur" placeholder="Auteur de l'astuce" required="Remplir le nom de l'auteur" className="form-control"  type="text" onChange={e => this.setState({nom: e.target.value})}/>
+                                      <input id="auteur" name="auteur" placeholder="Auteur de l'astuce" required="Remplir le nom de l'auteur" className="form-control"  type="text" onChange={e => this.setState({auteur: e.target.value})}/>
                                     </div>
                                   </div>
 
@@ -277,15 +319,14 @@ handleSubmit(event) {
                                   </div>
 
                         <div className="form-group">
-                              <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({type: e.target.value})}>
-                              <option id="1">Faculté</option>
-                              <option id="2">Bureautique</option>
-                              <option id="3">Apprends avec nous</option>
-                              </select>
+                        <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({chooseCateg: e.target.value.substring(0, 1)})}>
+                          {
+                            this.displayCateg()
+                          }
+                        </select>
                             </div>
 
-                        <input type="submit" className="center-block btn btn-danger" value="Proposer une activité" />
-                        </form>
+                        <input type="button" className="center-block btn btn-danger" onClick={this.handleSubmit} value="Proposer une activité" />
               </Modal.Body>
               <Modal.Footer>
                 <Button onClick={this.handleClose}>FERMER</Button>

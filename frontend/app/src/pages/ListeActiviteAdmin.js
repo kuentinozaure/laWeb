@@ -42,6 +42,7 @@ class GererActiviteAdmin extends Component {
       display(){
         let listeActivite =[]
         let content = this.state.activites.map((activite, index) => {
+          console.log(activite);
     
           listeActivite.push(
               < ActiviteValide 
@@ -51,7 +52,7 @@ class GererActiviteAdmin extends Component {
                 dateDebut={activite.dateDebut}
                 dateFin={activite.dateFin}
                 salle={activite.salle}
-                nombrePlaceDispo={activite.nombrePlaceDispo}
+                nombrePlaceDispo={activite.placeDisponible}
                 />
             );
         });
