@@ -2,8 +2,11 @@ import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
 import AstuceNonValide from './AstuceNonValide.js';
 import axios from 'axios';
+import Page404 from './404'
 
 import { SERVER_URL } from "../consts";
+
+import { connect } from 'react-redux';
 
 class GererAstuceAdmin extends Component {
     constructor(props) {
@@ -54,6 +57,7 @@ class GererAstuceAdmin extends Component {
       }
 
       render() {
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -83,7 +87,14 @@ class GererAstuceAdmin extends Component {
                 </div>
 
         );
+      }else{
+          return(<Page404/>)
       }
+    }
 }
-
-export default GererAstuceAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+export default connect(mapStateToProps,null)(GererAstuceAdmin)

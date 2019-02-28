@@ -71,7 +71,31 @@ class ListeActivite extends Component {
   }
 
   componentDidMount() {
-    const url = SERVER_URL+"activity/";
+
+    axios.all([
+      axios.get(SERVER_URL+"activity/"),
+      axios.get(SERVER_URL + "categorieActivity/")
+    ])
+    .then(axios.spread((responseA, responseC) => {
+      let tab =[]
+      let i;
+      for (i = 0; i < responseA.data.length; i++) {
+        tab.push(responseA.data[i]);
+      }
+
+      let ii
+        let tabb =[]
+        for (ii = 0; ii < responseC.data.length; ii++) {
+          tabb.push(responseC.data[ii]);
+        }
+
+        this.setState({
+          activities:tab,
+          categories:tabb,
+        })
+    }));
+
+   /*  const url = SERVER_URL+"activity/";
     axios.get(url)
       .then(response => {
         let tab =[]
@@ -84,9 +108,9 @@ class ListeActivite extends Component {
         });
       })
       .catch(error => {
-      });
+      }); */
 
-      axios.get(SERVER_URL + "categorieActivity/")
+      /* axios.get(SERVER_URL + "categorieActivity/")
       .then(response => {
         let i
         let tab =[]
@@ -96,7 +120,8 @@ class ListeActivite extends Component {
         this.setState({categories:tab,});
       })
       .catch(error => {
-      });
+      }); */
+
   }
 
   display(){

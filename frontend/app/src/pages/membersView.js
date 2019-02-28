@@ -4,6 +4,7 @@ import NavbarMembres from './NavbarMembres.js';
 import { connect } from 'react-redux';
 
 import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
 
 class membersView extends Component {
     constructor(props) {
@@ -28,7 +29,7 @@ class membersView extends Component {
      }
 
     render() {
-        console.log(this.props.sessionConnect);
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
                 <NavbarMembres />
@@ -43,8 +44,9 @@ class membersView extends Component {
             </div>
 
         );
-      }
-}
+      }else{
+          return(<Page404/>)
+      }}}
 
 const mapStateToProps = state => {
     return {
