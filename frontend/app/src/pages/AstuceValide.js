@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import {Button,Modal} from 'react-bootstrap';
 import { SERVER_URL } from "../consts";
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
 class AstuceValide  extends React.Component {
@@ -38,6 +39,11 @@ class AstuceValide  extends React.Component {
 
       handleDelete() {
         axios.delete(SERVER_URL + "astuce/"+this.props.id+"/");
+        Swal.fire(
+          'Activite',
+          'Votre Activite est supprimé',
+          'success'
+        )
       }
 
       handleClose() {
