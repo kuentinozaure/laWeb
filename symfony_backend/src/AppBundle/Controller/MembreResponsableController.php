@@ -188,7 +188,7 @@ class MembreResponsableController extends Controller
   }
 
   /**
-   * @Route("/member/{idMember}/", name="validate_member", methods={"PUT"})
+   * @Route("/member/{idMember}/", name="validate_members", methods={"PUT"})
    */
   public function validateMember(Request $request)
   {

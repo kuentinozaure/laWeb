@@ -22,9 +22,9 @@ class MembreValide  extends React.Component {
                 <td>{this.props.mail}</td>
                 <td>{this.props.description}</td>
                 <td className="text-right">
-                <a className='btn btn btn-info btn-sm' href="#">
+                {/*<a className='btn btn btn-info btn-sm' href="#">
                         Modifier
-                </a>
+        </a>*/}
                 </td>
             </tr>
             </React.Fragment> 
