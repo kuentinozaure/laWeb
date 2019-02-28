@@ -55,7 +55,7 @@ class ActiviteValide  extends React.Component {
                         <td>{this.state.dateDebut}</td>
                         <td>{this.state.dateFin}</td>
                         <td>{this.state.salle}</td>
-                        <td>{this.state.nombrePlaceDispo}</td>
+                        <td>{this.state.nbPlaces}</td>
                         <td className="text-right">
                         <a className='btn btn btn-info btn-sm' onClick={this.handleShow}>
                                 Modifier
