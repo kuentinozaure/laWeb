@@ -69,7 +69,8 @@ class ListeMembreAdmin extends Component {
                                 <th>Telephone</th>
                                 <th>Mail</th>
                                 <th>Description</th>
-                                <th className="text-center">Action</th>
+                                {//<th className="text-center">Action</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>

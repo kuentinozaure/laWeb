@@ -215,7 +215,7 @@ class GererMembreAdmin extends Component {
                         </div>
 
                         <div className="form-group">
-                          <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufrSelected: e.target.value.substring(0, 1)})}>
+                          <select className="form-control" require="true"  id="ufr" onChange={e => this.setState({ufr: e.target.value.substring(0, 1)})}>
                           {
                             this.displayUfr()
                           }
