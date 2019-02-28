@@ -4,6 +4,8 @@ import Message from './Message.js';
 import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
+import { connect } from 'react-redux';
 
 class GererMessageAdmin extends Component {
     constructor(props) {
@@ -53,6 +55,8 @@ class GererMessageAdmin extends Component {
       }
 
       render() {
+
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -80,7 +84,14 @@ class GererMessageAdmin extends Component {
                 </div>
 
         );
+      }else{
+        return(<Page404/>)
       }
+    }
 }
-
-export default GererMessageAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+export default connect(mapStateToProps,null)(GererMessageAdmin)

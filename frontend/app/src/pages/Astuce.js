@@ -69,7 +69,30 @@ class Astuce extends Component {
 
       componentDidMount() {
 
-        axios.get(SERVER_URL + "astuce/")
+        axios.all([
+          axios.get(SERVER_URL+"astuce/"),
+          axios.get(SERVER_URL + "astucesCategories/")
+        ])
+        .then(axios.spread((responseA, responseC) => {
+          let tab =[]
+          let i;
+          for (i = 0; i < responseA.data.length; i++) {
+            tab.push(responseA.data[i]);
+          }
+    
+          let ii
+            let tabb =[]
+            for (ii = 0; ii < responseC.data.length; ii++) {
+              tabb.push(responseC.data[ii]);
+            }
+    
+            this.setState({
+              astuces:tab,
+              categories:tabb,
+            })
+        }));
+
+        /* axios.get(SERVER_URL + "astuce/")
           .then(response => {
             let i
             let tab =[]
@@ -96,7 +119,7 @@ class Astuce extends Component {
            })
            .catch(error => {
              console.log(error);
-           });
+           }); */
          }
 
       handleSearch(e){

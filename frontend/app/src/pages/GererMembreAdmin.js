@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
 import MembreNonValide from './MembreNonValide.js'
 import Swal from 'sweetalert2';
+import Page404 from './404'
 
 import axios from 'axios';
 
@@ -133,6 +134,8 @@ class GererMembreAdmin extends Component {
       }
 
     render(){
+
+      if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -238,18 +241,14 @@ class GererMembreAdmin extends Component {
                 </div>
               </div>
         );
+      }else{
+        return(<Page404/>)
       }
+    }
     }
 
     const mapStateToProps = state => {
       return { sessionConnect: state.sessionReducer}
     };
-    const mapDispatchToProps = dispatch => {
-      return {
-        setSession: (name,id,prenom,mail,image,telephone,description,login,token) => {
-          dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token))
-        }
-      }
-    };
 
-export default connect(mapStateToProps,mapDispatchToProps)(GererMembreAdmin)
+export default connect(mapStateToProps,null)(GererMembreAdmin)

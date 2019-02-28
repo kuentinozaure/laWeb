@@ -145,7 +145,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  console.log("ok");
   return {
     removeSession: (name) => {
       dispatch(removeSession())

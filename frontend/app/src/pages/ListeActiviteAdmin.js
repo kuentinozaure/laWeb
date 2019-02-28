@@ -5,6 +5,8 @@ import {Button,Modal} from 'react-bootstrap';
 import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
+import { connect } from 'react-redux';
 
 class ListeActiviteAdmin extends Component {
     constructor(props) {
@@ -70,6 +72,7 @@ class ListeActiviteAdmin extends Component {
         }
 
       render() {
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -98,7 +101,16 @@ class ListeActiviteAdmin extends Component {
                 </div>
 
         );
+      }else if(this.props.sessionConnect.isConnected == false || this.props.sessionConnect.isConnected == null){
+          return(<Page404/>)
       }
+    }
 }
 
-export default ListeActiviteAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+
+export default connect(mapStateToProps,null)(ListeActiviteAdmin)
