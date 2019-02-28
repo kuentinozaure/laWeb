@@ -11,6 +11,7 @@ class Message  extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.state = {
             show: false,
+            estLu:this.props.estLu,
           };
       }
 
@@ -19,24 +20,53 @@ class Message  extends React.Component {
       }
       handleShow = () => {
         this.setState({ show: true });
+        Axios.put(SERVER_URL + "reading/"+this.props.id+"/");
+        this.setState({
+          estLu:true,
+        })
+
       }
       handleDelete() {
 
         Axios.delete(SERVER_URL + "message/"+this.props.id+"/");
-    
+
     }
-   
+
      mailto =() =>{
 
      }
 
+     displayEstLu(){
+       if (this.state.estLu===true){
+         return(
+           <div className="pretty p-default p-curve p-toggle">
+             <input type="checkbox" disabled />
+             <div className="state p-success p-off">
+                 <label><h7>lu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h7> </label>
+             </div>
+          </div>
+         )
+
+       }else{
+         return(
+           <div className="pretty p-default p-curve p-toggle">
+             <input type="checkbox" disabled />
+             <div className="state p-danger p-off">
+                 <label><h7>&nbsp;non lu </h7> </label>
+             </div>
+          </div>
+        )
+       }
+     }
+
+
 
     render() {
         return (
-            <React.Fragment> 
+            <React.Fragment>
             <tr>
                 <td>{this.props.nom}</td>
-                <td>{this.props.prenom}</td>    
+                <td>{this.props.prenom}</td>
                 <td>{this.props.mail}</td>
                 <td>{this.props.message}</td>
                 <td>{this.props.categorieMessage}</td>
@@ -44,15 +74,7 @@ class Message  extends React.Component {
                 <div>
                 <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg"> Details</button>
                 <button type="button" onClick={this.handleDelete} class="btn btn-danger btn-lg"> Supprimer</button>
-                <div className="pretty p-default p-curve p-toggle">
-                    <input type="checkbox" />
-                        <div className="state p-success p-on">
-                            <label><h7>message lue </h7></label>
-                        </div>
-                        <div className="state p-danger p-off">
-                            <label><h7>message non  lue </h7> </label>
-                        </div>
-                 </div>
+                  {this.displayEstLu()}
                  </div>
                 </td>
             </tr>
@@ -62,16 +84,16 @@ class Message  extends React.Component {
 <Modal.Body>
                 <h4>Message</h4>
                 <form id="register-form" role="form" autoComplete="off" className="form"  >
-                    
+
                         <div className="form-group">
-                        
+
                         <h3>Nom :</h3>
-                        
+
                                     <div className="input-group">
                                         {this.props.nom}
                                     </div>
                                     </div>
-                        
+
                         <div className="form-group">
                         <h3>Prénom :</h3>
                                     <div className="input-group">
@@ -84,26 +106,26 @@ class Message  extends React.Component {
                         <h3>Mail :</h3>
                                     <div className="input-group">
 
-                                      {this.props.mail}  
+                                      {this.props.mail}
                                      </div>
                                     </div>
                                     <div className="form-group">
-                        
+
                         <h3>Sujet du  message :</h3>
                                     <div className="input-group">
                                     {this.props.categorieMessage}
                                      </div>
-                                    </div> 
+                                    </div>
 
                         <div className="form-group">
                         <h3>Message :</h3>
                                     <div className="input-group">
-                                    {this.props.message} 
+                                    {this.props.message}
                                     </div>
                                     </div>
 
-                        
-                            <a HREF={"mailto:" + this.props.mail} class="btn btn-success btn-lg active" role="button" title="Répondre">Répondre</a>             
+
+                            <a HREF={"mailto:" + this.props.mail} class="btn btn-success btn-lg active" role="button" title="Répondre">Répondre</a>
                                </form>
                 </Modal.Body>
             <Modal.Footer>
@@ -111,8 +133,8 @@ class Message  extends React.Component {
             </Modal.Footer>
 </Modal>
 </div>
-            </React.Fragment> 
-            
+            </React.Fragment>
+
         );
       }
 }

@@ -6,17 +6,13 @@ import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
 
-class GererActiviteAdmin extends Component {
+class ListeActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
             activites: [],
             show: false
         };
-
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
       }
 
       componentDidMount() {
@@ -62,16 +58,6 @@ class GererActiviteAdmin extends Component {
         return content = listeActivite;
       }
       
-      handleShow(){
-        this.setState({
-            show : true
-        })
-      }
-
-      handleClose() {
-        this.setState({ show: false });
-      }
-
       handleSubmit(event) {
         const url = ''
         axios.get(url)
@@ -91,9 +77,6 @@ class GererActiviteAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddActivity}>
-                            Proposer une activité
-                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
@@ -112,22 +95,10 @@ class GererActiviteAdmin extends Component {
                         </table>
                         </div>
                     </div>
-
-                    <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>
-          <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
-          <h3 className="text-center">Inscrivez vous ici</h3>
-
-          salut
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.handleClose}>FERMER</Button>
-        </Modal.Footer>
-      </Modal>
                 </div>
 
         );
       }
 }
 
-export default GererActiviteAdmin;
+export default ListeActiviteAdmin;
