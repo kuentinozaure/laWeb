@@ -87,7 +87,6 @@ class ListeActivite extends Component {
         for (ii = 0; ii < responseC.data.length; ii++) {
           tabb.push(responseC.data[ii]);
         }
-
         this.setState({
           activities:tab,
           categories:tabb,

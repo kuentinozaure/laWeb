@@ -31,6 +31,11 @@ class AstuceValide  extends React.Component {
         axios.put(url)
           .then(response => {
             this.handleClose();
+            Swal.fire(
+              'Activite',
+              'Votre Activite a ete mise a jour',
+              'success'
+            )
           })
           .catch(error => {
             console.log(error);
