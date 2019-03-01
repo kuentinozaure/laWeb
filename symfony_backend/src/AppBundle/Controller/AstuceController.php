@@ -21,8 +21,7 @@ class AstuceController extends Controller
                         ->getRepository('AppBundle:Astuce')
                         ->findBy(array(
                             'estValide' => 1,
-                        ));
-
+                        ),array('titre' => 'asc'));
         if (empty($astuces))
         {
           return new JsonResponse(['message' => 'Astuces not found']);
@@ -122,7 +121,7 @@ class AstuceController extends Controller
     {
         $astuces = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:CategorieAstuce')
-                        ->findAll();
+                        ->findBy(array(),array('intitule' => 'asc'));
 
 
         if (empty($astuces))

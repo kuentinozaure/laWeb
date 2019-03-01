@@ -21,7 +21,7 @@ class ActiviteController extends Controller
   {
       $categ = $this->get('doctrine.orm.entity_manager')
                       ->getRepository('AppBundle:CategorieActivite')
-                      ->findAll();
+                      ->findBy(array(),array('intitule' => 'asc'));
 
       if (empty($categ))
       {
@@ -46,8 +46,7 @@ class ActiviteController extends Controller
                         ->getRepository('AppBundle:Activite')
                         ->findBy(array(
                             'estValide' => 1,
-
-                        ));
+                        ),array('titre' => 'asc'));
 
         if (empty($activites))
         {
@@ -340,7 +339,7 @@ class ActiviteController extends Controller
     {
         $categories = $this->get('doctrine.orm.entity_manager')
                         ->getRepository('AppBundle:CategorieActivite')
-                        ->findAll();
+                        ->findBy(array(),array('intitule' => 'asc'));
 
 
         if (empty($categories))
