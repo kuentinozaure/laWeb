@@ -143,7 +143,11 @@ class GererMembreAdmin extends Component {
             this.handleClose()
           })
           .catch(error => {
-            console.log(error);
+            Swal.fire(
+              'Erreur!',
+              'Veuillez renseigner un login different',
+              'warning'
+            )
           });
       }
 

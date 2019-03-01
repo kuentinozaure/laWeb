@@ -31,6 +31,11 @@ class ActiviteValide  extends React.Component {
 
     handleDelete() {
         axios.delete(SERVER_URL + "activity/"+this.props.id+"/"); 
+        Swal.fire(
+            'Succès!',
+            'Vous avez supprimer cette activtite',
+            'warning'
+          )
     }
 
     handleModify(){

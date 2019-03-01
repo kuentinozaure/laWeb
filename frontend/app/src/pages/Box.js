@@ -5,6 +5,7 @@ import Inscription from './Inscription.js'
 import axios from 'axios';
 import BoxParticipant from './BoxParticipant.js'
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2'
 
 import { SERVER_URL } from "../consts";
 
@@ -50,6 +51,11 @@ class Box extends Component {
     const url = SERVER_URL+"participe/?idActivity="+this.props.modnom+"&idParticipant="+this.state.idPersonne ;
     axios.post(url)
       .then(response => {
+        Swal.fire(
+          'Inscription',
+          'Vous vous etes bien inscrit a cette activite',
+          'success'
+        )
         this.handleClose();
 
         let places = this.state.place
@@ -135,6 +141,19 @@ class Box extends Component {
         .catch(error => {
           console.log(error);
         });
+
+       this.initState()
+    }
+
+    initState(){
+      if( this.props.sessionConnect.isConnected == true){
+        this.setState({
+            name:this.props.sessionConnect.name,
+            prenom:this.props.sessionConnect.prenom,
+            adresse:this.props.sessionConnect.mail,
+            numero:this.props.sessionConnect.telephone,
+        })      
+      }
     }
 
     closeParticipant(){
@@ -263,14 +282,14 @@ display(){
                 <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
+                                <input id="name" name="nom" value={this.props.sessionConnect.name} required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                               </div>
                             </div>
 
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" value={this.props.sessionConnect.prenom} required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
 
@@ -285,14 +304,14 @@ display(){
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
+                                <input id="email" name="email" value={this.props.sessionConnect.mail} required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
                               </div>
                             </div>
 
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" value={this.props.sessionConnect.telephone} required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 

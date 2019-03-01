@@ -4,6 +4,7 @@ import { FacebookProvider, Page, Share } from 'react-facebook';
 import axios from 'axios';
 import { Timeline } from 'react-twitter-widgets';
 import './/Section.css';
+import Swal from 'sweetalert2';
 
 import { SERVER_URL } from "../consts";
 
@@ -21,17 +22,18 @@ class Reseaux extends Component {
 
     handleSubmit(event) {
     const url = SERVER_URL + "newletter/?nom=" +this.state.nom + '&prenom='+ this.state.prenom +'&mail='+ this.state.adresse
-
       axios.post(url)
       .then(response => {
-        console.log("Abonnement enregistré")
+       
       })
       .catch(error => {
         console.log(error);
       });
-      alert(url);
-      console.log()
-      event.preventDefault();
+      Swal.fire(
+        'Succès!',
+        'Vous venez de vous inscrire a notre newsletter',
+        'success'
+      )
     }
     render() {
         return (
@@ -56,7 +58,7 @@ class Reseaux extends Component {
                                         <p>Pour être notifier par mail de nos activités</p>
                                         <div className="panel-body">
 
-                                            <form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
+                                            {/*<form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>*/}
 
                                                 <div class="form-group">
                                                     <div class="input-group">
@@ -79,8 +81,8 @@ class Reseaux extends Component {
                                                     </div>
                                                 </div>
 
-                                                <br></br><input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="S'inscrire" type="submit" />
-                                            </form>
+                                                <br></br><input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="S'inscrire" type="submit" onClick={this.handleSubmit} />
+                                            {/*</form>*/}
 
                                         </div>
                                     </div>

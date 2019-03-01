@@ -23,7 +23,7 @@ class ActiviteNonValide  extends React.Component {
         Swal.fire(
             'Activité',
             'Votre activité a été refusée',
-            'success'
+            'warning'
           )
     }
 

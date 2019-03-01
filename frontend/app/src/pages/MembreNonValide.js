@@ -15,7 +15,6 @@ class MembreNonValide  extends React.Component {
 
       handleValid(){
         const url = SERVER_URL + "member/"+this.props.id+"/"
-        alert(url)
         axios.put(url)
           .then(response => {
 
@@ -43,7 +42,7 @@ class MembreNonValide  extends React.Component {
           Swal.fire(
             'Succes!',
             'Vous avez refuser ce membre',
-            'success'
+            'warning'
           )
       }
 
