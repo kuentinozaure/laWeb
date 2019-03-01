@@ -4,6 +4,9 @@ import { FacebookProvider, Page, Share } from 'react-facebook';
 import axios from 'axios';
 import { Timeline } from 'react-twitter-widgets';
 import './/Section.css';
+import Swal from 'sweetalert2';
+
+import { SERVER_URL } from "../consts";
 
 
 class Reseaux extends Component {
@@ -14,22 +17,23 @@ class Reseaux extends Component {
             prenom: '',
             adresse:''
         }
-        this.handleSubmit = this.handleSubmit.bind(this);       
+        this.handleSubmit = this.handleSubmit.bind(this);
         }
 
     handleSubmit(event) {
-    const url = 'http://laweb.alwaysdata.net/?choix=18&nom='+this.state.nom + '&prenom='+ this.state.prenom +'&mail='+ this.state.adresse
-
-      axios.get(url)
+    const url = SERVER_URL + "newletter/?nom=" +this.state.nom + '&prenom='+ this.state.prenom +'&mail='+ this.state.adresse
+      axios.post(url)
       .then(response => {
-        console.log("Abonnement enregistré")
+       
       })
       .catch(error => {
         console.log(error);
       });
-      alert(url);
-      console.log()
-      event.preventDefault();
+      Swal.fire(
+        'Succès!',
+        'Vous venez de vous inscrire a notre newsletter',
+        'success'
+      )
     }
     render() {
         return (
@@ -54,18 +58,18 @@ class Reseaux extends Component {
                                         <p>Pour être notifier par mail de nos activités</p>
                                         <div className="panel-body">
 
-                                            <form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
+                                            {/*<form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>*/}
 
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                                        <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" required onChange={e => this.setState({ name: e.target.value })} />
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                        <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" required onChange={e => this.setState({ nom: e.target.value })} />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className="input-group">
-                                                        <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                        <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                                         <input id="prenom" name="prenom" placeholder="Prenom" className="form-control" type="text" required onChange={e => this.setState({ prenom: e.target.value })} />
                                                     </div>
                                                 </div>
@@ -77,8 +81,8 @@ class Reseaux extends Component {
                                                     </div>
                                                 </div>
 
-                                                <br></br><input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="S'inscrire" type="submit" />
-                                            </form>
+                                                <br></br><input name="recover-submit" className="btn btn-lg btn-primary btn-block" value="S'inscrire" type="submit" onClick={this.handleSubmit} />
+                                            {/*</form>*/}
 
                                         </div>
                                     </div>
@@ -95,7 +99,7 @@ class Reseaux extends Component {
                     options={{username:"AssociationLaW1",height: '545',width:'100%'}}/>
                 </div>
                 </div>
-                
+
                 <div className="col-sm-2">
                 </div>
                 <div className="col-sm-5" >

@@ -3,6 +3,10 @@ import NavbarMembres from './NavbarMembres.js';
 import MembreValide from './MembreValide.js'
 import axios from 'axios';
 
+import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
+import { connect } from 'react-redux';
+
 
 class ListeMembreAdmin extends Component {
     constructor(props) {
@@ -13,13 +17,12 @@ class ListeMembreAdmin extends Component {
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=2';
-        axios.get(url)
+        axios.get(SERVER_URL + "members/")
           .then(response => { 
             let i
             let tab =[]
-            for (i = 0; i < response.data.membres.length; i++) {
-              tab.push(response.data.membres[i]);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               membres: tab,
@@ -52,6 +55,7 @@ class ListeMembreAdmin extends Component {
       }
 
     render() {
+      if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -68,7 +72,8 @@ class ListeMembreAdmin extends Component {
                                 <th>Telephone</th>
                                 <th>Mail</th>
                                 <th>Description</th>
-                                <th className="text-center">Action</th>
+                                {//<th className="text-center">Action</th>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -80,7 +85,15 @@ class ListeMembreAdmin extends Component {
                 </div>
 
         );
+      }else{
+        return(<Page404/>)
       }
+    }
 }
 
-export default ListeMembreAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+export default connect(mapStateToProps,null)(ListeMembreAdmin)

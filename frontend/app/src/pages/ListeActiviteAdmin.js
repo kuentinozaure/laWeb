@@ -4,27 +4,27 @@ import ActiviteValide from './ActiviteValide.js';
 import {Button,Modal} from 'react-bootstrap';
 import axios from 'axios';
 
-class GererActiviteAdmin extends Component {
+import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
+import { connect } from 'react-redux';
+
+class ListeActiviteAdmin extends Component {
     constructor(props) {
         super(props);
         this.state = {
             activites: [],
             show: false
         };
-
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
       }
 
       componentDidMount() {
-        const url = 'http://laweb.alwaysdata.net/?choix=1';
-        axios.get(url)
+        axios.get(SERVER_URL + "activity/")
           .then(response => {
             let i
             let tab =[]
-            for (i = 0; i < response.data.activite.length; i++) {
-              tab.push(response.data.activite[i]);
+            console.log(response);
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
             }
             this.setState({
               activites: tab,
@@ -40,6 +40,7 @@ class GererActiviteAdmin extends Component {
       display(){
         let listeActivite =[]
         let content = this.state.activites.map((activite, index) => {
+          console.log(activite);
     
           listeActivite.push(
               < ActiviteValide 
@@ -49,7 +50,9 @@ class GererActiviteAdmin extends Component {
                 dateDebut={activite.dateDebut}
                 dateFin={activite.dateFin}
                 salle={activite.salle}
-                nombrePlaceDispo={activite.nombrePlaceDispo}
+                nombrePlaceDispo={activite.placeDisponible}
+                animateur={activite.animateur}
+                idCateg={activite.idCateg}
                 />
             );
         });
@@ -57,16 +60,6 @@ class GererActiviteAdmin extends Component {
         return content = listeActivite;
       }
       
-      handleShow(){
-        this.setState({
-            show : true
-        })
-      }
-
-      handleClose() {
-        this.setState({ show: false });
-      }
-
       handleSubmit(event) {
         const url = ''
         axios.get(url)
@@ -79,6 +72,7 @@ class GererActiviteAdmin extends Component {
         }
 
       render() {
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -86,9 +80,6 @@ class GererActiviteAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddActivity}>
-                            Proposer une activité
-                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
@@ -107,22 +98,19 @@ class GererActiviteAdmin extends Component {
                         </table>
                         </div>
                     </div>
-
-                    <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>
-          <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
-          <h3 className="text-center">Inscrivez vous ici</h3>
-
-          salut
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.handleClose}>FERMER</Button>
-        </Modal.Footer>
-      </Modal>
                 </div>
 
         );
+      }else if(this.props.sessionConnect.isConnected == false ){
+          return(<Page404/>)
       }
+    }
 }
 
-export default GererActiviteAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+
+export default connect(mapStateToProps,null)(ListeActiviteAdmin)

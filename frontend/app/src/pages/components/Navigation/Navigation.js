@@ -10,7 +10,7 @@ class Navigation extends Component {
 
     this.handleClick = this.handleClick.bind(this);
   }
-  
+
   handleClick(){
     this.props.removeSession("");
     console.log(this.props)
@@ -22,7 +22,7 @@ class Navigation extends Component {
       return (
         <div>
         <header id="header">
-        
+
           <div id="div_titre">
           {/* LOGO DU MIRAIL EN ATTENTE DE VALIDATION */}
             {/* <img src="images/logo_mirail.png" alt="logo_ut2j" id="div_logo_mirail" title="Université Jean Jaurès"/> */}
@@ -30,7 +30,7 @@ class Navigation extends Component {
             <h1>~ LaWeb ~</h1>
             <p>Association d'informatique</p>
           </div>
-    
+
           <div id="div_menu_hamburger">
             <nav id="menu">
                 <ul id="list_menu">
@@ -45,7 +45,7 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#astuces" exact={true}  className="menu_text">
                     Nos Astuces
                   </a>
                 </li>
@@ -55,19 +55,19 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                <a href="#infoCompte" exact={true} activeClassName='is-active'  className="menu_text">
+                <a href="#member" exact={true}   className="menu_text">
                   Gestion
                 </a>
-                </li>          
+                </li>
               </ul>
             </nav>
-      
+
             {/* div CONNEXION */}
             <div className="inter">
             <a href="#connexion" id="connexion" onClick={this.handleClick}>
               Se déconnecter
             </a>
-            
+
               {/* <a id="deconnexion" role="button" title="Se déconnecter" onCLick={this.handleClick}>Se déconnecter</a> */}
             </div>
           </div>
@@ -78,7 +78,7 @@ class Navigation extends Component {
       return (
         <div>
         <header id="header">
-        
+
           <div id="div_titre">
           {/* LOGO DU MIRAIL EN ATTENTE DE VALIDATION */}
             {/* <img src="images/logo_mirail.png" alt="logo_ut2j" id="div_logo_mirail" title="Université Jean Jaurès"/> */}
@@ -86,38 +86,38 @@ class Navigation extends Component {
             <h1>~ LaWeb ~</h1>
             <p>Association d'informatique</p>
           </div>
-    
+
           <div id="div_menu_hamburger">
             <nav id="menu">
                 <ul id="list_menu">
                 <li>
-                  <a href="#" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#" className="menu_text">
                     Viens Découvrir
                   </a>
                 </li>
                 <li>
-                  <a href="#activite"  exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#activite" className="menu_text">
                     Nos Activités
                   </a>
                 </li>
                 <li>
-                  <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#astuces" className="menu_text">
                     Nos Astuces
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" exact={true} activeClassName='is-active' className="menu_text" >
+                  <a href="#contact" className="menu_text" >
                     Contacts
                   </a>
                 </li>
                 <li>
-                <a href="#reseaux" exact={true} activeClassName='is-active'  className="menu_text">
+                <a href="#reseaux" className="menu_text">
                   Restons Connectés
                 </a>
-                </li>          
+                </li>
               </ul>
             </nav>
-      
+
             {/* div CONNEXION */}
             <div className="inter">
               <a href="#connexion" id="connexion" role="button" title="Se connecter">Se connecter</a>
@@ -125,7 +125,7 @@ class Navigation extends Component {
           </div>
         </header>
         </div>
-        
+
       );
     }
   }
@@ -134,7 +134,7 @@ class Navigation extends Component {
       <div>
         {this.display()}
       </div>
-    
+
       );
     }
 
@@ -145,10 +145,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  console.log("ok");
   return {
     removeSession: (name) => {
-      dispatch(removeSession(name))
+      dispatch(removeSession())
     }
   }
 }

@@ -1,5 +1,7 @@
 import React,{ Component } from 'react';
 
+import { SERVER_URL } from "../consts";
+
 class MembreValide  extends React.Component {
     constructor(props) {
         super(props);
@@ -20,9 +22,9 @@ class MembreValide  extends React.Component {
                 <td>{this.props.mail}</td>
                 <td>{this.props.description}</td>
                 <td className="text-right">
-                <a className='btn btn btn-info btn-sm' href="#">
+                {/*<a className='btn btn btn-info btn-sm' href="#">
                         Modifier
-                </a>
+        </a>*/}
                 </td>
             </tr>
             </React.Fragment> 
