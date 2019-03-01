@@ -5,6 +5,7 @@ import Inscription from './Inscription.js'
 import axios from 'axios';
 import BoxParticipant from './BoxParticipant.js'
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2'
 
 import { SERVER_URL } from "../consts";
 
@@ -32,6 +33,7 @@ class Box extends Component {
       newsletter: false,
       ufrSelected:1,
       participants:[],
+      place:this.props.modnbplaceRestante
       //listeUfr : []
     };
   }
@@ -49,7 +51,23 @@ class Box extends Component {
     const url = SERVER_URL+"participe/?idActivity="+this.props.modnom+"&idParticipant="+this.state.idPersonne ;
     axios.post(url)
       .then(response => {
+        Swal.fire(
+          'Inscription',
+          'Vous vous etes bien inscrit a cette activite',
+          'success'
+        )
         this.handleClose();
+
+        let places = this.state.place
+        if((places-1)>0){
+          this.setState({
+            place:places-1
+          })
+        }else{
+          this.setState({
+            place:0
+          })
+        }
       })
       .catch(error => {
         console.log(error);
@@ -123,6 +141,19 @@ class Box extends Component {
         .catch(error => {
           console.log(error);
         });
+
+       this.initState()
+    }
+
+    initState(){
+      if( this.props.sessionConnect.isConnected == true){
+        this.setState({
+            name:this.props.sessionConnect.name,
+            prenom:this.props.sessionConnect.prenom,
+            adresse:this.props.sessionConnect.mail,
+            numero:this.props.sessionConnect.telephone,
+        })      
+      }
     }
 
     closeParticipant(){
@@ -184,6 +215,19 @@ class Box extends Component {
       }
     }
 
+    displayButton(){
+      if(this.state.place>0){
+        return(
+          <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
+            INSCRIVEZ-VOUS
+          </Button>
+        )
+      }else{
+        return(
+          ""
+        )
+      }
+    }
 
 display(){
   if (this.props.sessionConnect.isConnected == true){
@@ -191,8 +235,8 @@ display(){
       <div>
         <div className="container">
           <div className="row">
-            <div className="container">
-              <div className="well">
+            <div className="container ">
+              <div className="well ">
                 <div className="media">
                 {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" width="100" height="100" alt="Image"/>*/}
                   <div className="media-body">
@@ -203,7 +247,7 @@ display(){
                       <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
                       <li>|</li>
                       <span>
-                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.state.place} PLACES
                       </span>
                       <li>|</li>
                       <li>
@@ -215,9 +259,8 @@ display(){
                       </li>
                       <li>|</li>
 			              </ul>
-                    <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
-                      INSCRIVEZ-VOUS
-                    </Button>
+                    {this.displayButton()}
+                    
                     <Button id="BtAct" className="center-right" onClick={this.handleShowParticipant}>
                       DETAILS
                     </Button>
@@ -239,14 +282,14 @@ display(){
                 <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="name" name="nom" placeholder="Nom" required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
+                                <input id="name" name="nom" value={this.props.sessionConnect.name} required="remplir votre nom" className="form-control"  type="text" onChange={e => this.setState({name: e.target.value})}/>
                               </div>
                             </div>
 
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input id="prenom" name="prenom" placeholder="Prénom" required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
+                                <input id="prenom" name="prenom" value={this.props.sessionConnect.prenom} required="remplir votre prenom" className="form-control"  type="text" onChange={e => this.setState({prenom: e.target.value})}/>
                               </div>
                             </div>
 
@@ -261,14 +304,14 @@ display(){
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                <input id="email" name="email" placeholder="Email" required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
+                                <input id="email" name="email" value={this.props.sessionConnect.mail} required="remplir votre email" className="form-control"  type="email" onChange={e => this.setState({adresse: e.target.value})}/>
                               </div>
                             </div>
 
                   <div className="form-group">
                               <div className="input-group">
                                 <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-                                <input id="tel" name="tel" placeholder="Téléphone" required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
+                                <input id="tel" name="tel" value={this.props.sessionConnect.telephone} required="remplir votre telephone" className="form-control"  type="text" onChange={e => this.setState({numero: e.target.value})}/>
                               </div>
                             </div>
 
@@ -299,7 +342,7 @@ display(){
                       <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
                       <li>|</li>
                       <span>
-                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.state.place} PLACES
                       </span>
                       <li>|</li>
                       <li>
@@ -311,9 +354,7 @@ display(){
                       </li>
                       <li>|</li>
 			              </ul>
-                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
-                      INSCRIVEZ-VOUS
-                    </Button>
+                    {this.displayButton()}
                   </div>
                 </div>
               </div>

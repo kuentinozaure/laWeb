@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import {Button,Modal} from 'react-bootstrap';
 import { SERVER_URL } from "../consts";
 import Axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 
@@ -29,6 +30,11 @@ class Message  extends React.Component {
       handleDelete() {
 
         Axios.delete(SERVER_URL + "message/"+this.props.id+"/");
+        Swal.fire(
+          'Succes!',
+          'Vous avez supprimer ce message',
+          'warning'
+        )
 
     }
 

@@ -46,7 +46,7 @@ class AstuceNonValide  extends React.Component {
                 <td>{this.props.titre}</td>
                 <td>{this.props.message}</td>
                 <td>{this.props.description}</td>
-                <td><a href={this.props.lienAstuce}><font color="FF00CC">Lien de l'astuce</font></a></td>
+                <td><a href={this.props.lienAstuce} target="_blank"><font color="FF00CC">Lien de l'astuce</font></a></td>
                 <td>{this.props.auteur}</td>
                 <td>{this.props.type_astuce}</td>
                 <td><input type="image" src={this.props.image} width="50" height="50"/><br></br>{this.props.image}</td>

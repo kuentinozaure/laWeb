@@ -31,6 +31,11 @@ class AstuceValide  extends React.Component {
         axios.put(url)
           .then(response => {
             this.handleClose();
+            Swal.fire(
+              'Astuce',
+              'Votre Astuce a ete mise a jour',
+              'success'
+            )
           })
           .catch(error => {
             console.log(error);
@@ -40,8 +45,8 @@ class AstuceValide  extends React.Component {
       handleDelete() {
         axios.delete(SERVER_URL + "astuce/"+this.props.id+"/");
         Swal.fire(
-          'Activite',
-          'Votre Activite est supprimé',
+          'Astuce',
+          'Votre Astuce est supprimé',
           'success'
         )
       }

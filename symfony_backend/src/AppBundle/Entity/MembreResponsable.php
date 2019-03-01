@@ -65,7 +65,7 @@ class MembreResponsable
     protected $idUfr;
 
     /**
-     * @ManyToOne(targetEntity="AuthentificationToken",cascade={"persist"})
+     * @ManyToOne(targetEntity="AuthentificationToken")
      * @JoinColumn(name="token_id", referencedColumnName="id")
      */
     protected $token;
@@ -122,12 +122,12 @@ class MembreResponsable
       return $this->idUfr;
     }
 
-    public function getToken() : ?AuthentificationToken
+    public function getToken()
     {
       return $this->token;
     }
 
-    public function setToken(?AuthentificationToken $token):self
+    public function setToken($token)
     {
       $this->token = $token;
       return $this;

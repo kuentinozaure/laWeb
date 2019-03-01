@@ -7,6 +7,8 @@ import {Button,Modal} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 
+import Page404 from './404'
+
 import { SERVER_URL } from "../consts";
 
 class GererActiviteAdmin extends Component {
@@ -102,6 +104,21 @@ class GererActiviteAdmin extends Component {
      }
 
       handleClose(){
+        axios.get(SERVER_URL + "unvalidate/")
+          .then(response => {
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.length; i++) {
+
+              tab.push(response.data[i]);
+            }
+            this.setState({
+              activites: tab,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
         this.setState({
           show : false,
         })
@@ -132,6 +149,7 @@ class GererActiviteAdmin extends Component {
       }
 
       render() {
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -222,21 +240,18 @@ class GererActiviteAdmin extends Component {
                     </Modal.Footer>
                   </Modal>
                 </div>
-            </div>
+            </div>);
+            }else{
+              return (<Page404/>)
+            }
 
-        );
+
       }
 }
 
 const mapStateToProps = state => {
   return { sessionConnect: state.sessionReducer}
 };
-const mapDispatchToProps = dispatch => {
-  return {
-    setSession: (name,id,prenom,mail,image,telephone,description,login,token) => {
-      dispatch(setSession(name,id,prenom,mail,image,telephone,description,login,token))
-    }
-  }
-};
 
-export default connect(mapStateToProps,mapDispatchToProps)(GererActiviteAdmin)
+
+export default connect(mapStateToProps,null)(GererActiviteAdmin)

@@ -1,10 +1,11 @@
 import React,{ Component } from 'react';
 import NavbarMembres from './NavbarMembres.js';
 import AstuceValide from './AstuceValide';
-import {Button,Modal} from 'react-bootstrap';
 import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
+import { connect } from 'react-redux';
 
 class ListeAstuceAdmin extends Component {
     constructor(props) {
@@ -82,6 +83,7 @@ class ListeAstuceAdmin extends Component {
         }
 
       render() {
+        if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -89,9 +91,6 @@ class ListeAstuceAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <a className='btn btn btn-info btn-sm' align="center" onClick={this.handleAddAstuce}>
-                            Proposer une astuce
-                        </a>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
@@ -111,22 +110,18 @@ class ListeAstuceAdmin extends Component {
                         </table>
                         </div>
                     </div>
-
-                    <Modal show={this.state.show} onHide={this.handleClose}>
-        <Modal.Body>
-          <h2 className="text-center">Voulez-vous vous inscrire à cette activité ?</h2>
-          <h3 className="text-center">Inscrivez vous ici</h3>
-
-          salut
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.handleClose}>FERMER</Button>
-        </Modal.Footer>
-      </Modal>
                 </div>
 
         );
+      }else{
+        return(<Page404/>)
       }
+    }
 }
 
-export default ListeAstuceAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+export default connect(mapStateToProps,null)(ListeAstuceAdmin)

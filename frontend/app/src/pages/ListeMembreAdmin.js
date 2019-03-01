@@ -4,6 +4,8 @@ import MembreValide from './MembreValide.js'
 import axios from 'axios';
 
 import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
+import { connect } from 'react-redux';
 
 
 class ListeMembreAdmin extends Component {
@@ -53,6 +55,7 @@ class ListeMembreAdmin extends Component {
       }
 
     render() {
+      if (this.props.sessionConnect.isConnected == true){
         return (
             <div>
             <br></br>
@@ -82,7 +85,15 @@ class ListeMembreAdmin extends Component {
                 </div>
 
         );
+      }else{
+        return(<Page404/>)
       }
+    }
 }
 
-export default ListeMembreAdmin;
+const mapStateToProps = state => {
+  return {
+      sessionConnect: state.sessionReducer
+  }
+};
+export default connect(mapStateToProps,null)(ListeMembreAdmin)

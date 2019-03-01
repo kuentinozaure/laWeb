@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Astuce.css';
 
 import {Button,Modal} from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 import BoxAstuce from './BoxAstuce.js';
@@ -69,7 +70,30 @@ class Astuce extends Component {
 
       componentDidMount() {
 
-        axios.get(SERVER_URL + "astuce/")
+        axios.all([
+          axios.get(SERVER_URL+"astuce/"),
+          axios.get(SERVER_URL + "astucesCategories/")
+        ])
+        .then(axios.spread((responseA, responseC) => {
+          let tab =[]
+          let i;
+          for (i = 0; i < responseA.data.length; i++) {
+            tab.push(responseA.data[i]);
+          }
+    
+          let ii
+            let tabb =[]
+            for (ii = 0; ii < responseC.data.length; ii++) {
+              tabb.push(responseC.data[ii]);
+            }
+    
+            this.setState({
+              astuces:tab,
+              categories:tabb,
+            })
+        }));
+
+        /* axios.get(SERVER_URL + "astuce/")
           .then(response => {
             let i
             let tab =[]
@@ -96,7 +120,7 @@ class Astuce extends Component {
            })
            .catch(error => {
              console.log(error);
-           });
+           }); */
          }
 
       handleSearch(e){
@@ -110,11 +134,15 @@ class Astuce extends Component {
         let tabActivite =[]
         let content
         let contentA
+        let nbAstuceParCategorie
+
         if(this.state.astuceSearch === ""){//si on a rien taper dans la navbar
            content = this.state.categories.map((categorie, index) => {
              tabActivite.push(<h1>{categorie.intitule}</h1>)
+             nbAstuceParCategorie = 0 //a chaque categorie on remet a 0 le compteur
              contentA = this.state.astuces.map((astuce, index) =>{
                if(categorie.intitule ==  astuce.type_astuce){
+                nbAstuceParCategorie+=1;
                    tabActivite.push(
                      <BoxAstuce
                        modtitre={astuce.titre}
@@ -128,11 +156,19 @@ class Astuce extends Component {
                    )
                }
              })
+             if(nbAstuceParCategorie == 0){
+              tabActivite.push(
+                 <div className="alert alert-primary" role="alert">
+                     <h1>Aucune astuce de ce type trouvé</h1>
+                 </div>
+               )
+              }
           })
         }else{
           let titre;
           let description;
           let auteur;
+          let nbAstuceParCategorie;
 
           content = this.state.categories.map((categorie, index) => {
             tabActivite.push(<h1>{categorie.intitule}</h1>)
@@ -142,10 +178,12 @@ class Astuce extends Component {
             titre = astuce.titre;
             description = astuce.description;
             auteur = astuce.auteur;
+            nbAstuceParCategorie = 0 //a chaque categorie on remet a 0 le compteur
 
               //SI CE QU'IL Y A ECRIT DANS LA BAR DE RECHERCHE EST EGALE AU TITRE,DESCRITPION,AUTEUR DE L'ASTUCE
               if(titre.includes(this.state.astuceSearch) || description.includes(this.state.astuceSearch) || auteur.includes(this.state.astuceSearch)){
                 if(categorie.intitule ==  astuce.type_astuce){
+                  nbAstuceParCategorie+=1;
                     tabActivite.push(
                       <BoxAstuce
                         modtitre={astuce.titre}
@@ -160,16 +198,27 @@ class Astuce extends Component {
                 }
               }
             })
+            if(nbAstuceParCategorie == 0){
+              tabActivite.push(
+                 <div className="alert alert-primary" role="alert">
+                     <h1>Aucune activite de ce type trouvé</h1>
+                 </div>
+               )
+              }
          })
         }
           return (tabActivite)
         }
 
 handleSubmit() {
-    //const url ="http://laweb.alwaysdata.net/?choix=20&nom="+this.state.titre+"&description="+this.state.description+"&auteur="+this.state.nom+"&lien="+this.state.lien+"&type="+this.state.type
     const url = SERVER_URL + "astuce/?titre="+this.state.titre+"&message="+this.state.message+"&description="+this.state.description+"&lienAstuce="+this.state.lien+"&auteur="+this.state.auteur+"&image="+this.state.image+"&idAstuce="+this.state.chooseCateg
     axios.post(url)
       .then(response => {
+        Swal.fire(
+          'Succès!',
+          'Vous avez créer une nouvelle actuce\nelle est soumise à validation',
+          'success'
+        )
         this.handleClose();
       })
       .catch(error => {

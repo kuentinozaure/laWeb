@@ -40,7 +40,7 @@ class Box extends Component {
                         </span></li>
                         <li>|</li>
                         </ul>
-                        <Button id="BtAstuce" className="center-right" href={this.props.modlien} >
+                        <Button id="BtAstuce" className="center-right" href={this.props.modlien} target="_blank" >
                           En savoir plus
                         </Button>
                     </div>

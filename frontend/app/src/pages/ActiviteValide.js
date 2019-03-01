@@ -3,6 +3,7 @@ import React,{ Component } from 'react';
 import { SERVER_URL } from "../consts";
 
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import {Button,Modal} from 'react-bootstrap';
 
@@ -30,10 +31,21 @@ class ActiviteValide  extends React.Component {
 
     handleDelete() {
         axios.delete(SERVER_URL + "activity/"+this.props.id+"/"); 
+        Swal.fire(
+            'Succès!',
+            'Vous avez supprimer cette activtite',
+            'warning'
+          )
     }
 
     handleModify(){
         axios.put(SERVER_URL + "activity/"+this.props.id+"/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&placeDispo="+this.state.nbPlaces+"&idCateg="+this.state.idCateg+"&animateur="+this.state.animateur); 
+        this.handleClose()
+        Swal.fire(
+            'Succès!',
+            'Vous avez modifier cette activtite',
+            'success'
+          )
     }
 
     handleShow(){
@@ -55,7 +67,7 @@ class ActiviteValide  extends React.Component {
                         <td>{this.state.dateDebut}</td>
                         <td>{this.state.dateFin}</td>
                         <td>{this.state.salle}</td>
-                        <td>{this.state.nombrePlaceDispo}</td>
+                        <td>{this.state.nbPlaces}</td>
                         <td className="text-right">
                         <a className='btn btn btn-info btn-sm' onClick={this.handleShow}>
                                 Modifier

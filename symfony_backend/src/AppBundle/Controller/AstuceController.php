@@ -25,7 +25,7 @@ class AstuceController extends Controller
 
         if (empty($astuces))
         {
-          return new JsonResponse(['message' => 'Astuces not found'], Response::HTTP_NOT_FOUND);
+          return new JsonResponse(['message' => 'Astuces not found']);
         }
                 $formatted = [];
                 foreach ($astuces as $astuce) {

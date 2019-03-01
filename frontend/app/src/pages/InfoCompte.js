@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 
 import { SERVER_URL } from "../consts";
+import Page404 from './404.js';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -175,6 +176,8 @@ class InfoCompte extends Component {
 
     render() {
       const { open } = this.state;
+
+      if (this.props.sessionConnect.isConnected == true){
       return (
         <div>
         <div style={styles} >
@@ -315,7 +318,10 @@ class InfoCompte extends Component {
         </div>
         </div>
       );
+    }else{
+      return(<Page404/>)
     }
+  }
 }
 
 const mapStateToProps = state => {

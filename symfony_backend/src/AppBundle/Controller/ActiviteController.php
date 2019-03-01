@@ -10,6 +10,7 @@ use AppBundle\Entity\Activite;
 use AppBundle\Entity\CategorieActivite;
 use AppBundle\Entity\MembreResponsable;
 use AppBundle\Entity\Participe;
+use AppBundle\Entity\Particpant;
 
 class ActiviteController extends Controller
 {
@@ -50,7 +51,7 @@ class ActiviteController extends Controller
 
         if (empty($activites))
         {
-          return new JsonResponse(['message' => 'activities not found'], Response::HTTP_NOT_FOUND);
+          return new JsonResponse(['message' => 'activities not found']);
         }
                 $formatted = [];
                 foreach ($activites as $activity) {
@@ -234,11 +235,34 @@ class ActiviteController extends Controller
        public function deleteInvalidActivity(Request $request)
        {
            $em = $this->get('doctrine.orm.entity_manager');
+           $emParticipe = $this->get('doctrine.orm.entity_manager');
+           $emParticipant = $this->get('doctrine.orm.entity_manager');
+
            $activity = $em->getRepository('AppBundle:Activite')
                        ->find($request->get('id'));
+
            if (empty($activity)) {
              return new JsonResponse(['message' => 'Activity not found'], Response::HTTP_NOT_FOUND);
            }
+
+           //Recuperation de tout les personne dans la table participe
+           $participes = $emParticipe->getRepository('AppBundle:Participe')
+                                     ->findByIdActivite($activity->getId());
+          
+
+          foreach ($participes as $participe) 
+          {
+            //Recuperation de tout les participants
+            $participant  = $emParticipant->getRepository('AppBundle:Participant')
+                                            ->findById($participe->getIdParticipant());
+
+            $emParticipant->remove($participant[0]);
+            $emParticipe->remove($participe);
+            $emParticipant->flush();
+            $emParticipe->flush();
+
+          }
+
            $em->remove($activity);
            $em->flush();
            return new JsonResponse(['message' => 'Activity deleted'],Response::HTTP_NOT_FOUND);
