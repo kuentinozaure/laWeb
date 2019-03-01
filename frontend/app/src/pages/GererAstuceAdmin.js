@@ -4,6 +4,7 @@ import AstuceNonValide from './AstuceNonValide.js';
 import axios from 'axios';
 import Page404 from './404'
 import {Button,Modal} from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 import { SERVER_URL } from "../consts";
 
@@ -73,6 +74,11 @@ class GererAstuceAdmin extends Component {
         axios.post(url)
           .then(response => {
             this.handleClose();
+            Swal.fire(
+              'Succès!',
+              'Vous avez créer une nouvelle actuce\nelle est soumise à validation',
+              'success'
+            )
           })
           .catch(error => {
           });

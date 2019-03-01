@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Astuce.css';
 
 import {Button,Modal} from 'react-bootstrap';
+import Swal from 'sweetalert2';
 
 import axios from 'axios';
 import BoxAstuce from './BoxAstuce.js';
@@ -213,6 +214,11 @@ handleSubmit() {
     const url = SERVER_URL + "astuce/?titre="+this.state.titre+"&message="+this.state.message+"&description="+this.state.description+"&lienAstuce="+this.state.lien+"&auteur="+this.state.auteur+"&image="+this.state.image+"&idAstuce="+this.state.chooseCateg
     axios.post(url)
       .then(response => {
+        Swal.fire(
+          'Succès!',
+          'Vous avez créer une nouvelle actuce\nelle est soumise à validation',
+          'success'
+        )
         this.handleClose();
       })
       .catch(error => {
