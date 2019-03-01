@@ -9,7 +9,7 @@ class Page404 extends Component {
             <br></br>
   			<div class="container">
                 <div class="jumbotron">
-                    <h1 class="text-center display-3">Erreur 404<p></p>
+                    <h1 class="text-center display-3">Oups,Erreur 404<p></p>
                         <p>
                             <small class="text-center">La page demandé n'existe pas</small>
                         </p>

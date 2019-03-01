@@ -121,14 +121,25 @@ class MembreResponsableController extends Controller
      */
     public function deleteMember(Request $request)
     {
+      
       $em = $this->get('doctrine.orm.entity_manager');
+      $emT = $this->get('doctrine.orm.entity_manager');
+
       $member = $em->getRepository('AppBundle:MembreResponsable')
-                      ->find($request->get('id'));
+                   ->find($request->get('id'));
+
       if (empty($member)) {
           return new JsonResponse(['message' => 'Member not found'], Response::HTTP_NOT_FOUND);
       }
+
+      $token = $emT->getRepository('AppBundle:AuthentificationToken')
+                   ->findById($member->getToken());
+
       $em->remove($member);
+      $emT->remove($token[0]);
+
       $em->flush();
+      $emT->flush();
       return new JsonResponse(['message' => 'Member deleted'], Response::HTTP_NOT_FOUND);
     }
 
@@ -159,6 +170,25 @@ class MembreResponsableController extends Controller
        {
          return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
        }
+
+       $em = $this->getDoctrine()
+                  ->getManager();
+
+      //Check si le login existe pas deja car il est impossible de se connecter avec le meme login
+       $query = $em->createQuery(
+        'SELECT count(m.id)
+         FROM AppBundle:MembreResponsable m
+         WHERE m.login = :login'
+        )->setParameter('login',$login);
+
+      $countLogin = $query->getResult();
+      $loginIsExist = $countLogin[0][1];
+
+      if($loginIsExist>0)
+      {
+        return new JsonResponse(['message' => 'login is already take'], Response::HTTP_NOT_ACCEPTABLE);
+      }
+
        $ufr = $this->get('doctrine.orm.entity_manager')
        ->getRepository('AppBundle:Ufr')
        ->findById($idUfr);
@@ -234,6 +264,20 @@ class MembreResponsableController extends Controller
        return new JsonResponse(['message' => 'NULL VALUES ARE NOT ALLOWED'], Response::HTTP_NOT_ACCEPTABLE);
      }
      $em = $this->get('doctrine.orm.entity_manager');
+
+     $query = $em->createQuery(
+      'SELECT count(m.id)
+       FROM AppBundle:MembreResponsable m
+       WHERE m.login = :login'
+      )->setParameter('login',$login);
+
+      $countLogin = $query->getResult();
+      $loginIsExist = $countLogin[0][1];
+
+      if($loginIsExist>0)
+      {
+        return new JsonResponse(['message' => 'login is already take'], Response::HTTP_NOT_ACCEPTABLE);
+      }
 
      $membre = $em->getRepository('AppBundle:MembreResponsable')
                     ->findById($request->get('idMember'));
