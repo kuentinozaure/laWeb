@@ -88,7 +88,6 @@ class Box extends Component {
     }
 
     handleShowParticipant(){
-
       if(this.state.handleShowParticipant == true){
         this.setState({
           handleShowParticipant:false,
@@ -162,8 +161,8 @@ class Box extends Component {
       })
     }
     displayParticipants(){
-      let listeParticipant =[]
-      let content = this.state.participants.map((participant, index) => {
+        let listeParticipant =[]
+        let content = this.state.participants.map((participant, index) => {
 
         listeParticipant.push(
             <BoxParticipant
@@ -181,35 +180,39 @@ class Box extends Component {
 
     displayParticipant(){
       if(this.state.handleShowParticipant == true){
-        return(
-          <div>
-          <div className="row">
-          <div className="col-md-12 col-sm-6 col-xs-6">
-            <div className="panel panel-info">
-                <div className="panel-heading">
-                    <h3 className="panel-title">Participants &nbsp;&nbsp;<span ><i class="fa fa-times" onClick={this.closeParticipant}></i></span></h3>
-                </div>
-                <div className="panel-body">
-                <table className="table table-striped custab">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Mail</th>
-                        <th>Telephone</th>
-                        <th>UFR</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.displayParticipants()}
-                </tbody>
-                </table>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-      )
+        if(this.state.participants.length == 0){
+          return(<div><h2>Pas de participants pour cette activite</h2></div>)
+        }else{
+          return(
+            <div>
+            <div className="row">
+            <div className="col-md-12 col-sm-6 col-xs-6">
+              <div className="panel panel-info">
+                  <div className="panel-heading">
+                      <h3 className="panel-title">Participants &nbsp;&nbsp;<span ><i class="fa fa-times" onClick={this.closeParticipant}></i></span></h3>
+                  </div>
+                  <div className="panel-body">
+                  <table className="table table-striped custab">
+                  <thead>
+                      <tr>
+                          <th>Nom</th>
+                          <th>Prenom</th>
+                          <th>Mail</th>
+                          <th>Telephone</th>
+                          <th>UFR</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {this.displayParticipants()}
+                  </tbody>
+                  </table>
+                  </div>
+              </div>
+          </div>
+          </div>
+          </div>
+        )
+        }
       }else{
         return(<div></div>);
       }
