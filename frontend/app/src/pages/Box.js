@@ -32,6 +32,7 @@ class Box extends Component {
       newsletter: false,
       ufrSelected:1,
       participants:[],
+      place:this.props.modnbplaceRestante
       //listeUfr : []
     };
   }
@@ -50,6 +51,17 @@ class Box extends Component {
     axios.post(url)
       .then(response => {
         this.handleClose();
+
+        let places = this.state.place
+        if((places-1)>0){
+          this.setState({
+            place:places-1
+          })
+        }else{
+          this.setState({
+            place:0
+          })
+        }
       })
       .catch(error => {
         console.log(error);
@@ -184,6 +196,19 @@ class Box extends Component {
       }
     }
 
+    displayButton(){
+      if(this.state.place>0){
+        return(
+          <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
+            INSCRIVEZ-VOUS
+          </Button>
+        )
+      }else{
+        return(
+          ""
+        )
+      }
+    }
 
 display(){
   if (this.props.sessionConnect.isConnected == true){
@@ -191,8 +216,8 @@ display(){
       <div>
         <div className="container">
           <div className="row">
-            <div className="container">
-              <div className="well">
+            <div className="container ">
+              <div className="well ">
                 <div className="media">
                 {/*<img id="imgbox" src="http://www.iconarchive.com/download/i91192/icons8/windows-8/Messaging-Activity-Feed.ico" width="100" height="100" alt="Image"/>*/}
                   <div className="media-body">
@@ -203,7 +228,7 @@ display(){
                       <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
                       <li>|</li>
                       <span>
-                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.state.place} PLACES
                       </span>
                       <li>|</li>
                       <li>
@@ -215,9 +240,8 @@ display(){
                       </li>
                       <li>|</li>
 			              </ul>
-                    <Button id="BtAct" clas-sName="center-right" onClick={this.handleShow}>
-                      INSCRIVEZ-VOUS
-                    </Button>
+                    {this.displayButton()}
+                    
                     <Button id="BtAct" className="center-right" onClick={this.handleShowParticipant}>
                       DETAILS
                     </Button>
@@ -299,7 +323,7 @@ display(){
                       <li><span><i className="glyphicon glyphicon-calendar"></i>{this.props.moddate}</span></li>
                       <li>|</li>
                       <span>
-                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.props.modnbplaceRestante} PLACES
+                        <i className="glyphicon glyphicon-warning-sign"></i> IL RESTE {this.state.place} PLACES
                       </span>
                       <li>|</li>
                       <li>
@@ -311,9 +335,7 @@ display(){
                       </li>
                       <li>|</li>
 			              </ul>
-                    <Button id="BtAct" className="center-right" onClick={this.handleShow}>
-                      INSCRIVEZ-VOUS
-                    </Button>
+                    {this.displayButton()}
                   </div>
                 </div>
               </div>

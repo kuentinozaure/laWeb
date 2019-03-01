@@ -104,6 +104,21 @@ class GererActiviteAdmin extends Component {
      }
 
       handleClose(){
+        axios.get(SERVER_URL + "unvalidate/")
+          .then(response => {
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.length; i++) {
+
+              tab.push(response.data[i]);
+            }
+            this.setState({
+              activites: tab,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
         this.setState({
           show : false,
         })

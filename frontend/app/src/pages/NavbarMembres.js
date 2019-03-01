@@ -17,7 +17,7 @@ class NavbarMembres extends Component {
 
       }
 
-      componentDidMount() {
+      /* componentDidMount() {
 
         axios.all([
           axios.get(SERVER_URL+"message/"),
@@ -71,7 +71,7 @@ class NavbarMembres extends Component {
 
 
         }));
-
+ */
 
        /*  axios.get(SERVER_URL + "message/")
           .then(response => {
@@ -132,12 +132,13 @@ class NavbarMembres extends Component {
                 })
                 .catch(error => {
                 });
+                }
  */
 
 
-      }
+      
 
-      displayNotififationActivite(){
+/*       displayNotififationActivite(){
         if(this.state.nbActiviteNnValide>0){
           return(
             <li className="nav-item dropdown">
@@ -226,7 +227,7 @@ class NavbarMembres extends Component {
         if(this.state.nbMessage>0){
           return(<span class="badge badge-danger">{this.state.nbMessage}</span>)
         }
-      }
+      } */
 
     render() {
         return (
@@ -243,12 +244,37 @@ class NavbarMembres extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
-              {this.displayNotififationActivite()}
-               {this.displayNotificationAstuceNonValide()}
-              {this.displayNotificationValidationMembre()}
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Messages{this.displayNotificationsMessage()}
+                  Activités
+                </a>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a className="dropdown-item" href="#listeActiviteAdmin">Liste des activités</a>
+                  <a className="dropdown-item" href="#gererActiviteAdmin">Gérer les activités</a>
+                </div>
+              </li>
+              <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Astuces
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a className="dropdown-item" href="#listeAstuceAdmin">Liste des astuces</a>
+                    <a className="dropdown-item" href="#gererAstuceAdmin">Gérer les astuces</a>
+                  </div>
+                </li>
+              <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Membres
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a className="dropdown-item" href="#listeMembreAdmin">Liste des membres</a>
+                    <a className="dropdown-item" href="#gererMembreAdmin">Gérer les membres</a>
+                  </div>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Messages
+                  {/*this.displayNotificationsMessage()*/}
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a className="dropdown-item" href="#gererMessageAdmin">Gérer les messages</a>

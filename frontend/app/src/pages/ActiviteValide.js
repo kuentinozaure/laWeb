@@ -3,6 +3,7 @@ import React,{ Component } from 'react';
 import { SERVER_URL } from "../consts";
 
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import {Button,Modal} from 'react-bootstrap';
 
@@ -34,6 +35,12 @@ class ActiviteValide  extends React.Component {
 
     handleModify(){
         axios.put(SERVER_URL + "activity/"+this.props.id+"/?titre="+this.state.titre+"&description="+this.state.description+"&dateDebut="+this.state.dateDebut+"&dateFin="+this.state.dateFin+"&salle="+this.state.salle+"&placeDispo="+this.state.nbPlaces+"&idCateg="+this.state.idCateg+"&animateur="+this.state.animateur); 
+        this.handleClose()
+        Swal.fire(
+            'Succès!',
+            'Vous avez modifier cette activtite',
+            'success'
+          )
     }
 
     handleShow(){

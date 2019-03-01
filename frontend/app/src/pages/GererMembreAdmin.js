@@ -43,6 +43,20 @@ class GererMembreAdmin extends Component {
       }
 
       handleClose(){
+        axios.get(SERVER_URL + "invalid/")
+          .then(response => {
+            let i
+            let tab =[]
+            for (i = 0; i < response.data.length; i++) {
+              tab.push(response.data[i]);
+            }
+            this.setState({
+              membres: tab,
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
         this.setState({
           show : false,
         })
