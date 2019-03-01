@@ -25,9 +25,9 @@ class Footer extends Component{
       return(
         <div>
           <div className="cookie-accept d-block position-fixed mw-25 bg-secondary text-white rounded-top pt-2 pr-3 pl-3 pb-2">
-            <h5>This site uses cookies</h5>
-            <p>We - <em>and our partners</em> - use cookies to deliver our services and to show you ads based on your interests. Information about cookies and their deactivation you can find in our Privacy Policy. By using our website, you agree to the use of cookies.</p>
-            <a target="_blank" onClick={this.handleClose} className="btn btn-outline-light btn-block">Accept</a>
+            <h5>En poursuivant votre navigation sur ce site</h5>
+            <p>Vous acceptez l’utilisation de cookies ou technologies similaires de traçage pour vous proposer au mieux des services adapté a votre utilisation</p>
+            <a target="_blank" onClick={this.handleClose} className="btn btn-outline-light btn-block">Accepter</a>
           </div>
         <footer>
         <section id="lab_social_icon_footer">
