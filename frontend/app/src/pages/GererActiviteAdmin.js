@@ -157,7 +157,7 @@ class GererActiviteAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <button type="button" onClick={this.handleShow} class="btn btn-info btn-lg">Proposer une activité</button>
+                        <button type="button" onClick={this.handleShow} className="btn btn-info btn-lg">Proposer une activité</button>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
@@ -192,7 +192,7 @@ class GererActiviteAdmin extends Component {
                         <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue "></i></span>
-                            <textarea class="form-control" rows="3" placeholder="Décris nous ton activité" id="description" required="Remplir la description" type="text" onChange={e => this.setState({description: e.target.value})}></textarea>
+                            <textarea className="form-control" rows="3" placeholder="Décris nous ton activité" id="description" required="Remplir la description" type="text" onChange={e => this.setState({description: e.target.value})}></textarea>
                         </div>
                         </div>
                         <div className="form-group">

@@ -60,7 +60,7 @@ class ListeActivite extends Component {
       .then(response => {
         Swal.fire(
           'Succès!',
-          'Vous avez créer une nouvelle activité\nelle est soumise à validation',
+          'Vous avez créé une nouvelle activité\nelle sera soumise à validation',
           'success'
         )
         this.handleClose()
@@ -153,7 +153,7 @@ class ListeActivite extends Component {
          if(nbActParCateg == 0){
          tabActivite.push(
             <div className="alert alert-primary" role="alert">
-                <h1>Aucune activite de ce type trouvé</h1>
+                <h1>Aucune activite de ce type trouvée</h1>
             </div>
           )
          }
@@ -262,7 +262,7 @@ class ListeActivite extends Component {
                         <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue "></i></span>
-                            <textarea class="form-control" rows="3" placeholder="Décris nous ton activité" id="description" required="Remplir la description" type="text" onChange={e => this.setState({description: e.target.value})}></textarea>
+                            <textarea className="form-control" rows="3" placeholder="Décris nous ton activité" id="description" required="Remplir la description" type="text" onChange={e => this.setState({description: e.target.value})}></textarea>
                         </div>
                         </div>
                         <div className="form-group">

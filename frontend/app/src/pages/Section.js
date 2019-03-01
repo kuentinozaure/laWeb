@@ -46,7 +46,7 @@ class Section extends Component {
                 <div className="col-md-1"></div>
                   <div className="col-md-10">
                     <ul className="list-group" id="contact-list">
-                    <li class="list-group-item">
+                    <li className="list-group-item">
                         {this.display()}
                       </li>
                     </ul>

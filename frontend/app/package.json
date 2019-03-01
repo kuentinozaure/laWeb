@@ -13,7 +13,7 @@
     "react-animate-on-scroll": "^2.1.5",
     "react-animated-css": "^1.0.4",
     "react-bootstrap": "^0.32.4",
-    "react-dom": "^16.8.2",
+    "react-dom": "^16.8.3",
     "react-facebook": "^6.0.15",
     "react-mailto": "^0.4.0",
     "react-redux": "^6.0.1",
@@ -26,7 +26,7 @@
     "redux": "^4.0.1",
     "server": "^1.0.18",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^8.2.2"
+    "sweetalert2": "^8.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
