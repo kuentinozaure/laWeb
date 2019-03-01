@@ -46,7 +46,7 @@ class ActiviteController extends Controller
                         ->getRepository('AppBundle:Activite')
                         ->findBy(array(
                             'estValide' => 1,
-                        ),array('titre' => 'asc'));
+                        ),array('dateDebut' => 'asc'));
 
         if (empty($activites))
         {

@@ -22,6 +22,7 @@ class AstuceController extends Controller
                         ->findBy(array(
                             'estValide' => 1,
                         ),array('titre' => 'asc'));
+                        
         if (empty($astuces))
         {
           return new JsonResponse(['message' => 'Astuces not found']);
