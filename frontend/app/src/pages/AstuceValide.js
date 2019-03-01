@@ -83,13 +83,13 @@ class AstuceValide  extends React.Component {
         return (
             <React.Fragment>
             <tr>
-                <td>{this.props.titre}</td>
-                <td>{this.props.message}</td>
-                <td>{this.props.description}</td>
-                <td>{this.props.lienAstuce}</td>
-                <td>{this.props.auteur}</td>
-                <td><img src={this.props.image} width="50" height="50"/><br></br>{this.props.image}</td>
-                <td>{this.props.type_astuce}</td>
+                <td>{this.state.titre}</td>
+                <td>{this.state.message}</td>
+                <td>{this.state.description}</td>
+                <td>{this.state.lienAstuce}</td>
+                <td>{this.state.auteur}</td>
+                <td><img src={this.state.image} width="50" height="50"/><br></br>{this.state.image}</td>
+                <td>{this.state.type_astuce}</td>
                 <td className="text-right">
                 <a className='btn btn btn-info btn-sm' onClick={this.handleShow}>
                         Modifier

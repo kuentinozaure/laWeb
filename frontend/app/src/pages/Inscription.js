@@ -51,17 +51,17 @@ class Inscription extends React.Component {
           
                           <form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
           
-                          <div class="form-group">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                          <div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                 <input id="name" name="nom" placeholder="Nom" className="form-control"  
                                 type="text" onChange={e => this.setState({name: e.target.value})}
                                 />
                                 
                               </div>
-                            </div><div class="form-group">
-                              <div class="input-group">
-                                <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                            </div><div className="form-group">
+                              <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                 <input id="name" name="nom" placeholder="Nom" className="form-control"  
                                 type="text" onChange={e => this.setState({name: e.target.value})}
                                 />
@@ -71,7 +71,7 @@ class Inscription extends React.Component {
                   
                   <div className="form-group">
                               <div className="input-group">
-                                <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                 <input id="prenom" name="prenom" placeholder="Prenom" className="form-control"  
                                 type="password" onChange={e => this.setState({prenom: e.target.value})}
                                 pattern="tel"/>

@@ -45,7 +45,7 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#astuces" exact={true}  className="menu_text">
                     Nos Astuces
                   </a>
                 </li>
@@ -55,7 +55,7 @@ class Navigation extends Component {
                   </a>
                 </li>
                 <li>
-                <a href="#member" exact={true} activeClassName='is-active'  className="menu_text">
+                <a href="#member" exact={true}   className="menu_text">
                   Gestion
                 </a>
                 </li>
@@ -91,27 +91,27 @@ class Navigation extends Component {
             <nav id="menu">
                 <ul id="list_menu">
                 <li>
-                  <a href="#" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#" className="menu_text">
                     Viens Découvrir
                   </a>
                 </li>
                 <li>
-                  <a href="#activite"  exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#activite" className="menu_text">
                     Nos Activités
                   </a>
                 </li>
                 <li>
-                  <a href="#astuces" exact={true} activeClassName='is-active' className="menu_text">
+                  <a href="#astuces" className="menu_text">
                     Nos Astuces
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" exact={true} activeClassName='is-active' className="menu_text" >
+                  <a href="#contact" className="menu_text" >
                     Contacts
                   </a>
                 </li>
                 <li>
-                <a href="#reseaux" exact={true} activeClassName='is-active'  className="menu_text">
+                <a href="#reseaux" className="menu_text">
                   Restons Connectés
                 </a>
                 </li>

@@ -169,7 +169,7 @@ class InfoCompte extends Component {
       //   if(this.state.visible == true){
       //     return()
       //   }else{
-      //     return(<input class="form-check-input" type="checkbox" id="defaultCheck2" onChange={e => {if (e.target.value == "on") {this.setState({visible: true})} else {this.setState({visible: false})}}} ></input>)
+      //     return(<input className="form-check-input" type="checkbox" id="defaultCheck2" onChange={e => {if (e.target.value == "on") {this.setState({visible: true})} else {this.setState({visible: false})}}} ></input>)
       //   }
       // }
 
@@ -208,9 +208,9 @@ class InfoCompte extends Component {
                     <th className="case">{this.state.login}</th>
                     <th className="case">{this.displayVisible()}</th>
                     <th className="case">
-                      <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg">Modifier profil</button>
-                      <button type="button" onClick={this.handleShowMdp} class="btn btn-danger btn-lg"> Modifier mot de passe</button>
-                      <button type="button" onClick={this.handleDelete}  class="btn btn-warning btn-lg"> Supprimer </button>
+                      <button type="button" onClick={this.handleShow} className="btn btn-primary btn-lg">Modifier profil</button>
+                      <button type="button" onClick={this.handleShowMdp} className="btn btn-danger btn-lg"> Modifier mot de passe</button>
+                      <button type="button" onClick={this.handleDelete}  className="btn btn-warning btn-lg"> Supprimer </button>
                     </th>
                   </tr>
               </tbody>
@@ -274,9 +274,9 @@ class InfoCompte extends Component {
                 </div>
               </div>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox"  id="defaultCheck2" checked={this.state.visible}  onChange={this.handleChange} ></input>
-              <label class="form-check-label" for="defaultCheck2">
+            <div className="form-check">
+              <input className="form-check-input" type="checkbox"  id="defaultCheck2" checked={this.state.visible}  onChange={this.handleChange} ></input>
+              <label className="form-check-label" for="defaultCheck2">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Visible
               </label>
             </div>

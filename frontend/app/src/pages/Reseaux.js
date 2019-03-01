@@ -58,16 +58,16 @@ class Reseaux extends Component {
 
                                             <form id="register-form" role="form" autocomplete="off" className="form" method="get" onSubmit={this.handleSubmit}>
 
-                                                <div class="form-group">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                <div className="form-group">
+                                                    <div className="input-group">
+                                                        <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                                         <input id="name" name="nom" placeholder="Nom" className="form-control" type="text" required onChange={e => this.setState({ nom: e.target.value })} />
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <div className="input-group">
-                                                        <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+                                                        <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
                                                         <input id="prenom" name="prenom" placeholder="Prenom" className="form-control" type="text" required onChange={e => this.setState({ prenom: e.target.value })} />
                                                     </div>
                                                 </div>

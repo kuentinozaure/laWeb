@@ -217,7 +217,7 @@ class ListeActivite extends Component {
                         <div className="form-group">
                         <div className="input-group">
                             <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue "></i></span>
-                            <textarea class="form-control" rows="3" placeholder="Décris nous ton activité" id="description" required="Remplir la description" type="text" onChange={e => this.setState({description: e.target.value})}></textarea>
+                            <textarea className="form-control" rows="3" placeholder="Décris nous ton activité" id="description" required="Remplir la description" type="text" onChange={e => this.setState({description: e.target.value})}></textarea>
                         </div>
                         </div>
                         <div className="form-group">

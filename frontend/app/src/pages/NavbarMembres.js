@@ -92,11 +92,11 @@ class NavbarMembres extends Component {
           return(
             <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Activités<span class="badge badge-danger">{nbActivite}</span>
+              Activités<span className="badge badge-danger">{nbActivite}</span>
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a className="dropdown-item" href="#listeActiviteAdmin">Liste des activités</a>
-              <a className="dropdown-item" href="#gererActiviteAdmin">Gérer les activités<span class="badge badge-danger">{nbActivite}</span></a>
+              <a className="dropdown-item" href="#gererActiviteAdmin">Gérer les activités<span className="badge badge-danger">{nbActivite}</span></a>
             </div>
           </li>
         )
@@ -129,11 +129,11 @@ class NavbarMembres extends Component {
           return(
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Astuces<span class="badge badge-danger">{nbAstucennvalide}</span>
+                Astuces<span className="badge badge-danger">{nbAstucennvalide}</span>
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a className="dropdown-item" href="#listeAstuceAdmin">Liste des astuces</a>
-                <a className="dropdown-item" href="#gererAstuceAdmin">Gérer les astuces<span class="badge badge-danger">{nbAstucennvalide}</span></a>
+                <a className="dropdown-item" href="#gererAstuceAdmin">Gérer les astuces<span className="badge badge-danger">{nbAstucennvalide}</span></a>
               </div>
             </li>
           )
@@ -164,11 +164,11 @@ class NavbarMembres extends Component {
           return(
           <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Membres<span class="badge badge-danger">{nbMembreNNValide}</span>
+              Membres<span className="badge badge-danger">{nbMembreNNValide}</span>
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a className="dropdown-item" href="#listeMembreAdmin">Liste des membres</a>
-              <a className="dropdown-item" href="#gererMembreAdmin">Gérer les membres<span class="badge badge-danger">{nbMembreNNValide}</span></a>
+              <a className="dropdown-item" href="#gererMembreAdmin">Gérer les membres<span className="badge badge-danger">{nbMembreNNValide}</span></a>
             </div>
           </li>
           )
@@ -195,7 +195,7 @@ class NavbarMembres extends Component {
           }
         })
         if(nbMsg>0){
-          return(<span class="badge badge-danger">{nbMsg}</span>)
+          return(<span className="badge badge-danger">{nbMsg}</span>)
         }
       }
 

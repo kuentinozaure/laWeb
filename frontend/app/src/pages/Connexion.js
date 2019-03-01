@@ -99,10 +99,6 @@ class Connexion extends React.Component {
                                 </div>
                               </div>
 
-                              <div className="forgot">
-                      <a href="/mdp">Mot de passe oublié?</a>
-                    </div>
-
                               <br></br><input className="btn btn-danger btn-lg" type="button" onClick={this.handleSubmit} value="Se connecter" />
 
                           </div>
