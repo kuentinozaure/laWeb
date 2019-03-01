@@ -66,7 +66,6 @@ class ListeActivite extends Component {
         this.handleClose()
       })
       .catch(error => {
-        console.log(error);
       });
   }
 
@@ -129,11 +128,15 @@ class ListeActivite extends Component {
     let tabActivite =[]
     let content
     let contentA
+    let nbActParCateg;
+
     if(this.state.activitySearch === ""){//si on a rien taper dans la navbar
        content = this.state.categories.map((categorie, index) => {
+         nbActParCateg = 0 //a chaque categorie on remet a 0 le compteur
          tabActivite.push(<h1>{categorie.intitule}</h1>)
          contentA = this.state.activities.map((activity, index) =>{
            if(categorie.intitule ==  activity.categorie){
+            nbActParCateg+=1;
                tabActivite.push(
                  <Box
                      imgnom= {activity.titre}
@@ -148,11 +151,19 @@ class ListeActivite extends Component {
                )
            }
          })
+         if(nbActParCateg == 0){
+         tabActivite.push(
+            <div className="alert alert-primary" role="alert">
+                <h1>Aucune activite de ce type trouvé</h1>
+            </div>
+          )
+         }
       })
     }else{
       let titre;
       let description;
       let animateur;
+      let nbActParCateg;
 
       content = this.state.categories.map((categorie, index) => {
         tabActivite.push(<h1>{categorie.intitule}</h1>)
@@ -163,9 +174,12 @@ class ListeActivite extends Component {
         description = activity.description;
         animateur = activity.animateur;
 
+        nbActParCateg = 0 //a chaque categorie on remet a 0 le compteur
+
           //SI CE QU'IL Y A ECRIT DANS LA BAR DE RECHERCHE EST EGALE AU TITRE,DESCRITPION,ANIMATEUR DE L'ACTIVITE
           if(titre.includes(this.state.activitySearch) || description.includes(this.state.activitySearch) || animateur.includes(this.state.activitySearch)){
             if(categorie.intitule ==  activity.categorie){
+              nbActParCateg+=1;
                 tabActivite.push(
                   <Box
                       imgnom= {activity.titre}
@@ -181,6 +195,13 @@ class ListeActivite extends Component {
             }
           }
         })
+        if(nbActParCateg == 0){
+          tabActivite.push(
+            <div className="alert alert-primary" role="alert">
+                <h1>Aucune activite de ce type trouvé</h1>
+            </div>
+          )
+          }
      })
     }
       return (tabActivite)
@@ -219,7 +240,7 @@ class ListeActivite extends Component {
         <div className="col-12">
           <div id="custom-search-input">
             <div className="input-group">
-                <input type="text" className="search-query form-control" placeholder="Rechercher une astuce" onChange={e => this.handleSearch(e)}/>
+                <input type="text" className="search-query form-control" placeholder="Rechercher une activité" onChange={e => this.handleSearch(e)}/>
             </div>
           </div>
         </div>

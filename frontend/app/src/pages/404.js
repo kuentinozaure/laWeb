@@ -7,15 +7,15 @@ class Page404 extends Component {
         <div>
             <br></br>
             <br></br>
-  			<div class="container">
-                <div class="jumbotron">
-                    <h1 class="text-center display-3">Oups,Erreur 404<p></p>
+  			<div className="container">
+                <div className="jumbotron">
+                    <h1 className="text-center display-3">Oups,Erreur 404<p></p>
                         <p>
-                            <small class="text-center">La page demandé n'existe pas</small>
+                            <small className="text-center">La page demandé n'existe pas</small>
                         </p>
                     </h1>
-                    <p class="text-center">revenez en arriere ou cliquez sur le bouton si dessous</p>
-                    <p class="text-center"><a class="btn btn-primary" href="#"><i class="fa fa-home"></i>Revenir a l'accueil</a></p>
+                    <p className="text-center">revenez en arriere ou cliquez sur le bouton si dessous</p>
+                    <p className="text-center"><a class="btn btn-primary" href="#"><i className="fa fa-home"></i>Revenir a l'accueil</a></p>
                 </div>
             </div>
             <br></br>

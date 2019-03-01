@@ -101,7 +101,7 @@ class ListeActiviteAdmin extends Component {
                 </div>
 
         );
-      }else if(this.props.sessionConnect.isConnected == false || this.props.sessionConnect.isConnected == null){
+      }else if(this.props.sessionConnect.isConnected == false ){
           return(<Page404/>)
       }
     }
