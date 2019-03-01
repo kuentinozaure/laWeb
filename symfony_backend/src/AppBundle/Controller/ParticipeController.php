@@ -25,7 +25,7 @@ class ParticipeController extends Controller
 
         if (empty($participants))
         {
-          return new JsonResponse(['message' => 'Participant not found'], Response::HTTP_NOT_FOUND);
+          return new JsonResponse(['message' => 'Participant not found']);
         }
                 $formatted = [];
                 foreach ($participants as $participant) {
