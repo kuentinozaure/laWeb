@@ -18,9 +18,9 @@ class Formgroup extends React.Component {
 
     render(){
         return(
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-user fa" aria-hidden="true"></i></span>
               <input id={this.props.id} name={this.props.name} placeholder={this.props.placeholder} 
               className="form-control" type={this.props.type} onChange={e => this.setState({name: e.target.value})}
               />

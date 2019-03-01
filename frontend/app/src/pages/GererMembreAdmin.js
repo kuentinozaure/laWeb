@@ -161,7 +161,7 @@ class GererMembreAdmin extends Component {
                     <NavbarMembres/>
                         <div className="container">
                         <div className="row col-md-12 col-md-offset-2 custyle">
-                        <button type="button" onClick={this.handleShow} class="btn btn-info btn-lg">Proposer un membre</button>
+                        <button type="button" onClick={this.handleShow} className="btn btn-info btn-lg">Proposer un membre</button>
                         <table className="table table-striped custab">
                         <thead>
                             <tr>
@@ -243,9 +243,9 @@ class GererMembreAdmin extends Component {
                           </select>
                         </div>
 
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" onChange={e => {if (e.target.value == "on") {this.setState({visible: true})}}} ></input>
-                          <label class="form-check-label" for="defaultCheck2">
+                        <div className="form-check">
+                          <input className="form-check-input" type="checkbox" value="" id="defaultCheck2" onChange={e => {if (e.target.value == "on") {this.setState({visible: true})}}} ></input>
+                          <label className="form-check-label" for="defaultCheck2">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Visible
                           </label>
                         </div>

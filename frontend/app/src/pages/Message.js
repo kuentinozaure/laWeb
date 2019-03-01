@@ -78,8 +78,8 @@ class Message  extends React.Component {
                 <td>{this.props.categorieMessage}</td>
                 <td className="text-right">
                 <div>
-                <button type="button" onClick={this.handleShow} class="btn btn-primary btn-lg"> Details</button>
-                <button type="button" onClick={this.handleDelete} class="btn btn-danger btn-lg"> Supprimer</button>
+                <button type="button" onClick={this.handleShow} className="btn btn-primary btn-lg"> Details</button>
+                <button type="button" onClick={this.handleDelete} className="btn btn-danger btn-lg"> Supprimer</button>
                   {this.displayEstLu()}
                  </div>
                 </td>
@@ -131,7 +131,7 @@ class Message  extends React.Component {
                                     </div>
 
 
-                            <a HREF={"mailto:" + this.props.mail} class="btn btn-success btn-lg active" role="button" title="Répondre">Répondre</a>
+                            <a HREF={"mailto:" + this.props.mail} className="btn btn-success btn-lg active" role="button" title="Répondre">Répondre</a>
                                </form>
                 </Modal.Body>
             <Modal.Footer>

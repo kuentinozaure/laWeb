@@ -187,7 +187,7 @@ class Box extends Component {
           <div className="col-md-12 col-sm-6 col-xs-6">
             <div className="panel panel-info">
                 <div className="panel-heading">
-                    <h3 className="panel-title">Participants &nbsp;&nbsp;<span ><i class="fa fa-times" onClick={this.closeParticipant}></i></span></h3>
+                    <h3 className="panel-title">Participants &nbsp;&nbsp;<span ><i className="fa fa-times" onClick={this.closeParticipant}></i></span></h3>
                 </div>
                 <div className="panel-body">
                 <table className="table table-striped custab">
